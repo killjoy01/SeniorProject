@@ -32,4 +32,6 @@ public:
 	int getEnemySize(int);
 	int getObjectSize(int);
 	void clearVectors();
+
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 }

@@ -4,10 +4,13 @@
 
 class Enemy : public Player
 {
+private:
+	bool stationary;
+
 public:
 	//needs work
 	void setMove();
-
-public:
 	Enemy();
+	bool getStationary();
+	void setStationary(bool);
 }

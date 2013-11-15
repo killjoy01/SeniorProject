@@ -42,4 +42,6 @@ public:
 	bool checkForCollision(const The_Sprite &);
 	int rightside() const;
 	int bottom() const;
+
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 };

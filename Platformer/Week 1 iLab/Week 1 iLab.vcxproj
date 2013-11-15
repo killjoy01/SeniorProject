@@ -81,8 +81,10 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Power.h" />
     <ClInclude Include="sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

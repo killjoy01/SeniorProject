@@ -26,6 +26,7 @@ public:
 	void init();
 	GameBoard & operator = (const GameBoard &);
 
+	void update();
 	Player * getPlayer();
 	void setPlayer(int, Player *);
 	int getActive();
