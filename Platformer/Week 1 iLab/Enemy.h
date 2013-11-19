@@ -10,4 +10,4 @@ public:
 
 public:
 	Enemy();
-}
+};

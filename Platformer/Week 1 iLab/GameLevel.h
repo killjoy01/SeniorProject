@@ -32,4 +32,4 @@ public:
 	int getEnemySize(int);
 	int getObjectSize(int);
 	void clearVectors();
-}
+};

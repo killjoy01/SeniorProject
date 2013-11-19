@@ -112,6 +112,7 @@ void The_Sprite::setRect()
 {
 	rect.right = width;
 	rect.bottom = height;
+	//needs an overloaded function to set the rect based on passed values
 }
 
 RECT & The_Sprite::getRect()
@@ -123,6 +124,8 @@ bool The_Sprite::checkForCollision(const The_Sprite & a_s)
 {
 	if (!(((int)a_s.position.y > (int)bottom()) || ((int)a_s.position.x > (int)rightside())||
 		((int)a_s.bottom()) < (int)position.y) || ((int)rightside() < (int)position.x))
+		//try to make this less confusing ^^^. i can understand it if I read it hard enough, but 
+		//it takes a bit of rereading. I may do it if we don't get around to it. -Phil
 		{
 			return true;
 		}
