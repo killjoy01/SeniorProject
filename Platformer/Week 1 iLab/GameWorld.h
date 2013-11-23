@@ -12,7 +12,7 @@ using namespace std;
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
-class GameBoard
+class GameWorld
 {
 private:
 	Player player;
@@ -20,11 +20,11 @@ private:
 	int Active;
 
 public:
-	GameBoard();
-	GameBoard(const GameBoard &);
-	~GameBoard();
+	GameWorld();
+	GameWorld (const GameWorld &);
+	~GameWorld();
 	void init();
-	GameBoard & operator = (const GameBoard &);
+	GameWorld & operator = (const GameWorld &);
 
 	void update();
 	Player * getPlayer();
@@ -34,4 +34,6 @@ public:
 	bool checkForCollision(D3DXVECTOR3);
 	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
 	void clearVectors();
+
+	void draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
 };

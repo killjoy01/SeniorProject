@@ -1,5 +1,7 @@
 #include "sprite.h"
 
+D3DXMATRIX & calculateMatrix(int, int, float, float, float);
+
 The_Sprite::The_Sprite()
 {
 	texture = NULL;
@@ -142,3 +144,14 @@ int The_Sprite::bottom() const
 	return (int) position.y + rect.bottom;
 }
 
+void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
+{
+
+	*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
+	a_sprite->SetTransform(a_world);
+	a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+								  (float)(getHeight() / 2 + getPosition().y), 0.0f),
+								   &D3DXVECTOR3((float)(getWidth() / 2 + >getPosition().x),
+								   (float)(getHeight() / 2 + getPosition().y), 0.0f),
+							       D3DCOLOR_ARGB(255, 255, 255, 255));
+}
