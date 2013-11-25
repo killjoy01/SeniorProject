@@ -36,4 +36,5 @@ public:
 	int rightside();
 	int bottom();
 
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 };

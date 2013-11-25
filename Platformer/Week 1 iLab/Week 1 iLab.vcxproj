@@ -71,7 +71,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectXFramework.cpp" />
-    <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="GameLevel.cpp" />
+    <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -79,10 +80,12 @@
   <ItemGroup>
     <ClInclude Include="DirectXFramework.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameWorld.h" />
     <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Power.h" />
     <ClInclude Include="sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

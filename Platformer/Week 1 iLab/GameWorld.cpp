@@ -1,23 +1,23 @@
-#include "GameBoard.h"
+#include "GameWorld.h"
 #include "Player.h"
 #include <fstream>
 #include <string>
 #include <vector>
 using namespace std;
 
-GameBoard::GameBoard()
+GameWorld::GameWorld()
 {
 }
 
-GameBoard::GameBoard(const GameBoard & g)
+GameWorld::GameWorld(const GameWorld & g)
 {
 }
 
-GameBoard::~GameBoard()
+GameWorld::~GameWorld()
 {
 }
 
-void GameBoard::init()
+void GameWorld::init()
 {
 		/*	
 				
@@ -37,30 +37,30 @@ void GameBoard::init()
 		*/
 }
 
-GameBoard & GameBoard::operator = (const GameBoard & g)
+GameWorld & GameWorld::operator = (const GameWorld & g)
 {
 }
 
-Player * GameBoard::getPlayer()
+Player * GameWorld::getPlayer()
 {
 	return &player;
 }
 
-void GameBoard::setPlayer(int i, Player * p)
+void GameWorld::setPlayer(int i, Player * p)
 {
 }
 
-int GameBoard::getActive()
+int GameWorld::getActive()
 {
 	return Active;
 }
 
-void GameBoard::setActive(int a)
+void GameWorld::setActive(int a)
 {
 	Active = a;
 }
 
-void GameBoard::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char * filename)
+void GameWorld::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char * filename)
 {
 	ifstream file;
 	file.open(filename);
@@ -87,7 +87,7 @@ void GameBoard::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char
 	}
 }
 
-int GameBoard::getSize(int list)
+int GameWorld::getSize(int list)
 {
 	if (list == 0)
 	{
@@ -99,7 +99,7 @@ int GameBoard::getSize(int list)
 	}
 }
 
-The_Sprite * GameBoard::getSprite(int list, int i)
+The_Sprite * GameWorld::getSprite(int list, int i)
 {
 	if (list == 0)
 	{
@@ -115,7 +115,7 @@ The_Sprite * GameBoard::getSprite(int list, int i)
 	}
 }
 
-void GameBoard::clearVectors()
+void GameWorld::clearVectors()
 {
 	for (int i = 0; i < ground.size(); ++i)
 	{
@@ -127,4 +127,9 @@ void GameBoard::clearVectors()
 		delete platform[i];
 	}
 	platform.clear();
+}
+
+void GameWorld::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
+{
+	levels[Active].draw(a_device, a_sprite, a_world);
 }

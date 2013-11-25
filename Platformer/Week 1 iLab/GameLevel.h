@@ -20,6 +20,7 @@ private:
 	Player player;
 	vector<Enemy> enemies;
 	vector<Object> objects;
+	The_Sprite background;
 	Object goal;
 
 public:
@@ -29,7 +30,13 @@ public:
 	void setActive(int);
 	bool checkForCollision(D3DXVECTOR3);
 	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
-	int getEnemySize(int);
-	int getObjectSize(int);
+	int getEnemySize();
+	int getObjectSize();
 	void clearVectors();
+<<<<<<< HEAD
 };
+=======
+
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
+}
+>>>>>>> 3cdb007fb1c63540d0042496a95d724a163797bf

@@ -24,7 +24,6 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 
-D3DXMATRIX & calculateMatrix(int, int, float, float, float);
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
 
@@ -838,45 +837,9 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
-		world = calculateMatrix(gameboard.getPlayer()->getPosition().x, gameboard.getPlayer()->getPosition().y, 1.0f, 
-			                    1.0f, 0.0f);
-				m_pD3DSprite->SetTransform(&world);
-				m_pD3DSprite->Draw(gameboard.getPlayer()->getTexture(), NULL, &D3DXVECTOR3((float)(8 + gameboard.getPlayer()->getPosition().x),
-								  (float)(8 + gameboard.getPlayer()->getPosition().y), 0.0f),
-								   &D3DXVECTOR3((float)(8 + gameboard.getPlayer()->getPosition().x),
-								   (float)(8 + gameboard.getPlayer()->getPosition().y), 0.0f),
-							       D3DCOLOR_ARGB(255, 255, 255, 255));
+		
 
-		for (int i = 0; i < gameboard.getSize(0); ++i)
-		{
-			world = calculateMatrix(gameboard.getSprite(0, i)->getPosition().x, gameboard.getSprite(0, i)->getPosition().y, 1.0f, 
-				    1.0f, 0.0f);
-			m_pD3DSprite->SetTransform(&world);
-			m_pD3DSprite->Draw(gameboard.getSprite(0, i)->getTexture(), NULL, &D3DXVECTOR3((float)(gameboard.getSprite(0, i)->getPosition().x + 400.0f),
-							(float)(gameboard.getSprite(0, i)->getPosition().y + 50.0f), 0.0f),
-							&D3DXVECTOR3((float)(gameboard.getSprite(0, i)->getPosition().x + 400.0f), 
-							(float)(gameboard.getSprite(0, i)->getPosition().y + 50.0f), 0.0f),
-							D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-		for (int i = 0; i < gameboard.getSize(1); ++i)
-		{
-			world = calculateMatrix(gameboard.getSprite(1, i)->getPosition().x, gameboard.getSprite(1, i)->getPosition().y, 1.0f, 
-				    1.0f, 0.0f);
-			m_pD3DSprite->SetTransform(&world);
-			m_pD3DSprite->Draw(gameboard.getSprite(1, i)->getTexture(), NULL, &D3DXVECTOR3((float)(gameboard.getSprite(1, i)->getPosition().x + 400.0f),
-							(float)(gameboard.getSprite(1, i)->getPosition().y + 50.0f), 0.0f),
-							&D3DXVECTOR3((float)(gameboard.getSprite(1, i)->getPosition().x + 400.0f), 
-							(float)(gameboard.getSprite(1, i)->getPosition().y + 50.0f), 0.0f),
-							D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-		world = calculateMatrix(gameboard.getSprite(2, 0)->getPosition().x, gameboard.getSprite(2, 0)->getPosition().y, 1.0f, 
-							    1.0f, 0.0f);
-		m_pD3DSprite->SetTransform(&world);
-		m_pD3DSprite->Draw(gameboard.getSprite(2, 0)->getTexture(), NULL, &D3DXVECTOR3((float)(gameboard.getSprite(2, 0)->getPosition().x + 400.0f),
-				  		  (float)(gameboard.getSprite(2, 0)->getPosition().y + 50.0f), 0.0f),
-						   &D3DXVECTOR3((float)(gameboard.getSprite(2, 0)->getPosition().x + 400.0f), 
-						  (float)(gameboard.getSprite(2, 0)->getPosition().y + 50.0f), 0.0f),
-							D3DCOLOR_ARGB(255, 255, 255, 255));
+		GameWorld.draw(
 
 		m_pD3DSprite->End();
 	
