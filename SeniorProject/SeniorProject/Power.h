@@ -9,4 +9,4 @@ public:
 	Power();
 	int getID();
 	void setID(int);
-}
+};

@@ -33,10 +33,10 @@ public:
 	int getEnemySize();
 	int getObjectSize();
 	void clearVectors();
-<<<<<<< HEAD
-};
-=======
+//<<<<<<< HEAD
+//};
+//=======
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
-}
->>>>>>> 3cdb007fb1c63540d0042496a95d724a163797bf
+};
+//>>>>>>> 3cdb007fb1c63540d0042496a95d724a163797bf

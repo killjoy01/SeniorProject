@@ -18,8 +18,11 @@ private:
 	Player player;
 	vector<GameLevel> levels; 
 	int Active;
-
+	
 public:
+	
+	int getSize(int list);
+	//getSprite(int list, int i);
 	GameWorld();
 	GameWorld (const GameWorld &);
 	~GameWorld();

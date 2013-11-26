@@ -12,3 +12,4 @@ public:
 	Item();
 	int getID();
 	void setID(int);
+};

@@ -9,4 +9,4 @@ private:
 
 public:
 	Object();
-}
+};
