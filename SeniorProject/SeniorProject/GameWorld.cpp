@@ -41,6 +41,7 @@ void GameWorld::init()
 
 GameWorld & GameWorld::operator = (const GameWorld & g)
 {
+	return * this;
 }
 
 Player * GameWorld::getPlayer()

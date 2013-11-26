@@ -22,8 +22,9 @@ private:
 	vector<Object> objects;
 	The_Sprite background;
 	Object goal;
-
-public:
+	
+public: 
+	void init();
 	Player * getPlayer();
 	void setPlayer(int, Player *);
 	int getActive();
@@ -33,6 +34,9 @@ public:
 	int getEnemySize();
 	int getObjectSize();
 	void clearVectors();
+
+	int getSize(int);
+	The_Sprite * getSprite(int, int);
 //<<<<<<< HEAD
 //};
 //=======

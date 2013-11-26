@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////
 #include "DirectXFramework.h"
 #include "sprite.h"
-#include "GameBoard.h"
+#include "Gamelevel.h"
 #include "Player.h"
 #include "fmod.hpp"
 #include "dshow.h"
@@ -839,13 +839,14 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 
 		
 
-		GameWorld.draw(
+		//GameWorld.draw();
 
 		m_pD3DSprite->End();
 	
 		m_pD3DDevice->EndScene();		
 		
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
+		
 
 	}
 
