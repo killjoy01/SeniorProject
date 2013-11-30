@@ -7,6 +7,8 @@ using namespace std;
 
 GameWorld::GameWorld()
 {
+
+
 }
 
 GameWorld::GameWorld(const GameWorld & g)
@@ -39,6 +41,7 @@ void GameWorld::init()
 
 GameWorld & GameWorld::operator = (const GameWorld & g)
 {
+	return * this;
 }
 
 Player * GameWorld::getPlayer()
@@ -79,54 +82,54 @@ void GameWorld::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char
 	sprite->setRotation(0.0f);
 	if (list == 0)
 	{
-		ground.push_back(sprite);
+		//ground.push_back(sprite);
 	}
 	else
 	{
-		platform.push_back(sprite);
+		//platform.push_back(sprite);
 	}
 }
 
-int GameWorld::getSize(int list)
-{
-	if (list == 0)
-	{
-		return ground.size();
-	}
-	else
-	{
-		return platform.size();
-	}
-}
+//int GameWorld::getSize(int list)
+//{
+//	if (list == 0)
+//	{
+//		//return ground.size();
+//	}
+//	else
+//	{
+//		//return platform.size();
+//	}
+//}
 
-The_Sprite * GameWorld::getSprite(int list, int i)
-{
-	if (list == 0)
-	{
-		return ground[i];
-	}
-	else if (list == 1)
-	{
-		return platform[i];
-	}
-	else
-	{
-		return &goal;
-	}
-}
+//The_Sprite * GameWorld::getSprite(int list, int i)
+//{
+//	if (list == 0)
+//	{
+//		//return ground[i];
+//	}
+//	else if (list == 1)
+//	{
+//		//return platform[i];
+//	}
+//	else
+//	{
+//		//return &goal;
+//	}
+//}
 
 void GameWorld::clearVectors()
 {
-	for (int i = 0; i < ground.size(); ++i)
-	{
-		delete ground[i];
-	}
-	ground.clear();
-	for (int i = 0; i < platform.size(); ++i)
-	{
-		delete platform[i];
-	}
-	platform.clear();
+	//for (int i = 0; i < ground.size(); ++i)
+	//{
+	//	delete ground[i];
+	//}
+	//ground.clear();
+	//for (int i = 0; i < platform.size(); ++i)
+	//{
+	//	delete platform[i];
+	//}
+	//platform.clear();
 }
 
 void GameWorld::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)

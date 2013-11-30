@@ -154,7 +154,7 @@ void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMAT
 	a_sprite->SetTransform(a_world);
 	a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
 								  (float)(getHeight() / 2 + getPosition().y), 0.0f),
-								   &D3DXVECTOR3((float)(getWidth() / 2 + >getPosition().x),
+								   &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
 								   (float)(getHeight() / 2 + getPosition().y), 0.0f),
 							       D3DCOLOR_ARGB(255, 255, 255, 255));
 }
