@@ -1,0 +1,5 @@
+P = player
+D = door
+S = spicks
+E = exit
+# = block
