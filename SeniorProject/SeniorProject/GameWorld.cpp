@@ -21,7 +21,10 @@ GameWorld::~GameWorld()
 
 void GameWorld::init()
 {
-		/*	
+	GameLevel * newLevel = new GameLevel();
+	levels.push_back(*newLevel);
+	Active = 0;
+	/*	
 				
 			main_sprite.InitialVelocity = 0.0f;
 			ground[0] = new The_Sprite(graphics, new Texture2D("/Application/resources/ground.png", false), new Vector3((960.0F / 2.0F), (544.0F / 2.0f), 0.0F),
@@ -135,4 +138,9 @@ void GameWorld::clearVectors()
 void GameWorld::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
 {
 	levels[Active].draw(a_device, a_sprite, a_world);
+}
+
+GameLevel * GameWorld::getLevel(int i)
+{
+	return &levels[i];
 }

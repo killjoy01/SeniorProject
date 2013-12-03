@@ -30,3 +30,8 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 	
 	goal.draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world); */
 }
+
+The_Sprite * GameLevel::getBackground()
+{
+	return &background;
+}

@@ -214,18 +214,24 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	
 	gameboard.init();
 	
-	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"test.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"testbackground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &m_pTexture);
-	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"ground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+	/*D3DXCreateTextureFromFileEx(m_pD3DDevice, L"ground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"platform.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);
-	/*gameboard.getPlayer()->setTexture(m_pTexture);
-	gameboard.getPlayer()->setWidth(16);
-	gameboard.getPlayer()->setHeight(16);
-	gameboard.getPlayer()->setRect();
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);*/
+	gameboard.getLevel(0)->getBackground()->setTexture(m_pTexture);
+	gameboard.getLevel(0)->getBackground()->setWidth(800);
+	gameboard.getLevel(0)->getBackground()->setHeight(600);
+	gameboard.getLevel(0)->getBackground()->setScalex(800 / 640);
+	gameboard.getLevel(0)->getBackground()->setScaley(640 / 480);
+	gameboard.getLevel(0)->getBackground()->setRotation(0.0f);
+	gameboard.getLevel(0)->getBackground()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(0)->getBackground()->setRect();
+
+	/*gameboard.getPlayer()->setRect();
 	
 	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
 	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
@@ -837,9 +843,9 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
-		
+		gameboard.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
-		//GameWorld.draw();
+		
 
 		m_pD3DSprite->End();
 	

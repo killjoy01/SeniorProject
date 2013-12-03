@@ -34,10 +34,11 @@ public:
 	int getEnemySize();
 	int getObjectSize();
 	void clearVectors();
+	The_Sprite * getBackground();
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 
 	int getSize(int);
-	The_Sprite * getSprite(int, int);
+	
 
 };

@@ -81,6 +81,7 @@
     <ClCompile Include="DirectXFramework.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
