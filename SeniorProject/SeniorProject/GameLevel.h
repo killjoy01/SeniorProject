@@ -35,21 +35,9 @@ public:
 	int getObjectSize();
 	void clearVectors();
 
-<<<<<<< HEAD:Platformer/Week 1 iLab/GameLevel.h
-};
-
-
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
-}
 
-=======
 	int getSize(int);
 	The_Sprite * getSprite(int, int);
-//<<<<<<< HEAD
-//};
-//=======
 
-	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 };
-//>>>>>>> 3cdb007fb1c63540d0042496a95d724a163797bf
->>>>>>> 95bf76cb742cc87f82923ef2f47cec68402d4dd3:SeniorProject/SeniorProject/GameLevel.h
