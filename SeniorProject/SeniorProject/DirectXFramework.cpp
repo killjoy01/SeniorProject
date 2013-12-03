@@ -19,6 +19,7 @@
 #include "fmod.hpp"
 #include "dshow.h"
 #include <string>
+#include <fstream>
 #include <Windows.h>
 using namespace std;
 
@@ -1020,3 +1021,36 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	return 0.0f;
 }
 
+
+
+
+void CDirectXFramework::loadFromFile (char * filename)
+{
+using namespace std;
+int Map[1000][1000];
+int loadCounterX =0;
+int loadCounterY =0;
+int mapSizeX;
+int mapSizeY;
+bool once = false;
+
+ifstream openfile (filename);
+	if (openfile.is_open())
+	{
+		while(!openfile.eof())
+		{
+			if(once == false)
+			{
+				openfile >> mapSizeX >> mapSizeY;
+				once = true;
+			}
+			openfile >>Map[loadCounterX][loadCounterY];
+			loadCounterX++;
+			if(loadCounterX >= mapSizeX)
+			{
+				loadCounterX = 0;
+				loadCounterY++;
+			}
+		}// get contents from file 
+	}//is file open
+}//end of loadFromFile

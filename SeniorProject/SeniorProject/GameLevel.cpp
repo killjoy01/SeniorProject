@@ -12,7 +12,13 @@ using namespace std;
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
-
+GameLevel::GameLevel()
+{
+	width = 0;
+	height = 0;
+}
+GameLevel::~GameLevel()
+{}
 void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
 {
 

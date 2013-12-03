@@ -22,15 +22,22 @@ private:
 	vector<Object> objects;
 	The_Sprite background;
 	Object goal;
-	
+	The_Sprite** drawnLevel;
+	int width;
+	int height;
+	char* filename;
 public: 
+	GameLevel();
+	~GameLevel();
 	void init();
 	Player * getPlayer();
 	void setPlayer(int, Player *);
 	int getActive();
 	void setActive(int);
 	bool checkForCollision(D3DXVECTOR3);
-	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
+	
+	
+	
 	int getEnemySize();
 	int getObjectSize();
 	void clearVectors();
@@ -39,6 +46,7 @@ public:
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 
 	int getSize(int);
+
 	
 
 };
