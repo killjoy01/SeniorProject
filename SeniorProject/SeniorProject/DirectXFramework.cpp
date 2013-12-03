@@ -222,7 +222,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);
-	gameboard.getPlayer()->setTexture(m_pTexture);
+	/*gameboard.getPlayer()->setTexture(m_pTexture);
 	gameboard.getPlayer()->setWidth(16);
 	gameboard.getPlayer()->setHeight(16);
 	gameboard.getPlayer()->setRect();
@@ -240,7 +240,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getSprite(2, 0)->setScaley(1.0f);
 	gameboard.getSprite(2, 0)->setRotation(0.0f);
 	gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-
+	*/
 
 	for (int i = 0; i < 256; i++)
 	{
@@ -421,7 +421,7 @@ bool CDirectXFramework::Update(float & dt)
 		{
 			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
 		}
-		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
+		/*updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 		gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + 0.0002f);		
 		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
 										   (gameboard.getPlayer()->getPosition().y + 
@@ -521,7 +521,7 @@ bool CDirectXFramework::Update(float & dt)
 			gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
 														   (gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
 			gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-		}
+		}*/
 		break;
 	case CREDITS_SCENE:
 		//keyDown5(buffer, dt);
