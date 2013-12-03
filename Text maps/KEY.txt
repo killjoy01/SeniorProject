@@ -3,3 +3,13 @@ D = door
 S = spicks
 E = exit
 # = block
+B = movable block
+
+
+
+w = white gem
+b = Blue gem
+g = Green gem
+y = Yellow gem
+o = Orange gem
+k = Black gem
