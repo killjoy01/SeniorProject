@@ -1,9 +1,15 @@
-P = player
-D = door
-S = spicks
-E = exit
 # = block
-B = movable block
+P = player
+S = spike block
+3 = exit
+(any)leter = Door
+
+5 = movable block
+
+
+
+
+
 
 
 
@@ -13,3 +19,4 @@ g = Green gem
 y = Yellow gem
 o = Orange gem
 k = Black gem
+p = Purple gem
