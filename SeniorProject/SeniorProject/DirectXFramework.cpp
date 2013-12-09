@@ -21,6 +21,12 @@
 #include <string>
 #include <fstream>
 #include <Windows.h>
+
+
+#include<vector>
+#include<sstream>
+//#include<allegro>
+
 using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
@@ -1023,34 +1029,175 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 
 
 
+//
+//void CDirectXFramework::loadFromFile (char * filename)
+//{
+//using namespace std;
+//int Map[1000][1000];
+//int loadCounterX =0;
+//int loadCounterY =0;
+//int mapSizeX;
+//int mapSizeY;
+//bool once = false;
+//
+//ifstream openfile (filename);
+//	if (openfile.is_open())
+//	{
+//		while(!openfile.eof())
+//		{
+//			if(once == false)
+//			{
+//				openfile >> mapSizeX >> mapSizeY;
+//				once = true;
+//			}
+//			openfile >>Map[loadCounterX][loadCounterY];
+//			loadCounterX++;
+//			if(loadCounterX >= mapSizeX)
+//			{
+//				loadCounterX = 0;
+//				loadCounterY++;
+//			}
+//		}// get contents from file 
+//	}//is file open
+//}//end of loadFromFile
 
-void CDirectXFramework::loadFromFile (char * filename)
-{
-using namespace std;
-int Map[1000][1000];
-int loadCounterX =0;
-int loadCounterY =0;
-int mapSizeX;
-int mapSizeY;
-bool once = false;
 
-ifstream openfile (filename);
-	if (openfile.is_open())
+ #include <string>
+ #include <fstream>
+ #include <Windows.h>
+
+
+ 
+// #define DIRECTINPUT_VERSION 0x0800
+//@@ -1022,35 +1028,119 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
+
+ 
+ 
+
+
+
+//BITMAP*Buffer=create_bitmap(800,600);
+//bool done = false
+//std::vector <std::vector<int>>Map;
+//std::vector <BITMAP*> text;
+
+//LoadMap("Map1.txt", Map, texture, done);
+//
+//while (!done)
+//{
+//	if(key[KEY_ESC])
+//		done =true;
+//
+//	DrawMap(Buffer, Map);
+//
+//	blit (Buffer, screen, 0,0,0,0,800,600);
+//	clear_bitmap(buffer);
+//
+//}
+//destroy_bitmap(Buffer);
+// return 0;
+
+#define BlockSizeX 40
+#define BlockSizeY 40
+
+enum LoadState {TEXTURE, MAP};
+
+int state = TEXTURE;
+
+void CDirectXFramework::LoadMap (const char * filename, std::vector <std::vector <int> > &map, std::vector<BITMAP*> &texture,bool &done)
+ {
+	//bool once = false;
+//int loadCounterX =0;
+//int loadCounterY =0;
+//2D array
+//using namespace std;
+std::ifstream openfile (filename);
+std::string tempLine;
+std::vector<int> tempVector;
+
+ 	if (openfile.is_open())
+ 	{
+		//openfile >> mapSizeX;
+		//openfile >> mapSizeY;
+ 		while(!openfile.eof())
+ 		{
+
+			tempVector.clear();
+			std::getline(openfile, tempLine);
+			std::stringstream str (tempLine);
+			if(tempLine.find("[Texture]") != std::string::npos)
+			{
+			state = LoadState::TEXTURE;
+			continue;
+			}
+			else if (tempLine.find("[Map]") != std::string::npos)
+ 			{
+			state = LoadState::MAP;
+			continue;
+ 			}
+
+			switch(state)
+ 			{
+			case LoadState::TEXTURE:
+				if(tempLine.length() > 0)
+					texture.push_back(load_bitmap(tempLine.c_str(), NULL));
+				break;
+			case LoadState::MAP:
+				tempLine.erase(tempLine.find_last_not_of(" \n\r\t")+1);
+				std::stringstream str (tempLine);
+				while(!str.eof())
+				{
+				std::string s;
+				std::getline(str, s, ' ');
+				tempVector.push_back(atoi(s.c_str()));
+				}
+				map.push_back(tempVector);
+				break;
+	
+ 			}
+ 		}// get contents from file 
+ 	}//is file open
+	else
 	{
-		while(!openfile.eof())
-		{
-			if(once == false)
-			{
-				openfile >> mapSizeX >> mapSizeY;
-				once = true;
-			}
-			openfile >>Map[loadCounterX][loadCounterY];
-			loadCounterX++;
-			if(loadCounterX >= mapSizeX)
-			{
-				loadCounterX = 0;
-				loadCounterY++;
-			}
-		}// get contents from file 
-	}//is file open
+	//message fail to locate file ,filename
+	done = true;
+	}
 }//end of loadFromFile
+
+void CDirectXFramework::DrawMap (BITMAP*Buffer, std::vector <std::vector <int> > map, std::vector <BITMAP*> texture)
+{
+	//int color= 0;
+
+	for (int i = 0; i < map.size() ; i++)
+	{
+		for (int j = 0; j < map[i].size() ; j++)
+		{
+			if (map[i][j] != ' ')
+			{
+//			draw_sprite(Buffer, texture[map[i][j]], j* BlockSizeX, i * BlockSizeY);
+			}
+			else
+			{
+//			rectfill(Buffer, j * BlockSizeX, i * BlockSizeY, j * BlockSizeX + BlockSizeX, i * BlockSizeY + BlockSizeY,makecol(0,148,255));
+			}
+
+		}
+	}
+}
+
+
+
+
+
+
+
+//int Map[100][100]
+//LoadMap("Map1.txt" , Map ,done);
+//BITMAP*Tiles[2];
+//
+//Tiles[#] = load_bitmap ("  ", NULL);
+//Tiles[1] = load_bitmap ("  ", NULL);
+//Tiles[3] = load_bitmap ("  ", NULL);
+//
+//bool done = false;
+
