@@ -66,18 +66,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Map1.txt">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="GDD\basic_block.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="GDD\Red_Blob.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="GDD\Spike_Block.png">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
 </Project>
