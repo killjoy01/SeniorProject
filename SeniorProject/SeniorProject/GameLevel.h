@@ -7,6 +7,7 @@
 #include <dinput.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <fstream>
 using namespace std;
 
 #pragma comment(lib, "d3d9.lib")
@@ -26,6 +27,7 @@ private:
 	int width;
 	int height;
 	char* filename;
+	char** map;
 public: 
 	GameLevel();
 	~GameLevel();
@@ -47,6 +49,9 @@ public:
 
 	int getSize(int);
 
+
 	
+	void LoadMap (const char * filename);
+	void DrawMap (char** map);
 
 };

@@ -41,7 +41,7 @@ CDirectXFramework::CDirectXFramework(void)
 	m_bVsync		= false;
 	m_pD3DObject	= 0;
 	m_pD3DDevice	= 0;
-	
+
 }
 
 CDirectXFramework::~CDirectXFramework(void)
@@ -55,7 +55,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 {
 	CoInitialize(NULL);
 
-		m_hWnd = hWnd;
+	m_hWnd = hWnd;
 
 	//////////////////////////////////////////////////////////////////////////
 	// Direct3D Foundations - D3D Object, Present Parameters, and D3D Device
@@ -104,13 +104,13 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		// If not, use software (CPU)
 		deviceBehaviorFlags |= D3DCREATE_SOFTWARE_VERTEXPROCESSING; 
 	}
-	
+
 	// If hardware vertex processing is on, check pure device support
 	if(m_D3DCaps.DevCaps & D3DDEVCAPS_PUREDEVICE && deviceBehaviorFlags & D3DCREATE_HARDWARE_VERTEXPROCESSING)
 	{
 		deviceBehaviorFlags |= D3DCREATE_PUREDEVICE;	
 	}
-	
+
 	// Create the D3D Device with the present parameters and device flags above
 	m_pD3DObject->CreateDevice(
 		D3DADAPTER_DEFAULT,		// which adapter to use, set to primary
@@ -125,7 +125,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//////////////////////////////////////////////////////////////////////////
 	// Create a Font Object
 	//////////////////////////////////////////////////////////////////////////
-	
+
 	// Load a font for private use for this process
 
 
@@ -149,11 +149,11 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//*************************************************************************
 	AddFontResourceEx(L"Delicious-Roman.otf", NULL, 0);
 	D3DXCreateFont(m_pD3DDevice, 15, 0, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
-                         OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
-                         L"Delicious-Roman.otf", &m_pD3DFont);
+		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+		L"Delicious-Roman.otf", &m_pD3DFont);
 	D3DXCreateSprite(m_pD3DDevice, &m_pD3DSprite);
-	
-	
+
+
 
 	DirectInput8Create(hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void **)&m_DInput, 0);
 
@@ -218,17 +218,17 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 	system->createSound("Supralightning - Breaking Bad 16.mp3", FMOD_DEFAULT, 0, &sound);
 
-	
+
 	gameboard.init();
-	
+
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"testbackground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &m_pTexture);
 	/*D3DXCreateTextureFromFileEx(m_pD3DDevice, L"ground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[0]);
+	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"platform.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
+	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);*/
+	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);*/
 	gameboard.getLevel(0)->getBackground()->setTexture(m_pTexture);
 	gameboard.getLevel(0)->getBackground()->setWidth(800);
 	gameboard.getLevel(0)->getBackground()->setHeight(600);
@@ -239,12 +239,12 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getLevel(0)->getBackground()->setRect();
 
 	/*gameboard.getPlayer()->setRect();
-	
+
 	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
 	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
 	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
 	gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-												   (gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
+	(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
 	gameboard.getSprite(2, 0)->setTexture(w_pTexture[2]);
 	gameboard.getSprite(2, 0)->setWidth(75);
 	gameboard.getSprite(2, 0)->setHeight(100);
@@ -281,7 +281,7 @@ bool CDirectXFramework::Update(float & dt)
 {
 	bool playingmusic = false;
 	long evCode;
-    LONG_PTR eventParam1, eventParam2;
+	LONG_PTR eventParam1, eventParam2;
 	m_Keyboard->Acquire();
 	m_Mouse->Acquire();
 	m_Keyboard->GetDeviceState(sizeof(buffer), (void **)&buffer);
@@ -437,103 +437,103 @@ bool CDirectXFramework::Update(float & dt)
 		/*updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 		gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + 0.0002f);		
 		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
-										   (gameboard.getPlayer()->getPosition().y + 
-										   (gameboard.getPlayer()->getPosition().y * gameboard.getPlayer()->getYVelocity())), 0.0f));
+		(gameboard.getPlayer()->getPosition().y + 
+		(gameboard.getPlayer()->getPosition().y * gameboard.getPlayer()->getYVelocity())), 0.0f));
 		for (int i = 0; i < gameboard.getSize(0); ++i)
 		{
-			gameboard.getSprite(0, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
-														   gameboard.getSprite(0, i)->getPosition().y, 0.0f));
-			if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(0, i)))
-			{
-				if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(0, i)->getPosition().x) &&
-					((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(0, i)->rightside()))
-				{
-					gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-					for (int j = 0; j < gameboard.getSize(0); ++j)
-					{
-						gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
-														   gameboard.getSprite(0, j)->getPosition().y, 0.0f));
-					}
-					for (int j = 0; j < gameboard.getSize(1); ++j)
-					{
-						gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-															   gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-						gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-															   gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-					}
-				}
-				if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
-				{
-					if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(0, i)->getPosition().x) &&
-					((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(0, i)->rightside()))
-					{
-						gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
-						gameboard.getPlayer()->setYVelocity(0.0f);
-					}
-				}
-			}
+		gameboard.getSprite(0, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
+		gameboard.getSprite(0, i)->getPosition().y, 0.0f));
+		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(0, i)))
+		{
+		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(0, i)->getPosition().x) &&
+		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(0, i)->rightside()))
+		{
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
+		for (int j = 0; j < gameboard.getSize(0); ++j)
+		{
+		gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
+		gameboard.getSprite(0, j)->getPosition().y, 0.0f));
+		}
+		for (int j = 0; j < gameboard.getSize(1); ++j)
+		{
+		gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
+		gameboard.getSprite(1, j)->getPosition().y, 0.0f));
+		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
+		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+		}
+		}
+		if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
+		{
+		if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(0, i)->getPosition().x) &&
+		((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(0, i)->rightside()))
+		{
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
+		gameboard.getPlayer()->setYVelocity(0.0f);
+		}
+		}
+		}
 		}
 		for (int i = 0; i < gameboard.getSize(1); ++i)
 		{
-			gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
-														   gameboard.getSprite(1, i)->getPosition().y, 0.0f));
-			if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(1, i)))
-			{
-				if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(1, i)->getPosition().x) &&
-					((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(1, i)->rightside()))
-				{
-					gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-					for (int j = 0; j < gameboard.getSize(0); ++j)
-					{
-						gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
-														   gameboard.getSprite(0, j)->getPosition().y, 0.0f));
-					}
-					for (int j = 0; j < gameboard.getSize(1); ++j)
-					{
-						gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-														   gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-					}
-							gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x + (updatevalue * 7),
-														   gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-				}
-				if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
-				{
-					if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(1, i)->getPosition().x) &&
-					((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(1, i)->rightside()))
-					{
-						gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
-						gameboard.getPlayer()->setYVelocity(0.0f);
-					}
-				}
-			}
+		gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
+		gameboard.getSprite(1, i)->getPosition().y, 0.0f));
+		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(1, i)))
+		{
+		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(1, i)->getPosition().x) &&
+		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(1, i)->rightside()))
+		{
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
+		for (int j = 0; j < gameboard.getSize(0); ++j)
+		{
+		gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
+		gameboard.getSprite(0, j)->getPosition().y, 0.0f));
+		}
+		for (int j = 0; j < gameboard.getSize(1); ++j)
+		{
+		gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
+		gameboard.getSprite(1, j)->getPosition().y, 0.0f));
+		}
+		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x + (updatevalue * 7),
+		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+		}
+		if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
+		{
+		if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(1, i)->getPosition().x) &&
+		((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(1, i)->rightside()))
+		{
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
+		gameboard.getPlayer()->setYVelocity(0.0f);
+		}
+		}
+		}
 		}
 		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-														   gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
 		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(2, 0)))
 		{
-			if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(2, 0)->getPosition().x) &&
-					((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(2, 0)->rightside()))
-				{
-					MessageBox(NULL, L"You win!", L"", MB_OK);
-					gameboard.clearVectors();
-					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-					gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-																   (gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-					gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-			}
+		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(2, 0)->getPosition().x) &&
+		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(2, 0)->rightside()))
+		{
+		MessageBox(NULL, L"You win!", L"", MB_OK);
+		gameboard.clearVectors();
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
+		(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
+		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
+		}
 		}
 		if (gameboard.getPlayer()->getPosition().y > 600.0f)
 		{
-			MessageBox(NULL, L"You lose!", L"", MB_OK);
-			gameboard.clearVectors();
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-			gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-														   (gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-			gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
+		MessageBox(NULL, L"You lose!", L"", MB_OK);
+		gameboard.clearVectors();
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
+		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
+		(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
+		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
 		}*/
 		break;
 	case CREDITS_SCENE:
@@ -546,7 +546,7 @@ bool CDirectXFramework::Update(float & dt)
 		break;
 	}
 	return false;
-	
+
 }
 
 
@@ -558,17 +558,17 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 	rect.bottom = rect.bottom - rect.top;
 	rect.left = 0;
 	rect.top = 0;
-	
+
 	if (the_state == MENU)
 	{
 		D3DXMATRIX world;
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
-		
+
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-		
+
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 		//	
 		//world = calculateMatrix(200, (menuyposition - 32.0f),
@@ -598,7 +598,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->End();
 
 		m_pD3DDevice->EndScene();
-		
+
 		m_pD3DDevice->BeginScene();
 
 		m_pD3DSprite->Begin(NULL);
@@ -636,7 +636,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->End();
 
 		m_pD3DDevice->EndScene();
-	
+
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 
 	}
@@ -650,9 +650,9 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
-		
+
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
-		
+
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -797,7 +797,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		//timeElapsed += dt;
 
 		m_pD3DSprite->End();
-	
+
 		m_pD3DDevice->EndScene();
 
 		m_pD3DDevice->BeginScene();
@@ -817,7 +817,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		//m_pD3DFont->DrawText(0, buffer, -1, &rect, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		//
 		//RECT displayclip;
-	 //	displayclip.top = ((64 * 2) + 30 + 1);
+		//	displayclip.top = ((64 * 2) + 30 + 1);
 		//displayclip.left = (640 + 0 + 1);
 		//displayclip.bottom = ((64 * 2) + 1 + 30 + 64);
 		//displayclip.right = 800;
@@ -829,9 +829,9 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		//m_classicfont->DrawText(0, buffer2, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		m_pD3DSprite->End();
-	
+
 		m_pD3DDevice->EndScene();
-	
+
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 	}
 	if (the_state == PROGRAM)
@@ -844,22 +844,22 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
-		
+
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
-		
+
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
 		gameboard.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
-		
+
 
 		m_pD3DSprite->End();
-	
+
 		m_pD3DDevice->EndScene();		
-		
+
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
-		
+
 
 	}
 
@@ -870,12 +870,12 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
-		
+
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-		
+
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
-			
+
 		m_pD3DDevice->BeginScene();
 
 		m_pD3DSprite->Begin(NULL);
@@ -932,11 +932,11 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		//swprintf_s(buffer, 64, L"%s", L"MICHAEL VAGANOV");
 		//
 		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-		
+
 		m_pD3DSprite->End();
 
 		m_pD3DDevice->EndScene();
-	
+
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 
 	}
@@ -950,13 +950,13 @@ void CDirectXFramework::Shutdown()
 	delete [] movepositions;
 
 	system->release();
-	
+
 	m_Mouse->Release();
 
 	m_Keyboard->Release();
 
 	m_DInput->Release();
-	
+
 	// Sprite
 	m_pD3DSprite->Release();
 	// Font
@@ -974,7 +974,7 @@ void CDirectXFramework::Shutdown()
 D3DXMATRIX & calculateMatrix(int x, int y, float scalex, float scaley, float angle)
 {
 	D3DXMATRIX scale, rot, trans, world;
-	
+
 	D3DXMatrixIdentity(&trans);
 	D3DXMatrixIdentity(&scale);
 	D3DXMatrixIdentity(&rot);
@@ -1006,7 +1006,7 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	else
 	{
 		//press key resetter
-		
+
 		if (buffer[DIK_UP] & 0x80)
 		{}
 		else
@@ -1053,86 +1053,3 @@ std::vector <BITMAP*> text;
 enum LoadState {TEXTURE, MAP};
 
 int state = TEXTURE;
-
-void CDirectXFramework::LoadMap (const char * filename, std::vector <std::vector <int> > &map, std::vector<BITMAP*> &texture,bool &done)
- {
-std::ifstream openfile (filename);
-std::string tempLine;
-std::vector<int> tempVector;
- 	if (openfile.is_open())
- 	{
- 		while(!openfile.eof())
- 		{
-			tempVector.clear();
-			std::getline(openfile, tempLine);
-			std::stringstream str (tempLine);
-			if(tempLine.find("[Texture]") != std::string::npos)
-			{
-			state = LoadState::TEXTURE;
-			continue;
-			}
-			else if (tempLine.find("[Map]") != std::string::npos)
- 			{
-			state = LoadState::MAP;
-			continue;
- 			}
-			switch(state)
- 			{
-			case LoadState::TEXTURE:
-				if(tempLine.length() > 0)
-		//			texture.push_back(load_bitmap(tempLine.c_str(), NULL));
-				break;
-			case LoadState::MAP:
-				tempLine.erase(tempLine.find_last_not_of(" \n\r\t")+1);
-				std::stringstream str (tempLine);
-				while(!str.eof())
-				{
-				std::string s;
-				std::getline(str, s, ' ');
-				tempVector.push_back(atoi(s.c_str()));
-				}
-				map.push_back(tempVector);
-				break;
- 			}
- 		}// get contents from file 
- 	}//is file open
-	else
-	{
-	//message fail to locate file ,filename
-	done = true;
-	}
-}//end of loadFromFile
-
-void CDirectXFramework::DrawMap (BITMAP*Buffer, std::vector <std::vector <int> > map, std::vector <BITMAP*> texture)
-{
-	//int color= 0;
-	for (int i = 0; i < map.size() ; i++)
-	{
-		for (int j = 0; j < map[i].size() ; j++)
-		{
-			if (map[i][j] != ' ')
-			{
-			//sprite.draw(a_device, a_sprite, a_world);
-			//Sprite.draw(
-//			draw_sprite(Buffer, texture[map[i][j]], j* BlockSizeX, i * BlockSizeY);
-			}
-			else
-			{
-//			rectfill(Buffer, j * BlockSizeX, i * BlockSizeY, j * BlockSizeX + BlockSizeX, i * BlockSizeY + BlockSizeY,makecol(0,148,255));
-			}
-
-		}
-	}
-}
-
-
-//create_bitmap
-//{}
-
-//draw_sprite
-//{}
-
-//rectfill
-//{}
-//load_bitmap
-//{}
