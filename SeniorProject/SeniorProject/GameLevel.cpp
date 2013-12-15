@@ -16,13 +16,21 @@ GameLevel::GameLevel()
 {
 	width = 0;
 	height = 0;
+
+	//to be put into an init function
+	
 }
 GameLevel::~GameLevel()
 {}
+
 void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
 {
 
 	background.draw(a_device, a_sprite, a_world);
+
+	for(int i = 0; i < width; ++i)
+		for(int j = 0; j < height; ++j)
+			drawnLevel[i][j].draw(a_device,a_sprite,a_world);
 	//player.draw(a_device, a_sprite, a_world);
 	/*for (int i = 0; i < getEnemySize(), ++i)
 	{
@@ -90,15 +98,29 @@ void GameLevel::DrawMap (char** map)
 	{
 		for (int j = 0; j < height ; j++)
 		{
-			if (map[i][j] != ' ')
-			{
 
-			}
-			else
+			switch(map[i][j])
 			{
-
-			}
+			case ' ': 
+			//drawnLevel[i][j] = block;
+			break;
+			//case '\n': break;
+			case 'P': 
+			default: break;
+			};
 
 		}
 	}
+}
+//The_Sprite & ::operator =(const The_Sprite &s);
+//{
+// 1.  Deallocate any memory that MyClass is using internally
+// 2.  Allocate some memory to hold the contents of s
+// 3.  Copy the values from s into this instance
+// 4.  Return *this
+//}
+
+The_Sprite* GameLevel::getBlock()
+{
+	return block;
 }

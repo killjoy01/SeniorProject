@@ -138,7 +138,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//////////////////////////////////////////////////////////////////////////
 
 	// Create a sprite object, note you will only need one for all 2D sprites
-
+	
 
 	// Create a texture, each different 2D sprite to display to the screen
 	// will need a new texture object.  If drawing the same sprite texture
@@ -221,22 +221,33 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 	gameboard.init();
 
-	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"testbackground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &m_pTexture);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage2.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Blue_Blob.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"basic_block.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture);
 	/*D3DXCreateTextureFromFileEx(m_pD3DDevice, L"ground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"platform.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);*/
-	gameboard.getLevel(0)->getBackground()->setTexture(m_pTexture);
-	gameboard.getLevel(0)->getBackground()->setWidth(800);
-	gameboard.getLevel(0)->getBackground()->setHeight(600);
-	gameboard.getLevel(0)->getBackground()->setScalex(800 / 640);
-	gameboard.getLevel(0)->getBackground()->setScaley(640 / 480);
+	gameboard.getLevel(0)->getBackground()->setTexture(backgroundTexture);
+	gameboard.getLevel(0)->getBackground()->setWidth(width);
+	gameboard.getLevel(0)->getBackground()->setHeight(height);
+	gameboard.getLevel(0)->getBackground()->setScalex(2800 / 640);
+	gameboard.getLevel(0)->getBackground()->setScaley(1640 / 480);
 	gameboard.getLevel(0)->getBackground()->setRotation(0.0f);
 	gameboard.getLevel(0)->getBackground()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBackground()->setRect();
+
+	gameboard.getPlayer()->setTexture(playerTexture);
+
+	gameboard.getLevel(0)->getBackground()->setRect();
+
+	gameboard.getLevel(0)->LoadMap("BASIC_MAP.txt");
+	
 
 	/*gameboard.getPlayer()->setRect();
 

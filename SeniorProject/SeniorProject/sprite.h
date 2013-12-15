@@ -21,7 +21,7 @@ public:
 	The_Sprite();
 	The_Sprite(const The_Sprite &);
 	~The_Sprite();
-	The_Sprite & operator = (const The_Sprite &);
+	//The_Sprite & operator = (const The_Sprite &);
 
 	IDirect3DTexture9* getTexture();
 	void setTexture(IDirect3DTexture9*);
@@ -44,4 +44,7 @@ public:
 	int bottom() const;
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
+
+	The_Sprite & operator =(const The_Sprite &s);
+	//The_Sprite (const The_Sprite &s);
 };

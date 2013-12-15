@@ -21,23 +21,25 @@ private:
 	Player player;
 	vector<Enemy> enemies;
 	vector<Object> objects;
-	The_Sprite background;
 	Object goal;
 	The_Sprite** drawnLevel;
 	int width;
 	int height;
 	char* filename;
 	char** map;
+	The_Sprite background;
+	The_Sprite* block;
+
 public: 
 	GameLevel();
 	~GameLevel();
 	void init();
 	Player * getPlayer();
-	void setPlayer(int, Player *);
+	void setPlayer(Player *);
 	int getActive();
 	void setActive(int);
 	bool checkForCollision(D3DXVECTOR3);
-	
+	void setBackground(The_Sprite*);
 	
 	
 	int getEnemySize();
@@ -53,5 +55,5 @@ public:
 	
 	void LoadMap (const char * filename);
 	void DrawMap (char** map);
-
+	The_Sprite* getBlock();
 };

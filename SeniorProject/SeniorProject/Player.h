@@ -35,6 +35,7 @@ public:
 	bool checkForCollision(const The_Sprite &);
 	int rightside();
 	int bottom();
+	The_Sprite* getSpritePointer();
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 };

@@ -7,7 +7,7 @@ using namespace std;
 
 GameWorld::GameWorld()
 {
-
+	currentLevel = 0;
 
 }
 
@@ -17,6 +17,8 @@ GameWorld::GameWorld(const GameWorld & g)
 
 GameWorld::~GameWorld()
 {
+	for(int i = 0; i < levels.size(); ++i)
+		levels.empty();
 }
 
 void GameWorld::init()
