@@ -93,7 +93,7 @@ void GameLevel::LoadMap (const char * filename)
 	openfile.close();
 }//end of loadFromFile
 
-void GameLevel::DrawMap (char** map)
+void GameLevel::MapPointers (char** map)
 {
 	for (int i = 0; i < width ; i++)
 	{
@@ -107,7 +107,7 @@ void GameLevel::DrawMap (char** map)
 			//
 			break;
 			case '#': 
-			//drawnLevel[i][j] = block;
+			drawnLevel[i][j] = block;
 			break;
 			case '\n':
 				//new line
@@ -120,6 +120,13 @@ void GameLevel::DrawMap (char** map)
 		}
 	}
 }
+void GameLevel::DrawMap()
+{}
+//The_Sprite & The_Sprite::operator = (const The_Sprite & s)
+//{
+//	this->The_Sprite::The_Sprite(s);
+//	return *this;
+//}
 //The_Sprite & ::operator =(const The_Sprite &s);
 //{
 // 1.  Deallocate any memory that TheClass is using internally

@@ -54,6 +54,7 @@ public:
 
 	
 	void LoadMap (const char * filename);
-	void DrawMap (char** map);
+	void MapPointers (char** map);
+	void DrawMap();
 	The_Sprite* getBlock();
 };
