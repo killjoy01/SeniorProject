@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Object.h"
+#include "sprite.h"
 #include <vector>
 #include <dinput.h>
 #include <d3d9.h>
@@ -101,20 +102,27 @@ void GameLevel::DrawMap (char** map)
 
 			switch(map[i][j])
 			{
-			case ' ': 
+			case ' ':
+			//space is empty 
+			//
+			break;
+			case '#': 
 			//drawnLevel[i][j] = block;
 			break;
-			//case '\n': break;
-			case 'P': 
+			case '\n':
+				//new line
+			break;
+			case 'P':
+				//draw  player
+			break;
 			default: break;
 			};
-
 		}
 	}
 }
 //The_Sprite & ::operator =(const The_Sprite &s);
 //{
-// 1.  Deallocate any memory that MyClass is using internally
+// 1.  Deallocate any memory that TheClass is using internally
 // 2.  Allocate some memory to hold the contents of s
 // 3.  Copy the values from s into this instance
 // 4.  Return *this
