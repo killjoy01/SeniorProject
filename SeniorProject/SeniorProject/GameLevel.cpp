@@ -30,7 +30,7 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 
 	for(int i = 0; i < width; ++i)
 		for(int j = 0; j < height; ++j)
-			drawnLevel[i][j].draw(a_device,a_sprite,a_world);
+			drawnLevel[i][j]->draw(a_device,a_sprite,a_world);
 	//player.draw(a_device, a_sprite, a_world);
 	/*for (int i = 0; i < getEnemySize(), ++i)
 	{
@@ -101,11 +101,8 @@ void GameLevel::DrawMap (char** map)
 
 			switch(map[i][j])
 			{
-			case ' ': 
-			//drawnLevel[i][j] = block;
-			break;
-			//case '\n': break;
-			case 'P': 
+			case '#': drawnLevel[i][j] = block; break;
+			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
 			default: break;
 			};
 

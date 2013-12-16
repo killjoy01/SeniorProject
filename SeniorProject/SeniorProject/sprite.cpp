@@ -86,7 +86,18 @@ float The_Sprite::getRotation()
 
 The_Sprite & The_Sprite::operator = (const The_Sprite & s)
 {
-	this->The_Sprite::The_Sprite(s);
+	//this->The_Sprite::The_Sprite(s);
+	this->texture = s.texture;
+	this->position = s.position;
+	this->scalex = s.scalex;
+	this->scaley = s.scaley;
+	this->rotation = s.rotation;
+	this->rect.bottom = s.rect.bottom;
+	this->rect.top = s.rect.top;
+	this->rect.left = s.rect.left;
+	this->rect.right = s.rect.right;
+	this->width = s.width;
+	this->height = s.height;
 	return *this;
 }
 

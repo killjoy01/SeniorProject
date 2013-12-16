@@ -22,7 +22,7 @@ private:
 	vector<Enemy> enemies;
 	vector<Object> objects;
 	Object goal;
-	The_Sprite** drawnLevel;
+	The_Sprite*** drawnLevel;
 	int width;
 	int height;
 	char* filename;
