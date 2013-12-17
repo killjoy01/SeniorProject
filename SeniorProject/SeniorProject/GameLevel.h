@@ -28,7 +28,7 @@ private:
 	Map charArray;
 	int width, height;
 	The_Sprite background;
-	The_Sprite* block;
+	The_Sprite block;
 
 public: 
 	GameLevel();

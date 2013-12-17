@@ -16,7 +16,7 @@ using namespace std;
 GameLevel::GameLevel()
 {
 	width =  height = 0;
-	block = NULL;
+	//block = NULL;
 
 }
 GameLevel::~GameLevel()
@@ -96,7 +96,7 @@ void GameLevel::MapPointers (char** map)
 			switch(map[j][i])
 			{
 
-			case '#': drawnLevel[i][j] = block; break;
+			case '#': drawnLevel[i][j] = &block; break;
 			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
 			default: break;
 			};
@@ -106,7 +106,7 @@ void GameLevel::MapPointers (char** map)
 void GameLevel::DrawMap()
 {}
 
-The_Sprite* GameLevel::getBlock()
+The_Sprite * GameLevel::getBlock()
 {
-	return block;
+	return &block;
 }
