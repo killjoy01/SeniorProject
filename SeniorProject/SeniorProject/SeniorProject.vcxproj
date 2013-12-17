@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="Airburshed.mp3" />
     <None Include="BASIC_MAP.txt" />
+    <None Include="Text.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
