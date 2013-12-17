@@ -46,27 +46,14 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 		{
 			if(drawnLevel[i][j] != NULL)
 			{
-			
-			int X = drawnLevel[i][j]->getPosition().x;
-			int Y = drawnLevel[i][j]->getPosition().y;
 			drawnLevel[i][j]->draw(a_device,a_sprite,a_world, &D3DXVECTOR3(	drawnLevel[i][j]->getPosition().x,
 																			drawnLevel[i][j]->getPosition().y,
 																			0));
 			}
 		}
 	}
-	//player.draw(a_device, a_sprite, a_world);
-	/*for (int i = 0; i < getEnemySize(), ++i)
-	{
-	enemies[i].draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
-	}
+	player.draw(a_device, a_sprite, a_world, &player.getPosition());
 
-	for (int i = 0; i < getObjectSize(); ++i)
-	{
-	objects[i].draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
-	}
-
-	goal.draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world); */
 }
 
 The_Sprite * GameLevel::getBackground()
@@ -102,7 +89,7 @@ void GameLevel::MapPointers (char** map)
 			{
 
 			case '#': drawnLevel[i][j] = &block; break;
-			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
+	//		case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
 			default: drawnLevel[i][j] = new The_Sprite;break;
 			};
 		}

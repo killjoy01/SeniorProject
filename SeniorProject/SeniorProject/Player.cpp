@@ -118,6 +118,12 @@ void Player::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX 
 	sprite.draw(a_device, a_sprite, a_world);
 }
 
+void Player::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world, const D3DXVECTOR3 *pos)
+{
+
+	sprite.draw(a_device, a_sprite, a_world, pos);
+}
+
 The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;

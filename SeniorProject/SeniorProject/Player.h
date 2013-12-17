@@ -38,4 +38,5 @@ public:
 	The_Sprite* getSpritePointer();
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);
 };
