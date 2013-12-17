@@ -3,11 +3,13 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Object.h"
+#include "Map.h"
 #include <vector>
 #include <dinput.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <fstream>
+//#include <fstream>
+
 using namespace std;
 
 #pragma comment(lib, "d3d9.lib")
@@ -23,17 +25,16 @@ private:
 	vector<Object> objects;
 	Object goal;
 	The_Sprite*** drawnLevel;
-	int width;
-	int height;
-	char* filename;
-	char** map;
+	Map charArray;
+	int width, height;
 	The_Sprite background;
 	The_Sprite* block;
 
 public: 
 	GameLevel();
 	~GameLevel();
-	void init();
+	void init(char* filename);
+	void init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h);
 	Player * getPlayer();
 	void setPlayer(Player *);
 	int getActive();
@@ -53,7 +54,7 @@ public:
 
 
 	
-	void LoadMap (const char * filename);
+	void LoadMap (char * filename);
 	void MapPointers (char** map);
 	void DrawMap();
 	The_Sprite* getBlock();

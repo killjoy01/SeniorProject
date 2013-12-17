@@ -216,7 +216,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	}
 
 
-	system->createSound("Supralightning - Breaking Bad 16.mp3", FMOD_DEFAULT, 0, &sound);
+	system->createSound("Airburshed.mp3", FMOD_DEFAULT, 0, &sound);
 
 
 	gameboard.init();
@@ -227,12 +227,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"basic_block.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture);
-	/*D3DXCreateTextureFromFileEx(m_pD3DDevice, L"ground.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[0]);
-	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"platform.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[1]);
-	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-	D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &w_pTexture[2]);*/
+
 	gameboard.getLevel(0)->getBackground()->setTexture(backgroundTexture);
 	gameboard.getLevel(0)->getBackground()->setWidth(width);
 	gameboard.getLevel(0)->getBackground()->setHeight(height);
@@ -244,9 +239,17 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 	gameboard.getPlayer()->setTexture(playerTexture);
 
-	gameboard.getLevel(0)->getBackground()->setRect();
+	gameboard.getLevel(0)->init("BASIC_MAP.txt");
 
-	gameboard.getLevel(0)->LoadMap("BASIC_MAP.txt");
+	gameboard.getLevel(0)->getBlock()->setTexture(blockTexture);
+	gameboard.getLevel(0)->getBlock()->setWidth(16);
+	gameboard.getLevel(0)->getBlock()->setHeight(16);
+	gameboard.getLevel(0)->getBlock()->setScalex(600 / 400);
+	gameboard.getLevel(0)->getBlock()->setScaley(200 / 100);
+	gameboard.getLevel(0)->getBlock()->setRotation(0.0f);
+	gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(0)->getBlock()->setRect();
+	
 	
 
 	/*gameboard.getPlayer()->setRect();

@@ -38,10 +38,13 @@ public:
 	bool checkForCollision(D3DXVECTOR3);
 	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
 	void clearVectors();
+	void addLevel(GameLevel);
 
 	GameLevel * getLevel(int);
 
 	void draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
+
+	void setLevelVars(int forLevel);
 
 	
 };

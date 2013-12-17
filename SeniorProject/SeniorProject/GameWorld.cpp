@@ -68,6 +68,11 @@ void GameWorld::setActive(int a)
 	Active = a;
 }
 
+void GameWorld::addLevel(GameLevel gl)
+{
+	levels.push_back(gl);
+}
+
 void GameWorld::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char * filename)
 {
 	ifstream file;
@@ -95,46 +100,13 @@ void GameWorld::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char
 	}
 }
 
-//int GameWorld::getSize(int list)
-//{
-//	if (list == 0)
-//	{
-//		//return ground.size();
-//	}
-//	else
-//	{
-//		//return platform.size();
-//	}
-//}
-
 //The_Sprite * GameWorld::getSprite(int list, int i)
 //{
-//	if (list == 0)
-//	{
-//		//return ground[i];
-//	}
-//	else if (list == 1)
-//	{
-//		//return platform[i];
-//	}
-//	else
-//	{
-//		//return &goal;
-//	}
 //}
 
 void GameWorld::clearVectors()
 {
-	//for (int i = 0; i < ground.size(); ++i)
-	//{
-	//	delete ground[i];
-	//}
-	//ground.clear();
-	//for (int i = 0; i < platform.size(); ++i)
-	//{
-	//	delete platform[i];
-	//}
-	//platform.clear();
+	
 }
 
 void GameWorld::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)

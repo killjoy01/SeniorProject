@@ -42,6 +42,9 @@
     <ClInclude Include="sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXFramework.cpp">
@@ -65,5 +68,16 @@
     <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BASIC_MAP.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Airburshed.mp3">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

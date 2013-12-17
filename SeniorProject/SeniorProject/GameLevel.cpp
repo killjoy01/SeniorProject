@@ -15,14 +15,25 @@ using namespace std;
 #pragma comment(lib, "dxguid.lib")
 GameLevel::GameLevel()
 {
-	width = 0;
-	height = 0;
+	width =  height = 0;
+	block = NULL;
 
-	//to be put into an init function
-	
 }
 GameLevel::~GameLevel()
 {}
+
+void GameLevel::init(char* filename)
+{
+	charArray.load(filename);
+	LoadMap(filename);
+	MapPointers(charArray.getMap());
+}
+
+void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h)
+{
+	charArray.load(filename);
+	MapPointers(charArray.getMap());
+}
 
 void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
 {
@@ -30,8 +41,15 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 	background.draw(a_device, a_sprite, a_world);
 
 	for(int i = 0; i < width; ++i)
+	{
 		for(int j = 0; j < height; ++j)
-			drawnLevel[i][j]->draw(a_device,a_sprite,a_world);
+		{
+			D3DXVECTOR3 position((drawnLevel[i][j]->getPosition().x + (i*drawnLevel[i][j]->getWidth())),
+				(drawnLevel[i][j]->getPosition().y + (j*drawnLevel[i][j]->getHeight())),
+				0);
+			drawnLevel[i][j]->draw(a_device,a_sprite,a_world, &position);
+		}
+	}
 	//player.draw(a_device, a_sprite, a_world);
 	/*for (int i = 0; i < getEnemySize(), ++i)
 	{
@@ -51,46 +69,22 @@ The_Sprite * GameLevel::getBackground()
 	return &background;
 }
 
-void GameLevel::LoadMap (const char * filename)
+void GameLevel::LoadMap (char * filename)
 {
-	std::ifstream openfile (filename);
-	//std::string tempLine;
-	//std::vector<int> tempVector;
-	if (openfile.is_open())
-	{ 
-		openfile >> height >> width;
+	charArray.load(filename);
+	width = charArray.getW();
+	height = charArray.getH();
 
-		map = new char*[width];
 
-		for(int i = 0; i < width; ++i)
-		{
-			map[i] = new char[height];
-		}
+	drawnLevel = new The_Sprite**[width];
 
-		int countW = 0, countH = 0;
-		char c;
+	for(int i = 0; i < width; ++i)
+	{
+		drawnLevel[i] = new The_Sprite*[height];
+		The_Sprite** testSprite = drawnLevel[i];
+			int x = 0;
+	}
 
-		do{
-			c = openfile.get();
-
-			if(c !=EOF)
-			{
-				map[countH][countW] = c;
-				countH++;
-
-				if(countW>width)
-				{
-					countW = 0;
-					countH++;
-
-					if(countH>height)
-						break;
-				}
-			}//while in file
-
-		}while(!openfile.eof());//end do while
-	}// file is open
-	openfile.close();
 }//end of loadFromFile
 
 void GameLevel::MapPointers (char** map)
@@ -99,27 +93,11 @@ void GameLevel::MapPointers (char** map)
 	{
 		for (int j = 0; j < height ; j++)
 		{
-
-			switch(map[i][j])
+			switch(map[j][i])
 			{
-<<<<<<< HEAD
+
 			case '#': drawnLevel[i][j] = block; break;
 			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
-=======
-			case ' ':
-			//space is empty 
-			//
-			break;
-			case '#': 
-			drawnLevel[i][j] = block;
-			break;
-			case '\n':
-				//new line
-			break;
-			case 'P':
-				//draw  player
-			break;
->>>>>>> f5dcb4083d8170e7b5635d70e650c6eeed2ed69e
 			default: break;
 			};
 		}
@@ -127,18 +105,6 @@ void GameLevel::MapPointers (char** map)
 }
 void GameLevel::DrawMap()
 {}
-//The_Sprite & The_Sprite::operator = (const The_Sprite & s)
-//{
-//	this->The_Sprite::The_Sprite(s);
-//	return *this;
-//}
-//The_Sprite & ::operator =(const The_Sprite &s);
-//{
-// 1.  Deallocate any memory that TheClass is using internally
-// 2.  Allocate some memory to hold the contents of s
-// 3.  Copy the values from s into this instance
-// 4.  Return *this
-//}
 
 The_Sprite* GameLevel::getBlock()
 {

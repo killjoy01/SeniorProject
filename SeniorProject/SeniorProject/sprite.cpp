@@ -169,3 +169,13 @@ void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMAT
 								   (float)(getHeight() / 2 + getPosition().y), 0.0f),
 							       D3DCOLOR_ARGB(255, 255, 255, 255));
 }
+
+void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world, const D3DXVECTOR3 * a_position)
+{
+	position.x = a_position->x;
+	position.y = a_position->y;
+	*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
+	a_sprite->SetTransform(a_world);
+	a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+		(float)(getHeight() / 2 + getPosition().y), 0.0f), a_position, D3DCOLOR_ARGB(255, 255, 255, 255));
+}

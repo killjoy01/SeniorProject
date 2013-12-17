@@ -44,6 +44,7 @@ public:
 	int bottom() const;
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
+	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3 * position);
 
 	The_Sprite & operator =(const The_Sprite &s);
 	//The_Sprite (const The_Sprite &s);

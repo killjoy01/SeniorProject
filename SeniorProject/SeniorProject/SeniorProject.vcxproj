@@ -72,6 +72,7 @@
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Power.h" />
@@ -81,10 +82,15 @@
     <ClCompile Include="DirectXFramework.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Airburshed.mp3" />
+    <None Include="BASIC_MAP.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
