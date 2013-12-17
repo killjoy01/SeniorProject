@@ -28,7 +28,7 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 640
-#define WINDOW_TITLE L"GSP 381 - DirectX Framework"
+#define WINDOW_TITLE L"BC-105: Great Escape"
 
 HWND				g_hWnd;			// Handle to the window
 HINSTANCE			g_hInstance;	// Handle to the application instance
