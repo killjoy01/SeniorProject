@@ -79,5 +79,8 @@
     <None Include="Airburshed.mp3">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Text.txt">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

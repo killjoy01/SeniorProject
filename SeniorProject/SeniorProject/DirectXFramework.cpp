@@ -255,8 +255,8 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getPlayer()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getPlayer()->setRect();
 
-	gameboard.getLevel(0)->init("BASIC_MAP.txt");
-
+	//gameboard.getLevel(0)->init("BASIC_MAP.txt");
+	gameboard.getLevel(0)->init("Test.txt");
 	
 	
 	
