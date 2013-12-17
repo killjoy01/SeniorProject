@@ -36,6 +36,9 @@ public:
 	int rightside();
 	int bottom();
 	The_Sprite* getSpritePointer();
+	void setScalex(float);
+	void setScaley(float);
+	void setRotation(float);
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);

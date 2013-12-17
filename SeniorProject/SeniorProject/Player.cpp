@@ -128,3 +128,18 @@ The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;
 }
+
+void Player::setScalex(float x)
+{
+	sprite.setScalex(x);
+}
+
+void Player::setScaley(float y)
+{
+	sprite.setScaley(y);
+}
+
+void Player::setRotation(float r)
+{
+	sprite.setRotation(r);
+}

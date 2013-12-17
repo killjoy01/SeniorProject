@@ -20,7 +20,7 @@ using namespace std;
 class GameLevel
 {
 private:
-	Player player;
+	Player * player;
 	vector<Enemy> enemies;
 	vector<Object> objects;
 	Object goal;
@@ -33,7 +33,7 @@ private:
 public: 
 	GameLevel();
 	~GameLevel();
-	void init(char* filename);
+	void init(char* filename, Player * p);
 	void init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h);
 	Player * getPlayer();
 	void setPlayer(Player *);

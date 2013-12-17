@@ -21,8 +21,9 @@ GameLevel::GameLevel()
 GameLevel::~GameLevel()
 {}
 
-void GameLevel::init(char* filename)
+void GameLevel::init(char* filename, Player * p)
 {
+	player = p;
 	charArray.load(filename);
 	LoadMap(filename);
 	MapPointers(charArray.getMap());
@@ -46,14 +47,14 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 		{
 			if(drawnLevel[i][j] != NULL)
 			{
-				int X = drawnLevel[i][j]->getPosition().x; int Y= drawnLevel[i][j]->getPosition().y;
-			drawnLevel[i][j]->draw(a_device,a_sprite,a_world, &D3DXVECTOR3(	drawnLevel[i][j]->getPosition().x,
-																			drawnLevel[i][j]->getPosition().y,
-																			0));
+				//float X = drawnLevel[i][j]->getPosition().x; float Y= drawnLevel[i][j]->getPosition().y;
+				drawnLevel[i][j]->draw(a_device,a_sprite,a_world);//, &D3DXVECTOR3(	X,//drawnLevel[i][j]->getPosition().x,
+																				//Y,//drawnLevel[i][j]->getPosition().y,
+																				//0));
 			}
 		}
 	}
-	player.draw(a_device, a_sprite, a_world, &player.getPosition());
+	player->draw(a_device, a_sprite, a_world);
 
 }
 
@@ -82,16 +83,16 @@ void GameLevel::LoadMap (char * filename)
 
 void GameLevel::MapPointers (char** map)
 {
-	for (int i = 0; i < width ; i++)
+	for (int i = 0; i < height ; i++)
 	{
-		for (int j = 0; j < height ; j++)
+		for (int j = 0; j < width ; j++)
 		{
 			switch(map[j][i])
 			{
-
-			case '#': drawnLevel[i][j] = &block; break;
-			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
-			default: drawnLevel[i][j] = new The_Sprite;break;
+			case '#': drawnLevel[j][i] = new The_Sprite; *drawnLevel[j][i] = block; break;
+			case 'P': drawnLevel[j][i] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
+										(float)(player->getHeight() * j), 0.0f)); break;
+			default: drawnLevel[j][i] = new The_Sprite;break;
 			};
 		}
 	}
@@ -102,9 +103,8 @@ void GameLevel::DrawMap()
 	{
 		for(int j = 0; j < height; ++j)
 		{
-			int H = drawnLevel[i][j]->getHeight(); int W = drawnLevel[i][j]->getWidth();
-			drawnLevel[i][j]->setPosition(( drawnLevel[i][j]->getWidth() *i		),
-											drawnLevel[i][j]->getHeight() *j	);
+			int H = drawnLevel[i][j]->getHeight() * i; int W = drawnLevel[i][j]->getWidth() * j;
+			drawnLevel[i][j]->setPosition(W, H);
 		}
 	}
 }

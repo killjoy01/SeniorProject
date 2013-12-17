@@ -48,6 +48,8 @@ public:
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3 * position);
 
+	void release();
+
 	The_Sprite & operator =(const The_Sprite &s);
 	//The_Sprite (const The_Sprite &s);
 };
