@@ -218,7 +218,6 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 	system->createSound("Airburshed.mp3", FMOD_DEFAULT, 0, &sound);
 
-
 	gameboard.init();
 
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage2.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
@@ -238,12 +237,12 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getLevel(0)->getBackground()->setRect();
 
 	gameboard.getLevel(0)->getBlock()->setTexture(blockTexture);
-	gameboard.getLevel(0)->getBlock()->setWidth(2);
-	gameboard.getLevel(0)->getBlock()->setHeight(2);
+	gameboard.getLevel(0)->getBlock()->setWidth(32);
+	gameboard.getLevel(0)->getBlock()->setHeight(32);
 	gameboard.getLevel(0)->getBlock()->setScalex(1);
 	gameboard.getLevel(0)->getBlock()->setScaley(1);
 	gameboard.getLevel(0)->getBlock()->setRotation(0.0f);
-	gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBlock()->setRect();
 
 	gameboard.getPlayer()->setTexture(playerTexture);

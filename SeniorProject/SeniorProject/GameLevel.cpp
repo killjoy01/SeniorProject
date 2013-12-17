@@ -46,10 +46,10 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 		{
 			if(drawnLevel[i][j] != NULL)
 			{
-				int X = drawnLevel[i][j]->getPosition().x; int Y= drawnLevel[i][j]->getPosition().y;
-			drawnLevel[i][j]->draw(a_device,a_sprite,a_world, &D3DXVECTOR3(	drawnLevel[i][j]->getPosition().x,
-																			drawnLevel[i][j]->getPosition().y,
-																			0));
+				//float X = drawnLevel[i][j]->getPosition().x; float Y= drawnLevel[i][j]->getPosition().y;
+				drawnLevel[i][j]->draw(a_device,a_sprite,a_world);//, &D3DXVECTOR3(	X,//drawnLevel[i][j]->getPosition().x,
+																				//Y,//drawnLevel[i][j]->getPosition().y,
+																				//0));
 			}
 		}
 	}
@@ -89,7 +89,7 @@ void GameLevel::MapPointers (char** map)
 			switch(map[j][i])
 			{
 
-			case '#': drawnLevel[i][j] = &block; break;
+			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
 			case 'P': drawnLevel[i][j] = player.getSpritePointer(); break;
 			default: drawnLevel[i][j] = new The_Sprite;break;
 			};
@@ -102,9 +102,8 @@ void GameLevel::DrawMap()
 	{
 		for(int j = 0; j < height; ++j)
 		{
-			int H = drawnLevel[i][j]->getHeight(); int W = drawnLevel[i][j]->getWidth();
-			drawnLevel[i][j]->setPosition(( drawnLevel[i][j]->getWidth() *i		),
-											drawnLevel[i][j]->getHeight() *j	);
+			int H = drawnLevel[i][j]->getHeight() * i; int W = drawnLevel[i][j]->getWidth() * j;
+			drawnLevel[i][j]->setPosition(W, H);
 		}
 	}
 }

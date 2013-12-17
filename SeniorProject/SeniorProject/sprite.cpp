@@ -92,18 +92,8 @@ float The_Sprite::getRotation()
 
 The_Sprite & The_Sprite::operator = (const The_Sprite & s)
 {
-	//this->The_Sprite::The_Sprite(s);
-	this->texture = s.texture;
-	this->position = s.position;
-	this->scalex = s.scalex;
-	this->scaley = s.scaley;
-	this->rotation = s.rotation;
-	this->rect.bottom = s.rect.bottom;
-	this->rect.top = s.rect.top;
-	this->rect.left = s.rect.left;
-	this->rect.right = s.rect.right;
-	this->width = s.width;
-	this->height = s.height;
+	release();
+	this->The_Sprite::The_Sprite(s);
 	return *this;
 }
 
@@ -183,13 +173,16 @@ void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMAT
 							       D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
+void The_Sprite::release()
+{}
+
 void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world, const D3DXVECTOR3 * a_position)
-{
+{/*
 	position.x = a_position->x;
 	position.y = a_position->y;
 	*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
 	a_sprite->SetTransform(a_world);
-	a_sprite->Draw(texture, NULL, &D3DXVECTOR3(//(float)(getWidth() + 
+	a_sprite->Draw(texture, NULL, &D3DXVECTOR3((float)(getWidth() + 
 		getPosition().x,//),
 		(float)(getHeight() + getPosition().y), 0.0f), a_position, D3DCOLOR_ARGB(255, 255, 255, 255));
-}
+*/}
