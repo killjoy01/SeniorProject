@@ -49,8 +49,8 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 			{
 				//float X = drawnLevel[i][j]->getPosition().x; float Y= drawnLevel[i][j]->getPosition().y;
 				drawnLevel[i][j]->draw(a_device,a_sprite,a_world);//, &D3DXVECTOR3(	X,//drawnLevel[i][j]->getPosition().x,
-																				//Y,//drawnLevel[i][j]->getPosition().y,
-																				//0));
+				//Y,//drawnLevel[i][j]->getPosition().y,
+				//0));
 			}
 		}
 	}
@@ -77,22 +77,23 @@ void GameLevel::LoadMap (char * filename)
 		drawnLevel[i] = new The_Sprite*[height];
 	}
 
-	
+
 
 }//end of loadFromFile
 
 void GameLevel::MapPointers (char** map)
 {
-	for (int i = 0; i < height ; i++)
+	for (int j = 0; j < width ; j++)
 	{
-		for (int j = 0; j < width ; j++)
+		for (int i = 0; i < height ; i++)
 		{
-			switch(map[j][i])
+
+			switch(map[i][j])
 			{
-			case '#': drawnLevel[j][i] = new The_Sprite; *drawnLevel[j][i] = block; break;
-			case 'P': drawnLevel[j][i] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
-										(float)(player->getHeight() * j), 0.0f)); break;
-			default: drawnLevel[j][i] = new The_Sprite;break;
+			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
+			case 'P': drawnLevel[i][j] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
+						  (float)(player->getHeight() * j), 0.0f)); break;
+			default: drawnLevel[i][j] = new The_Sprite;break;
 			};
 		}
 	}
