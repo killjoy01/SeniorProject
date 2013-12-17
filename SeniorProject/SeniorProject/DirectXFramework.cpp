@@ -237,18 +237,27 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getLevel(0)->getBackground()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBackground()->setRect();
 
-	gameboard.getPlayer()->setTexture(playerTexture);
-
-	gameboard.getLevel(0)->init("BASIC_MAP.txt");
-
 	gameboard.getLevel(0)->getBlock()->setTexture(blockTexture);
-	gameboard.getLevel(0)->getBlock()->setWidth(16);
-	gameboard.getLevel(0)->getBlock()->setHeight(16);
-	gameboard.getLevel(0)->getBlock()->setScalex(600 / 400);
-	gameboard.getLevel(0)->getBlock()->setScaley(200 / 100);
+	gameboard.getLevel(0)->getBlock()->setWidth(2);
+	gameboard.getLevel(0)->getBlock()->setHeight(2);
+	gameboard.getLevel(0)->getBlock()->setScalex(1);
+	gameboard.getLevel(0)->getBlock()->setScaley(1);
 	gameboard.getLevel(0)->getBlock()->setRotation(0.0f);
 	gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBlock()->setRect();
+
+	gameboard.getPlayer()->setTexture(playerTexture);
+	gameboard.getPlayer()->setWidth(2);
+	gameboard.getPlayer()->setHeight(2);
+	//gameboard.getPlayer()->setScalex(1);
+	//gameboard.getPlayer()->setScaley(1);
+	//gameboard.getPlayer()->setRotation(0.0f);
+	gameboard.getPlayer()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getPlayer()->setRect();
+
+	gameboard.getLevel(0)->init("BASIC_MAP.txt");
+
+	
 	
 	
 

@@ -38,10 +38,12 @@ public:
 	void setHeight(int);
 	int getHeight();
 	void setRect();
+	void setRect(int r, int s);
 	RECT & getRect();
 	bool checkForCollision(const The_Sprite &);
 	int rightside() const;
 	int bottom() const;
+	void setPosition(int,int);
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3 * position);

@@ -49,6 +49,12 @@ void The_Sprite::setPosition(D3DXVECTOR3 p)
 	position = p;
 }
 
+void The_Sprite::setPosition(int x, int y)
+{
+	position.x = x;
+	position.y = y;
+}
+
 D3DXVECTOR3 The_Sprite::getPosition()
 {
 	return position;
@@ -128,6 +134,13 @@ void The_Sprite::setRect()
 	//needs an overloaded function to set the rect based on passed values
 }
 
+void The_Sprite::setRect(int r, int b)
+{
+	rect.right = r;
+	rect.bottom = b;
+	//needs an overloaded function to set the rect based on passed values
+}
+
 RECT & The_Sprite::getRect()
 {
 	return rect;
@@ -176,6 +189,6 @@ void The_Sprite::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMAT
 	position.y = a_position->y;
 	*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
 	a_sprite->SetTransform(a_world);
-	a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
-		(float)(getHeight() / 2 + getPosition().y), 0.0f), a_position, D3DCOLOR_ARGB(255, 255, 255, 255));
+	a_sprite->Draw(texture, NULL, &D3DXVECTOR3((float)(getWidth()/2 + getPosition().x),
+		(float)(getHeight()/2 + getPosition().y), 0.0f), a_position, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
