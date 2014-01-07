@@ -18,6 +18,8 @@ using namespace std;
 #include <windows.h>
 #include <time.h>
 #include "sprite.h"
+#include <Windows.h>
+#include <conio.h>
 
 #define VC_EXTRALEAN
 
@@ -29,6 +31,8 @@ using namespace std;
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 640
 #define WINDOW_TITLE L"BC-105: Great Escape"
+
+
 
 HWND				g_hWnd;			// Handle to the window
 HINSTANCE			g_hInstance;	// Handle to the application instance
@@ -110,9 +114,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 	_int64 A = 0, s = 0;
 	bool to_quit = false;
 	float dt = 0.0f;
-	QueryPerformanceFrequency((LARGE_INTEGER *)&s);
-	float secspercnt = (1.0f / (float)s);
-	QueryPerformanceCounter((LARGE_INTEGER *)&A);
+	//QueryPerformanceFrequency((LARGE_INTEGER *)&s);
+	long long int start = clock(), now, passed;
+	//float secspercnt = (1.0f / (float)s);
+	//QueryPerformanceCounter((LARGE_INTEGER *)&A);
 	while(msg.message != WM_QUIT && !(to_quit))
 	{
 		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -125,9 +130,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 			to_quit = c.Update(dt);
 			
 			_int64 B = 0;
+			now = clock();
+			passed = now - start;
+			while ((clock() < now + 100) && !_kbhit())
+			{
+				Sleep(1);
+			}
 			c.Render(g_hWnd, dt);
-			QueryPerformanceCounter((LARGE_INTEGER *)&B);
-			dt = ((float)(B-A))*secspercnt;
+			//QueryPerformanceCounter((LARGE_INTEGER *)&B);
+			start = now;
+			dt = passed;
 			A = B;
 		}
 		

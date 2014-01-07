@@ -33,7 +33,8 @@ using namespace std;
 
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
-
+const float movementspeedx = 350.0f;
+const float movementspeedy = 450.0f;
 
 CDirectXFramework::CDirectXFramework(void)
 {
@@ -456,7 +457,8 @@ bool CDirectXFramework::Update(float & dt)
 		{
 			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
 		}
-		/*updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
+		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
+		/*
 		gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + 0.0002f);		
 		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
 		(gameboard.getPlayer()->getPosition().y + 
@@ -1016,12 +1018,12 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		{
 			if (p->getPosition().y < 150.0f)
 			{
-				p->setYVelocity(p->getYVelocity() - 0.0003f);
+				p->setYVelocity(p->getYVelocity() - (movementspeedy / dt));
 				pressed[DIK_UP] = true;
 			}
 			else
 			{
-				p->setYVelocity(p->getYVelocity() - 0.0003f);
+				p->setYVelocity(p->getYVelocity() - (movementspeedy / dt));
 			}
 		}
 	}
@@ -1038,12 +1040,12 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	}
 	if (buffer[DIK_RIGHT] & 0x80)
 	{
-		p->setPosition(D3DXVECTOR3(p->getPosition().x + 0.25f, p->getPosition().y, 0.0f));
+		p->setPosition(D3DXVECTOR3(p->getPosition().x + (movementspeedx / dt), p->getPosition().y, 0.0f));
 		return 0.25f;
 	}
 	if (buffer[DIK_LEFT] & 0x80)
 	{
-		p->setPosition(D3DXVECTOR3(p->getPosition().x - 0.25f, p->getPosition().y, 0.0f));
+		p->setPosition(D3DXVECTOR3(p->getPosition().x - (movementspeedx / dt), p->getPosition().y, 0.0f));
 		return -0.25f;
 	}
 	return 0.0f;
