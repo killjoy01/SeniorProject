@@ -23,7 +23,7 @@ public:
 
 	void Draw(int a_x, int a_y);											//draws the map	
 	bool load(char* a_filename);											//loads a map from a text file
-	void Shutdown(char ** m, const int width, const int height);			//releases the memory for the map			
+				
 
 	char* getFileName();													//getter: filename										
 	XY getPos();															//getter:pos
@@ -38,9 +38,12 @@ public:
 	bool collision(Map & m, char myChar, char collidable);					//checks map m to see if myChar is where collidable is on this->m_map
 	void rotateLeft();														//rotates left
 	void rotateRight();														//rotates right
+		void Shutdown();													//uses internal variables to shut down the map
 private:	
 	static char** create(int a_height, int a_width);						//dynamically makes a new array 													
 	void flipH();															//flips the map horizontally
 	void flipV();															//flips the map vertically
 	void flipXY();															//flips the map about the x/y axis
+	void Shutdown(char ** m, const int width, const int height);			//releases the memory for the map
+
 };

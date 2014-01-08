@@ -17,8 +17,7 @@ GameWorld::GameWorld(const GameWorld & g)
 
 GameWorld::~GameWorld()
 {
-	for(int i = 0; i < levels.size(); ++i)
-		levels.empty();
+release();
 }
 
 void GameWorld::init()
@@ -26,22 +25,7 @@ void GameWorld::init()
 	GameLevel * newLevel = new GameLevel();
 	levels.push_back(*newLevel);
 	Active = 0;
-	/*	
-				
-			main_sprite.InitialVelocity = 0.0f;
-			ground[0] = new The_Sprite(graphics, new Texture2D("/Application/resources/ground.png", false), new Vector3((960.0F / 2.0F), (544.0F / 2.0f), 0.0F),
-										 new Vector3(1.0f, 1.0f, 1.0f), 0.0f);							                                                        
-			ground[0].position = new Vector3(ground[0].position.X - (ground[0].Width / 2), ground[0].position.Y + (ground[0].Height / 2), 0.0f);
-			ground[0].Update ();
-			ground[1] = new The_Sprite(graphics, new Texture2D("/Application/resources/ground.png", false), new Vector3((960.0F / 2.0F), (544.0F / 2.0f), 0.0F),
-										 new Vector3(1.0f, 1.0f, 1.0f), 0.0f);							                                                        
-			ground[1].position = new Vector3(ground[0].rect.max.X, ground[1].position.Y + (ground[1].Height / 2), 0.0f);
-			ground[1].Update ();
-			platform = new The_Sprite(graphics, new Texture2D("/Application/resources/platform.png", false), new Vector3((960.0F / 2.0F), (544.0F / 2.0f), 0.0F),
-										 new Vector3(1.0f, 1.0f, 1.0f), 0.0f);
-			platform.position = new Vector3(600.0f, ground[0].position.Y - platform.Height, 0.0f);
-			platform.Update ();
-		*/
+
 }
 
 GameWorld & GameWorld::operator = (const GameWorld & g)
@@ -117,4 +101,13 @@ void GameWorld::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 GameLevel * GameWorld::getLevel(int i)
 {
 	return &levels[i];
+}
+
+void GameWorld::release()
+{
+	for(int i = 0; i < levels.size(); ++i)
+	{
+		levels[i].release();
+	}
+	levels.empty();
 }

@@ -28,6 +28,10 @@ void GameLevel::init(char* filename, Player * p)
 	LoadMap(filename);
 	MapPointers(charArray.getMap());
 	DrawMap();
+
+	//for(int i = 0; i < width; ++i)
+	//	for(int j = 0; j < height; ++j)
+	//		drawnLevel[i][j] = new The_Sprite;
 }
 
 void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h)
@@ -104,7 +108,8 @@ void GameLevel::DrawMap()
 	{
 		for(int j = 0; j < height; ++j)
 		{
-			int H = drawnLevel[i][j]->getHeight() * i; int W = drawnLevel[i][j]->getWidth() * j;
+			int H = drawnLevel[i][j]->getHeight() * i; 
+			int W = drawnLevel[i][j]->getWidth() * j;
 			drawnLevel[i][j]->setPosition(W, H);
 		}
 	}
@@ -113,4 +118,15 @@ void GameLevel::DrawMap()
 The_Sprite * GameLevel::getBlock()
 {
 	return &block;
+}
+
+void GameLevel::release()
+{
+	for(int i = 0; i < height; ++i)
+	{
+		delete drawnLevel[i];
+	}
+	delete drawnLevel;
+
+	charArray.Shutdown();
 }

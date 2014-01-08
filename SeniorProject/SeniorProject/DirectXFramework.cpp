@@ -315,141 +315,10 @@ bool CDirectXFramework::Update(float & dt)
 	switch(the_state)
 	{
 	case MENU:
-		//playingmusic = false;
-		//channel[1]->isPlaying(&playingmusic);
-		//if (!playingmusic)
-		//{
-		//	result = system->playSound(FMOD_CHANNEL_FREE, sound[6], false, &channel[1]);
-		//}
-		//keyDown4(buffer, dt);
+
 		break;
 	case INIT:
-		//if (gameboard.getActive() == 0)
-		//{
-		//	if (setPiece == 0)
-		//	{
-		//		pieceType = 0;
-		//	}
-		//	else if (setPiece == 1)
-		//	{
-		//		pieceType = 1;
-		//	}
-		//	else if ((setPiece >= 2) && (setPiece <= 3))
-		//	{
-		//		pieceType = 2;
-		//	}
-		//	else if ((setPiece >= 4) && (setPiece <= 6))
-		//	{
-		//		pieceType = 3;
-		//	}
-		//	else if ((setPiece >= 7) && (setPiece <= 10))
-		//	{
-		//		pieceType = 4;
-		//	}
-		//	else if ((setPiece >= 11) && (setPiece <= 14))
-		//	{
-		//		pieceType = 5;
-		//	}
-		//	else if ((setPiece >= 15) && (setPiece <= 18))
-		//	{
-		//		pieceType = 6;
-		//	}
-		//	else if ((setPiece >= 19) && (setPiece <= 23))
-		//	{
-		//		pieceType = 7;
-		//	}
-		//	else if ((setPiece >= 24) && (setPiece <= 31))
-		//	{
-		//		pieceType = 8;
-		//	}
-		//	else if (setPiece == 32)
-		//	{
-		//		pieceType = 9;
-		//	}
-		//	else if ((setPiece >= 23) && (setPiece <= 38))
-		//	{
-		//		pieceType = 10;
-		//	}
-		//	else if (setPiece == 39)
-		//	{
-		//		pieceType = 11;
-		//	}
-		//	else if (setPiece == 40)
-		//	{
-		//		gameboard.setActive(1);
-		//		setPiece = 0;
-		//		pieceType = 12;
-		//		initPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		//		the_state = BLANK_BOARD;
-		//		return false;
-		//	}
-		//	else
-		//	{
-		//		return false;
-		//	}
-		//}
-		//else if (gameboard.getActive() == 1)
-		//{
-		//	if (setPiece == 0)
-		//	{
-		//		pieceType = 12;
-		//	}
-		//	else if (setPiece == 1)
-		//	{
-		//		pieceType = 13;
-		//	}
-		//	else if ((setPiece >= 2) && (setPiece <= 3))
-		//	{
-		//		pieceType = 14;
-		//	}
-		//	else if ((setPiece >= 4) && (setPiece <= 6))
-		//	{
-		//		pieceType = 15;
-		//	}
-		//	else if ((setPiece >= 7) && (setPiece <= 10))
-		//	{
-		//		pieceType = 16;
-		//	}
-		//	else if ((setPiece >= 11) && (setPiece <= 14))
-		//	{
-		//		pieceType = 17;
-		//	}
-		//	else if ((setPiece >= 15) && (setPiece <= 18))
-		//	{
-		//		pieceType = 18;
-		//	}
-		//	else if ((setPiece >= 19) && (setPiece <= 23))
-		//	{
-		//		pieceType = 19;
-		//	}
-		//	else if ((setPiece >= 24) && (setPiece <= 31))
-		//	{
-		//		pieceType = 20;
-		//	}
-		//	else if (setPiece == 32)
-		//	{
-		//		pieceType = 21;
-		//	}
-		//	else if ((setPiece >= 23) && (setPiece <= 38))
-		//	{
-		//		pieceType = 22;
-		//	}
-		//	else if (setPiece == 39)
-		//	{
-		//		pieceType = 23;
-		//	}
-		//	else if (setPiece == 40)
-		//	{
-		//		gameboard.setActive(0);
-		//		the_state = BLANK_BOARD;
-		//		return false;
-		//	}
-		//	else
-		//	{
-		//		return false;
-		//	}
-		//}
-		//keyDown2(buffer, g[pieceType], setPiece, initPosition, dt);
+\
 		break;
 	case PROGRAM:
 		playingmusic = false;
@@ -559,6 +428,7 @@ bool CDirectXFramework::Update(float & dt)
 		(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
 		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
 		}*/
+
 		break;
 	case CREDITS_SCENE:
 		//keyDown5(buffer, dt);

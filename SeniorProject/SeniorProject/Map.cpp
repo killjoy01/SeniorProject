@@ -94,6 +94,11 @@ void Map::Shutdown(char ** m, const int width, const int height)
 
 }
 
+void Map::Shutdown()
+{
+	Shutdown(m_map, m_width, m_height);
+}
+
 void Map::Draw(int a_x, int a_y)
 {
 	/*pos.m_x = a_x;
