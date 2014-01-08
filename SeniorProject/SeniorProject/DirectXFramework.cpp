@@ -34,7 +34,8 @@ using namespace std;
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
 const float movementspeedx = 350.0f;
-const float movementspeedy = 450.0f;
+const float movementspeedy = 400.0f;
+const float gravity = 400.0f;
 
 CDirectXFramework::CDirectXFramework(void)
 {
@@ -458,12 +459,11 @@ bool CDirectXFramework::Update(float & dt)
 			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
 		}
 		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
-		/*
-		gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + 0.0002f);		
+		//gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + (gravity / dt));		
 		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
 		(gameboard.getPlayer()->getPosition().y + 
-		(gameboard.getPlayer()->getPosition().y * gameboard.getPlayer()->getYVelocity())), 0.0f));
-		for (int i = 0; i < gameboard.getSize(0); ++i)
+		(gameboard.getPlayer()->getYVelocity())), 0.0f));
+		/*for (int i = 0; i < gameboard.getSize(0); ++i)
 		{
 		gameboard.getSprite(0, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
 		gameboard.getSprite(0, i)->getPosition().y, 0.0f));
