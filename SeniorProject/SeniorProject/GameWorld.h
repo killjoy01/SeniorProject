@@ -46,5 +46,5 @@ public:
 
 	void setLevelVars(int forLevel);
 
-	
+	void release();
 };

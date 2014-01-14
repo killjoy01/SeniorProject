@@ -85,6 +85,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Power.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>

@@ -58,4 +58,6 @@ public:
 	void MapPointers (char** map);
 	void DrawMap();
 	The_Sprite* getBlock();
+
+	void release();
 };
