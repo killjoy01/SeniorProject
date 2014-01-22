@@ -12,6 +12,7 @@ public:
 	void setMove();
 	Enemy();
 
+
 	bool getStationary();
 	void setStationary(bool);
 

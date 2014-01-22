@@ -42,22 +42,30 @@ public:
 	bool checkForCollision(D3DXVECTOR3);
 	void setBackground(The_Sprite*);
 	
-	
+	vector<Enemy> getEnemy(int);
 	int getEnemySize();
+	//void getGoal();
+	vector<Object> getObject(int);
 	int getObjectSize();
+	
+	Map getLevel(int);
+	
+	The_Sprite* getBlock();
+	Object* getGoal();
+	
 	void clearVectors();
 	The_Sprite * getBackground();
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 
 	int getSize(int);
-
-
 	
+	
+
 	void LoadMap (char * filename);
 	void MapPointers (char** map);
 	void DrawMap();
-	The_Sprite* getBlock();
+
 
 	void release();
 };

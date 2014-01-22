@@ -130,3 +130,35 @@ void GameLevel::release()
 
 	charArray.Shutdown();
 }
+//there is a getter for getlevel allready on line 101 in Game world
+//getEnemy getObject are not working properly i will keep working on it but i think the rest are ok
+//vector<Enemy> * GameLevel::getEnemy(int Ene)
+//{
+////return enemy of place int
+//return &enemies;
+//}
+//vector<Object> * GameLevel::getObject(int obj)
+//{
+////return object of place int
+//return &objects;
+//}
+//GameLevel * GameWorld::getLevel(int i){return &levels[i];}
+//Map * GameLevel::getLevel(int map){return &charArray;}
+Object * GameLevel::getGoal()
+{
+return &goal;
+}
+int GameLevel::getEnemySize()
+{
+	int EnemySize;
+	EnemySize = sizeof(enemies);
+	return EnemySize;
+//return size of enemy vector;
+}
+int GameLevel::getObjectSize()
+{
+	int ObjectSize;
+	ObjectSize = sizeof(objects);
+	return ObjectSize;
+//return size of object vector
+}
