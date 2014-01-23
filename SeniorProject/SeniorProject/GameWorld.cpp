@@ -112,8 +112,8 @@ void GameWorld::release()
 	levels.empty();
 }
 
-int getCurrentLevel()
-{
+//int getCurrentLevel()
+//{
 //return currentlevel;
-}
+//}
 

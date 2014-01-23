@@ -41,11 +41,11 @@ public:
 	void setActive(int);
 	bool checkForCollision(D3DXVECTOR3);
 	void setBackground(The_Sprite*);
-	
-	vector<Enemy> getEnemy(int);
+	Enemy GameLevel::getEnemy(int);
 	int getEnemySize();
 	//void getGoal();
-	vector<Object> getObject(int);
+	
+	Object GameLevel::getObject(int);
 	int getObjectSize();
 	
 	Map getLevel(int);
