@@ -332,91 +332,104 @@ bool CDirectXFramework::Update(float & dt)
 		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
 		(gameboard.getPlayer()->getPosition().y + 
 		(gameboard.getPlayer()->getYVelocity())), 0.0f));
-		/*for (int i = 0; i < gameboard.getSize(0); ++i)
+		for (int i = 0; i < gameboard.getLevel(gameboard.getCurrentLevel())->getEnemySize(); ++i)
 		{
-			gameboard.getSprite(0, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
-		gameboard.getSprite(0, i)->getPosition().y, 0.0f));
-		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(0, i)))
+			//scrolling code base, leave in for reference
+			//gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
+			//gameboard.getLevel(gameboard.getCurrentLevel())->getgetSprite(0, i)->getPosition().y, 0.0f));
+			Enemy * e = gameboard.getLevel(getCurrentLevel())->getEnemy(i));
+			if (gameboard.getPlayer()->checkForCollision(e))
+			{
+				if (((int)gameboard.getPlayer()->rightside() >= (int)e->getPosition().x) &&
+				((int)gameboard.getPlayer()->getPosition().x <= (int)e->rightside()))
+				{
+					gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
+				//for (int j = 0; j < gameboard.getSize(0); ++j)
+				//{
+					//more scrolling code base
+					//gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
+					//gameboard.getSprite(0, j)->getPosition().y, 0.0f));
+					//}
+					//for (int j = 0; j < gameboard.getSize(1); ++j)
+				//{
+				//gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
+				//gameboard.getSprite(1, j)->getPosition().y, 0.0f));
+				//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
+				//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+				//}
+				}
+				if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
+				{
+					if (((int)gameboard.getPlayer()->rightside() > (int)e->getPosition().x) &&
+					((int)gameboard.getPlayer()->getPosition().x < (int)e->rightside()))
+					{
+						gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
+						gameboard.getPlayer()->setYVelocity(0.0f);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < gameboard.getLevel(gameboard.getCurrentLevel())->getObjectSize(); ++i)
 		{
-		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(0, i)->getPosition().x) &&
-		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(0, i)->rightside()))
+			Object * o = gameboard.getLevel(getCurrentLevel())->getObject(i));
+			//scrolling base
+			//gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
+			//gameboard.getSprite(1, i)->getPosition().y, 0.0f));
+			if (gameboard.getPlayer()->checkForCollision(o))
+			{
+				if (((int)gameboard.getPlayer()->rightside() >= (int)o->getPosition().x) &&
+				((int)gameboard.getPlayer()->getPosition().x <= (int)o->rightside()))
+				{
+					gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
+					for (int j = 0; j < gameboard.getSize(0); ++j)
+					{
+						o->setPosition(D3DXVECTOR3(o->getPosition().x /*+ (updatevalue * 7)*/,
+						o->getPosition().y, 0.0f));
+					}
+					for (int j = 0; j < gameboard.getSize(1); ++j)
+					{
+						//more scrolling code base
+						//gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
+						//gameboard.getSprite(1, j)->getPosition().y, 0.0f));
+					}
+					// even more scrolling code
+					//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x + (updatevalue * 7),
+					//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+			}
+			if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
+			{
+				if (((int)gameboard.getPlayer()->rightside() > o->getPosition().x) &&
+				((int)gameboard.getPlayer()->getPosition().x < o->rightside()))
+				{
+					gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
+					gameboard.getPlayer()->setYVelocity(0.0f);
+				}
+			}
+		}
+		//gah, more scrolling code
+		//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
+		//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+		Object * g = gameboard.getLevel(gameboard.getCurrentLevel())->getGoal();
+		if (gameboard.getPlayer()->checkForCollision(g)
 		{
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-		for (int j = 0; j < gameboard.getSize(0); ++j)
-		{
-		gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
-		gameboard.getSprite(0, j)->getPosition().y, 0.0f));
+			if (((int)gameboard.getPlayer()->rightside() >= g->getPosition().x) &&
+				((int)gameboard.getPlayer()->getPosition().x <= g->rightside()))
+			{
+				if (buffer[DIK_UP] & 0x80)
+				{
+					MessageBox(NULL, L"You win!", L"", MB_OK);
+					gameboard.clearVectors();
+					/*change this to loading from file again
+					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
+					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
+					gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
+					gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
+					(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
+					gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));*/
+				}
+			}
 		}
-		for (int j = 0; j < gameboard.getSize(1); ++j)
-		{
-		gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-		gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-		}
-		}
-		if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
-		{
-		if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(0, i)->getPosition().x) &&
-		((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(0, i)->rightside()))
-		{
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
-		gameboard.getPlayer()->setYVelocity(0.0f);
-		}
-		}
-		}
-		}
-		for (int i = 0; i < gameboard.getSize(1); ++i)
-		{
-		gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
-		gameboard.getSprite(1, i)->getPosition().y, 0.0f));
-		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(1, i)))
-		{
-		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(1, i)->getPosition().x) &&
-		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(1, i)->rightside()))
-		{
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-		for (int j = 0; j < gameboard.getSize(0); ++j)
-		{
-		gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
-		gameboard.getSprite(0, j)->getPosition().y, 0.0f));
-		}
-		for (int j = 0; j < gameboard.getSize(1); ++j)
-		{
-		gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-		gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-		}
-		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x + (updatevalue * 7),
-		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-		}
-		if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
-		{
-		if (((int)gameboard.getPlayer()->rightside() > (int)gameboard.getSprite(1, i)->getPosition().x) &&
-		((int)gameboard.getPlayer()->getPosition().x < (int)gameboard.getSprite(1, i)->rightside()))
-		{
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
-		gameboard.getPlayer()->setYVelocity(0.0f);
-		}
-		}
-		}
-		}
-		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-		gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-		if (gameboard.getPlayer()->checkForCollision(*gameboard.getSprite(2, 0)))
-		{
-		if (((int)gameboard.getPlayer()->rightside() >= (int)gameboard.getSprite(2, 0)->getPosition().x) &&
-		((int)gameboard.getPlayer()->getPosition().x <= (int)gameboard.getSprite(2, 0)->rightside()))
-		{
-		MessageBox(NULL, L"You win!", L"", MB_OK);
-		gameboard.clearVectors();
-		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-		gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-		(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-		gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-		}
-		}
+		/* legacy code for falling off the ledge
 		if (gameboard.getPlayer()->getPosition().y > 600.0f)
 		{
 		MessageBox(NULL, L"You lose!", L"", MB_OK);
