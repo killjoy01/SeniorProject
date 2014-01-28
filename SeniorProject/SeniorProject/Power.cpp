@@ -20,7 +20,8 @@ void Power::CheckAbility()
 	//{
 	//if(PowerActive == true)
 		//{
-		//
+		//if player is colliding with water allow jump
+		//after a jump dont allow jump for 1 second
 		//}
 	//break;
 	//}
@@ -28,7 +29,14 @@ void Power::CheckAbility()
 	//{
 	//if(PowerActive == true)
 		//{
-		//
+		//dont allow movement (momentum only)
+		//if moving in X results in a collition
+			//if X is positive make it negitive
+			//else if X is negitive make it positive
+			
+		//if moving in Y results in a collition
+		//if Y is positive make it negitive
+		//else if Y is negitive make it positive
 		//}
 	//break;
 //}
@@ -36,7 +44,8 @@ void Power::CheckAbility()
 	//{
 	//if(PowerActive == true)
 		//{
-		//
+		//turn of gravity
+		//if player can move up do so
 		//}
 		//break;
 	//}
@@ -44,6 +53,7 @@ void Power::CheckAbility()
 	//{
 	//if(PowerActive == true)
 		//{
+		
 		//if the player wants to move up or down and there is a wall to players left or right allow the move
 		//if the move would make player collied with a wall dont allow move
 
