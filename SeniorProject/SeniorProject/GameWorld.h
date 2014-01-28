@@ -40,6 +40,8 @@ public:
 	void clearVectors();
 	void addLevel(GameLevel);
 
+	int getCurrentLevel();
+
 	GameLevel * getLevel(int);
 
 	void draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
