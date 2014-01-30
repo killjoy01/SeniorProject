@@ -257,27 +257,6 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getPlayer()->setRect();
 
 	gameboard.getLevel(0)->init("BASIC_MAP.txt", gameboard.getPlayer());
-	//gameboard.getLevel(0)->init("Test.txt");
-
-
-
-
-	/*gameboard.getPlayer()->setRect();
-
-	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-	gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-	gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-	(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-	gameboard.getSprite(2, 0)->setTexture(w_pTexture[2]);
-	gameboard.getSprite(2, 0)->setWidth(75);
-	gameboard.getSprite(2, 0)->setHeight(100);
-	gameboard.getSprite(2, 0)->setRect();
-	gameboard.getSprite(2, 0)->setScalex(1.0f);
-	gameboard.getSprite(2, 0)->setScaley(1.0f);
-	gameboard.getSprite(2, 0)->setRotation(0.0f);
-	gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-	*/
 
 	for (int i = 0; i < 256; i++)
 	{
@@ -337,7 +316,10 @@ bool CDirectXFramework::Update(float & dt)
 			//scrolling code base, leave in for reference
 			//gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
 			//gameboard.getLevel(gameboard.getCurrentLevel())->getgetSprite(0, i)->getPosition().y, 0.0f));
-			Enemy * e = gameboard.getLevel(getCurrentLevel())->getEnemy(i);
+			
+			//Enemy * e = gameboard.getLevel(getCurrentLevel())->getEnemy(i);
+			Enemy * e = &gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i);
+			
 			if (gameboard.getPlayer()->checkForCollision(e))
 			{
 				if (((int)gameboard.getPlayer()->rightside() >= (int)e->getPosition().x) &&
@@ -372,7 +354,9 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		for (int i = 0; i < gameboard.getLevel(gameboard.getCurrentLevel())->getObjectSize(); ++i)
 		{
-			Object * o = gameboard.getLevel(getCurrentLevel())->getObject(i);
+			//Object * o = gameboard.getLevel(getCurrentLevel())->getObject(i);
+			Object * o = &gameboard.getLevel(gameboard.getCurrentLevel())->getObject(i);
+			
 			//scrolling base
 			//gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
 			//gameboard.getSprite(1, i)->getPosition().y, 0.0f));
@@ -420,28 +404,9 @@ bool CDirectXFramework::Update(float & dt)
 					{
 						MessageBox(NULL, L"You win!", L"", MB_OK);
 						gameboard.clearVectors();
-						/*change this to loading from file again
-						gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-						gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-						gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-						gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-						(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-						gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));*/
 					}
 				}
 			}
-			/* legacy code for falling off the ledge
-			if (gameboard.getPlayer()->getPosition().y > 600.0f)
-			{
-			MessageBox(NULL, L"You lose!", L"", MB_OK);
-			gameboard.clearVectors();
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground1.txt");
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[0], "ground2.txt");
-			gameboard.loadFromFile(m_pD3DDevice, w_pTexture[1], "platform.txt");
-			gameboard.getPlayer()->setPosition(D3DXVECTOR3((gameboard.getSprite(0, 0)->getPosition().x + 200), 
-			(gameboard.getSprite(0, 0)->getPosition().y - 50 - 16), 0.0f));
-			gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(1300.0f, 300.0f, 0.0f));
-			}*/
 
 			break;
 	case CREDITS_SCENE:
@@ -477,30 +442,6 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
-		//	
-		//world = calculateMatrix(200, (menuyposition - 32.0f),
-		//						m_sprites[3].getScalex(),
-		//						m_sprites[3].getScaley(),									
-		//						m_sprites[3].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(m_sprites[3].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(32 + 200), 
-		//				   (float)(menuyposition), 0),
-		//				   &D3DXVECTOR3((float)(200 + 32), 
-		//				   (float)(menuyposition + 32), 0), 
-		//					D3DCOLOR_ARGB(255, 255, 255, 255));
-
-		//world = calculateMatrix(m_sprites[4].getPosition().x, (m_sprites[4].getPosition().y),
-		//						m_sprites[4].getScalex(),
-		//						m_sprites[4].getScaley(),									
-		//						m_sprites[4].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(m_sprites[4].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(128 + m_sprites[4].getPosition().x), 
-		//				   (float)(m_sprites[4].getPosition().y), 0),
-		//				   &D3DXVECTOR3((float)(m_sprites[4].getPosition().x + 128), 
-		//				   (float)(m_sprites[4].getPosition().y + 32), 0), 
-		//					D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		m_pD3DSprite->End();
 
@@ -516,30 +457,6 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		displayclip.bottom = 640;
 		displayclip.right = 800;
 
-		//wchar_t buffer[64];
-		//
-		//swprintf_s(buffer, 64, L"lY: %f", m_MouseState.lY);
-
-		//m_pD3DFont->DrawText(0, buffer, -1, &rect, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		//
-		//wchar_t buffer2[64];
-		//
-		//swprintf_s(buffer, 64, L"%s", L"PLAY");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 325;
-
-		//swprintf_s(buffer, 64, L"%s", L"CREDITS SCENE");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 400;
-
-		//swprintf_s(buffer, 64, L"%s", L"QUIT");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-		//
 		m_pD3DSprite->End();
 
 		m_pD3DDevice->EndScene();
@@ -563,177 +480,12 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-		//for (int i = 0; i < 10; i++)
-		//{
-		//	for (int j = 0; j < 10; j++)
-		//	{
-		//		world = calculateMatrix(i * 64, j * 64, m_sprites[0].getScalex(), 
-		//			                    m_sprites[0].getScaley(), m_sprites[0].getRotation());
-		//		m_pD3DSprite->SetTransform(&world);
-		//		m_pD3DSprite->Draw(m_sprites[0].getTexture(), NULL, &D3DXVECTOR3((float)(32 + (i * 64)), (float)(32 + (j * 64)), 0),
-		//						   &D3DXVECTOR3((float)((i * 64) + 32), (float)((j * 64) + 32), 0), 
-		//					       D3DCOLOR_ARGB(255, 255, 255, 255));
-		//	}
-		//}
-		//for (int i = 0; i < 40; i++)
-		//{
-		//	if (gameboard.getActive() == 0)
-		//	{
-		//		if (gameboard.getPlayer(0)->getGamePiece(i)->getActive())
-		//		{
-		//			world = calculateMatrix((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64), 
-		//									(gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64), 
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getScalex(),
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getScaley(),
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getRotation());
-		//			m_pD3DSprite->SetTransform(&world);
-		//			m_pD3DSprite->Draw(gameboard.getPlayer(0)->getGamePiece(i)->getTexture(), NULL, 
-		//							   &D3DXVECTOR3((float)(32 + (gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64)), 
-		//							   (float)(32 + (gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64)), 0),
-		//							   &D3DXVECTOR3((float)((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64) + 32), 
-		//							   (float)((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64) + 32), 0), 
-		//								D3DCOLOR_ARGB(255, 255, 255, 255));
-		//		}
-		//	}
-		//	else if (gameboard.getActive() == 1)
-		//	{
-		//		if (gameboard.getPlayer(0)->getGamePiece(i)->getActive())
-		//		{
-		//			world = calculateMatrix((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64), 
-		//									(gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64), 
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getScalex(),
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getScaley(),
-		//									gameboard.getPlayer(0)->getGamePiece(i)->getRotation());
-		//			m_pD3DSprite->SetTransform(&world);
-		//			m_pD3DSprite->Draw(b_sprites[0].getTexture(), NULL, 
-		//							   &D3DXVECTOR3((float)(32 + (gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64)), 
-		//						       (float)(32 + (gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64)), 0),
-		//						       &D3DXVECTOR3((float)((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().x * 64) + 32), 
-		//						       (float)((gameboard.getPlayer(0)->getGamePiece(i)->getPosition().y * 64) + 32), 0), 
-		//							   D3DCOLOR_ARGB(255, 255, 255, 255));
-		//		}
-		//	}
-		//}
-		//for (int i = 0; i < 40; i++)
-		//{
-		//	if (gameboard.getActive() == 1)
-		//	{
-		//		if (gameboard.getPlayer(1)->getGamePiece(i)->getActive())
-		//		{
-		//			world = calculateMatrix((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64), 
-		//									(gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64), 
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getScalex(),
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getScaley(),
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getRotation());
-		//			m_pD3DSprite->SetTransform(&world);
-		//			m_pD3DSprite->Draw(gameboard.getPlayer(1)->getGamePiece(i)->getTexture(), NULL, 
-		//							   &D3DXVECTOR3((float)(32 + (gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64)), 
-		//						       (float)(32 + (gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64)), 0),
-		//						       &D3DXVECTOR3((float)((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64) + 32), 
-		//						       (float)((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64) + 32), 0), 
-		//						       D3DCOLOR_ARGB(255, 255, 255, 255));
-		//		}
-		//	}
-		//	else if (gameboard.getActive() == 0)
-		//	{	
-		//		if (gameboard.getPlayer(1)->getGamePiece(i)->getActive())
-		//		{
-		//			world = calculateMatrix((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64), 
-		//									(gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64), 
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getScalex(),
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getScaley(),
-		//									gameboard.getPlayer(1)->getGamePiece(i)->getRotation());
-		//			m_pD3DSprite->SetTransform(&world);
-		//			m_pD3DSprite->Draw(b_sprites[1].getTexture(), NULL, 
-		//							   &D3DXVECTOR3((float)(32 + (gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64)), 
-		//						       (float)(32 + (gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64)), 0),
-		//						       &D3DXVECTOR3((float)((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().x * 64) + 32), 
-		//						       (float)((gameboard.getPlayer(1)->getGamePiece(i)->getPosition().y * 64) + 32), 0), 
-		//							   D3DCOLOR_ARGB(255, 255, 255, 255));
-		//		}
-		//	}
-		//}
-		//world = calculateMatrix((initPosition.x * 64), 
-		//						(initPosition.y * 64), 
-		//						g[pieceType].getScalex(),
-		//						g[pieceType].getScaley(),
-		//						g[pieceType].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(g[pieceType].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(32 + (initPosition.x * 64)), 
-		//				   (float)(32 + (initPosition.y * 64)), 0),
-		//				   &D3DXVECTOR3((float)((initPosition.x * 64) + 32), 
-		//				   (float)((initPosition.y * 64) + 32), 0), 
-		//				   D3DCOLOR_ARGB(255, 255, 255, 255));
-		//world = calculateMatrix((initPosition.x * 64), 
-		//						(initPosition.y * 64), 
-		//						g[pieceType].getScalex(),
-		//						g[pieceType].getScaley(),
-		//						g[pieceType].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(m_sprites[2].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(32 + (initPosition.x * 64)), 
-		//				   (float)(32 + (initPosition.y * 64)), 0),
-		//				   &D3DXVECTOR3((float)((initPosition.x * 64) + 32), 
-		//				   (float)((initPosition.y * 64) + 32), 0), 
-		//				   D3DCOLOR_ARGB(255, 255, 255, 255));
-		//world = calculateMatrix(640, 0, 
-		//						g[pieceType].getScalex() * 2.5,
-		//						g[pieceType].getScaley() * 2.5,
-		//						g[pieceType].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(g[pieceType].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(32 + (initPosition.x * 64)), 
-		//				   (float)(32 + (initPosition.y * 64)), 0),
-		//				   &D3DXVECTOR3((float)((initPosition.x * 64) + 32), 
-		//				   (float)((initPosition.y * 64) + 32), 0), 
-		//				   D3DCOLOR_ARGB(255, 255, 255, 255));
-		//world = calculateMatrix(640, 0, 
-		//						g[pieceType].getScalex() * 2.5,
-		//						g[pieceType].getScaley() * 2.5,
-		//						g[pieceType].getRotation());
-		//m_pD3DSprite->SetTransform(&world);
-		//m_pD3DSprite->Draw(m_sprites[2].getTexture(), NULL, 
-		//				   &D3DXVECTOR3((float)(32 + (initPosition.x * 64)), 
-		//				   (float)(32 + (initPosition.y * 64)), 0),
-		//				   &D3DXVECTOR3((float)((initPosition.x * 64) + 32), 
-		//				   (float)((initPosition.y * 64) + 32), 0), 
-		//				   D3DCOLOR_ARGB(255, 255, 255, 255));
-
-		//numFrames += 1.0f;
-		//timeElapsed += dt;
-
 		m_pD3DSprite->End();
 
 		m_pD3DDevice->EndScene();
 
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
-
-		//if (timeElapsed >= 1.0f)
-		//{
-		//	mFPS = numFrames / dt;
-		//	timeElapsed = 0.0f;
-		//	numFrames = 0.0f;
-		//}
-
-		//wchar_t buffer[64];
-		//
-		//swprintf_s(buffer, 64, L"lY: %f", m_MouseState.lY);
-
-		//m_pD3DFont->DrawText(0, buffer, -1, &rect, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		//
-		//RECT displayclip;
-		//	displayclip.top = ((64 * 2) + 30 + 1);
-		//displayclip.left = (640 + 0 + 1);
-		//displayclip.bottom = ((64 * 2) + 1 + 30 + 64);
-		//displayclip.right = 800;
-
-		//wchar_t buffer2[64];
-
-		//swprintf_s(buffer2, 64, L"%hs", g[pieceType].getName());
-
-		//m_classicfont->DrawText(0, buffer2, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		m_pD3DSprite->End();
 
@@ -787,58 +539,6 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 
 		m_pD3DSprite->Begin(NULL);
 
-		//RECT displayclip;
-		//displayclip.top = 0;
-		//displayclip.left = 0;
-		//displayclip.bottom = 640;
-		//displayclip.right = 800;
-
-		//wchar_t buffer[64];
-		//
-		//swprintf_s(buffer, 64, L"lY: %f", m_MouseState.lY);
-
-		//m_pD3DFont->DrawText(0, buffer, -1, &rect, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		//
-		//wchar_t buffer2[64];
-		//
-		//swprintf_s(buffer, 64, L"%s", L"MADE BY:");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 75;
-		//displayclip.left = 75;
-
-		//swprintf_s(buffer, 64, L"%s", L"JAMES SORGE");
-		//
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 150;
-		//displayclip.left = 0;
-
-		//swprintf_s(buffer, 64, L"%s", L"CLASS FOR:");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 225;
-		//displayclip.left = 75;
-
-		//swprintf_s(buffer, 64, L"%s", L"GSP 361");
-		//
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 300;
-		//displayclip.left = 0;
-
-		//swprintf_s(buffer, 64, L"%s", L"PROFESSOR:");
-
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
-
-		//displayclip.top = 375;
-		//displayclip.left = 75;
-
-		//swprintf_s(buffer, 64, L"%s", L"MICHAEL VAGANOV");
-		//
-		//m_pD3DFont2->DrawText(0, buffer, -1, &displayclip, DT_TOP | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 0, 0));
 
 		m_pD3DSprite->End();
 
@@ -933,26 +633,11 @@ float CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	}
 	return 0.0f;
 }
-//BITMAP*Buffer=create_bitmap(800,800);
-//bool done = false
+
 std::vector <std::vector<int>>Map;
 std::vector <BITMAP*> text;
 
-//LoadMap("Map1.txt", Map, texture, done);
-//
-//while (!done)
-//{
-//	if(key[KEY_ESC])
-//		done =true;
-//
-//	DrawMap(Buffer, Map);
-//
-//	blit (Buffer, screen, 0,0,0,0,800,600);
-//	clear_bitmap(buffer);
-//
-//}
-//destroy_bitmap(Buffer);
-// return 0;
+
 
 #define BlockSizeX 40
 #define BlockSizeY 40

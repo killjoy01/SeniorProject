@@ -18,7 +18,7 @@ private:
 	Player player;
 	vector<GameLevel> levels; 
 	int Active;
-	 int currentLevel;
+	int currentLevel;
 	
 public:
 	
