@@ -137,10 +137,10 @@ Enemy GameLevel::getEnemy(int Ene)
 //return enemy of place int
 return enemies[Ene];
 }
-Object GameLevel::getObject(int obj)
+Object * GameLevel::getObject(int obj)
 {
 //return object of place int
-return objects[obj];
+	return &objects[obj];
 }
 //GameLevel * GameWorld::getLevel(int i){return &levels[i];}
 //Map * GameLevel::getLevel(int map){return &charArray;}

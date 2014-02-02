@@ -46,7 +46,7 @@ public:
 	int getEnemySize();
 	//void getGoal();
 	
-	Object GameLevel::getObject(int);
+	Object * GameLevel::getObject(int);
 	int getObjectSize();
 	
 	Map getLevel(int);

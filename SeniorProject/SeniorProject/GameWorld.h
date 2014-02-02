@@ -19,7 +19,6 @@ private:
 	Player player;
 	vector<GameLevel> levels; 
 	int Active;
-	int currentLevel;
 	
 public:
 	
@@ -41,8 +40,6 @@ public:
 	void clearVectors();
 	void addLevel(GameLevel);
 
-	int getCurrentLevel();
-
 	GameLevel * getLevel(int);
 
 	void draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world);
@@ -50,4 +47,6 @@ public:
 	void setLevelVars(int forLevel);
 
 	void release();
+
+	GameLevel * getCurrentLevel();
 };

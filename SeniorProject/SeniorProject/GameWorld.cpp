@@ -113,8 +113,8 @@ void GameWorld::release()
 	levels.empty();
 }
 
-int GameWorld::getCurrentLevel()
+GameLevel * GameWorld::getCurrentLevel()
 {
-return currentLevel;
+	return &levels[Active];
 }
 
