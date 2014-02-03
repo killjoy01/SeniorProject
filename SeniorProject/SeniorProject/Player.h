@@ -9,7 +9,9 @@ protected:
 	int id;
 	The_Sprite sprite;
 	float xvelocity, yvelocity;
-
+	bool OnGround;
+	bool IsJumping;
+	float JumpTime;
 public:
 	Player();
 	Player(const Player &);
@@ -41,7 +43,9 @@ public:
 	void setScaley(float);
 	void setRotation(float);
 
-	void ChangePosition(char keystate,float dt);
+	//void ChangePosition(char keystate,float dt);
+	void changePosition(unsigned char updatevalue,float dt);
+
 
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);

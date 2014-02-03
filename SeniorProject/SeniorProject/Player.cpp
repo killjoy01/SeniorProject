@@ -4,6 +4,8 @@ Player::Player()
 {
 	xvelocity = 0;
 	yvelocity = 0;
+	OnGround = true;
+	IsJumping = false;
 }
 
 Player::Player(const Player & p)
@@ -142,4 +144,61 @@ void Player::setScaley(float y)
 void Player::setRotation(float r)
 {
 	sprite.setRotation(r);
+}
+
+void Player::changePosition(unsigned char updatevalue, float dt)
+{
+   unsigned char temp = updatevalue & 0x1;
+   if (temp > 0x0)
+   {
+       //process S button
+   }
+   updatevalue = updatevalue >> 1;
+   temp = updatevalue & 0x1;
+   if (temp > 0x0)
+   {
+      //process Q button
+   }
+   updatevalue  = updatevalue >> 1;
+   temp = updatevalue & 0x1;
+   if (temp > 0x0)
+   {
+       //process Left movement
+	   setPosition(D3DXVECTOR3(getPosition().x - (updatevalue * 7), getPosition().y, 0.0f));
+   }
+   updatevalue = updatevalue >> 1;
+   temp = updatevalue & 0x1;
+   if (temp > 0x0)
+   {
+      //process right movement
+	  setPosition(D3DXVECTOR3(getPosition().x - (updatevalue * 7), getPosition().y, 0.0f));
+   }
+  updatevalue = updatevalue >> 1;
+  if (updatevalue > 0x0)
+  {
+	  if (OnGround == true)
+	  {
+     //process jumping
+		//setPosition(D3DXVECTOR3(getPosition().x, getPosition().y - yvelocity, 0.0f));
+		IsJumping = true;
+		OnGround = false;
+		JumpTime = dt;
+	  }
+  }
+  if(IsJumping == true)
+   {
+		if(JumpTime < dt+3)
+		{
+		setPosition(D3DXVECTOR3(getPosition().x, getPosition().y - yvelocity, 0.0f));
+		}
+		else
+		{
+		IsJumping = false;
+		}
+   }
+  //process gravity
+  if (OnGround == false && IsJumping == false)
+  {
+  setPosition(D3DXVECTOR3(getPosition().x , getPosition().y + (updatevalue * 7), 0.0f));
+  }
 }
