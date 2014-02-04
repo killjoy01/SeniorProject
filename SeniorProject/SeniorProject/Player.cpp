@@ -187,7 +187,7 @@ void Player::changePosition(unsigned char updatevalue, float dt)
   }
   if(IsJumping == true)
    {
-		if(JumpTime < dt+3)
+		if(JumpTime+1 >= dt)
 		{
 		setPosition(D3DXVECTOR3(getPosition().x, getPosition().y - yvelocity, 0.0f));
 		}
