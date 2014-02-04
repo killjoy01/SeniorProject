@@ -148,6 +148,9 @@ void Player::setRotation(float r)
 
 void Player::changePosition(unsigned char updatevalue, float dt)
 {
+	//if moving down returns collition true
+	//OnGround = true;
+	//IsJumping = false;
    unsigned char temp = updatevalue & 0x1;
    if (temp > 0x0)
    {

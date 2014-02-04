@@ -6,10 +6,14 @@
 class Object : public The_Sprite
 {
 private:
-	bool solid;
+	
 	The_Sprite sprite;
-	void getSprite();
+	bool isSolid;
 	//int type;
 public:
 	Object();
+	~Object();
+	void isGoal();
+	
+	void getSprite();
 };
