@@ -33,10 +33,7 @@ using namespace std;
 
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
-const float movementspeedx = 350.0f;
-const float movementspeedy = 400.0f;
-const float gravity = 400.0f;
-const float jumpingconstant = 150.0f;
+
 
 CDirectXFramework::CDirectXFramework(void)
 {
