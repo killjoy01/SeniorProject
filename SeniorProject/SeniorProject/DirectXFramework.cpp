@@ -415,7 +415,6 @@ bool CDirectXFramework::Update(float & dt)
 		return true;
 		break;
 		return false;
-		}
 	}
 }
 
@@ -590,17 +589,166 @@ D3DXMATRIX & calculateMatrix(int x, int y, float scalex, float scaley, float ang
 	return world;	
 }
 
-unsigned char CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
+unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 {
-	unsigned char updatevalue = 0x0;;
-	if ((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP])
+	unsigned int updatevalue = 0x0;
+	if ((buffer[DIK_RETURN] & 0x80) && !pressed[DIK_RETURN])
 	{
-		if (!pressed[DIK_UP])
+		if (!pressed[DIK_RETURN])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_RETURN] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_RETURN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_RETURN] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_SPACE] & 0x80) && !pressed[DIK_SPACE])
+	{
+		if (!pressed[DIK_SPACE])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_SPACE] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_SPACE] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_SPACE] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_3] & 0x80) && !pressed[DIK_3]) || ((buffer[DIK_0] & 0x80) && !pressed[DIK_0]))
+	{
+		if ((!pressed[DIK_3]) || (!pressed[DIK_0]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_3] = true;
+			pressed[DIK_0] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_3] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_3] = false;
+		}
+		if (buffer[DIK_0] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_0] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_2] & 0x80) && !pressed[DIK_2]) || ((buffer[DIK_9] & 0x80) && !pressed[DIK_9]))
+	{
+		if ((!pressed[DIK_2]) || (!pressed[DIK_9]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_2] = true;
+			pressed[DIK_9] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_2] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_2] = false;
+		}
+		if (buffer[DIK_9] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_9] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_1] & 0x80) && !pressed[DIK_1]) || ((buffer[DIK_8] & 0x80) && !pressed[DIK_8]))
+	{
+		if ((!pressed[DIK_1]) || (!pressed[DIK_8]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_1] = true;
+			pressed[DIK_8] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_1] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_1] = false;
+		}
+		if (buffer[DIK_8] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_8] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_DOWN] & 0x80) && !pressed[DIK_DOWN]) || ((buffer[DIK_S] & 0x80) && !pressed[DIK_S]))
+	{
+		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_DOWN] = true;
+			pressed[DIK_s] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_DOWN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_DOWN] = false;
+		}
+		if (buffer[DIK_S] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_S] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]))
+	{
+		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
 			if (p->getPosition().y < jumpingconstant)
 			{
 				updatevalue = updatevalue | 0x1;
 				pressed[DIK_UP] = true;
+				pressed[DIK_W] = true;
 			}
 			else
 			{
@@ -618,55 +766,24 @@ unsigned char CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		{
 			pressed[DIK_UP] = false;
 		}
+		if (buffer[DIK_W] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_W] = false;
+		}
 	}
 	updatevalue = updatevalue << 1;
-	if (buffer[DIK_RIGHT] & 0x80)
+	if ((buffer[DIK_RIGHT] & 0x80) && buffer[DIK_A] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
 	}
 	updatevalue = updatevalue << 1;
-	if (buffer[DIK_LEFT] & 0x80)
+	if ((buffer[DIK_LEFT] & 0x80) && buffer[DIK_D] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
-	}
-	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_Q] & 0x80) && !pressed[DIK_Q])
-	{
-		if (!pressed[DIK_Q])
-		{
-			updatevalue = updatevalue | 0x1;
-		}
-	}
-	else
-	{
-		//press key resetter
-
-		if (buffer[DIK_Q] & 0x80)
-		{}
-		else
-		{
-			pressed[DIK_Q] = false;
-		}
-	}
-	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_S] & 0x80) && !pressed[DIK_S])
-	{
-		if (!pressed[DIK_S])
-		{
-			updatevalue = updatevalue | 0x1;
-		}
-	}
-	else
-	{
-		//press key resetter
-
-		if (buffer[DIK_S] & 0x80)
-		{}
-		else
-		{
-			pressed[DIK_S] = false;
-		}
-	}
+	}	
+	
 	return updatevalue;
 }
 
