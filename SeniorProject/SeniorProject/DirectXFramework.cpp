@@ -299,8 +299,7 @@ bool CDirectXFramework::Update(float & dt)
 
 		break;
 	case INIT:
-		\
-			break;
+		break;
 	case PROGRAM:
 		playingmusic = false;
 		channel->isPlaying(&playingmusic);
