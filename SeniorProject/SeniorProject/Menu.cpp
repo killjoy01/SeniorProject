@@ -9,7 +9,7 @@ void Menu::initButtons()
 {
 	for(int i = 0; i < NUMSTATES; ++i)
 	{
-	buttons.insert(MenuButton(i,false);
+	buttons.insert(MenuButton(i,false));
 	}
 }
 

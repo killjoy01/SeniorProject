@@ -8,21 +8,13 @@ enum states{LEVELS, CREDITS, QUIT, NUMSTATES};
 
 enum keys{UP = 4, DOWN = 8, SELECT = 384};
 
-struct RECT
-{
-	float rectX, rectY, width, height;
-
-	RECT():rectX(0),rectY(0),width(0),height(0){};
-	RECT(float x, float y, float w, float h):rectX(x),rectY(y), width(w), height(h){};
-};
-
 struct MenuButton
 {
 	RECT rect;
 	int state; 
 	bool isSelected;
 
-	MenuButton():state(NONE),isSelected(false){};
+	MenuButton():state(LEVELS),isSelected(false){};
 	MenuButton(int STATE, bool selected):state(STATE), isSelected(selected){};
 };
 
