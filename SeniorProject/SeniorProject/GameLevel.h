@@ -63,7 +63,7 @@ public:
 	
 	
 
-	void LoadMap (char * filename);
+	void LoadMap (char * filename, The_Sprite *);
 	void MapPointers (char** map);
 	void DrawMap();
 

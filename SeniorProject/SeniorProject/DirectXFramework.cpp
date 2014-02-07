@@ -294,7 +294,14 @@ bool CDirectXFramework::Update(float & dt)
 	switch(the_state)
 	{
 	case MENU:
-
+		playingmusic = false;
+		channel->isPlaying(&playingmusic);
+		if (!playingmusic)
+		{
+			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+		}
+		updatevalue = keyDown2(buffer, gameboard.getPlayer(), dt);
+		menu.updateState(updatevalue, dt);
 		break;
 	case INIT:
 \
@@ -308,9 +315,7 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 		//gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + (gravity / dt));		
-		gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x,
-										  (gameboard.getPlayer()->getPosition().y + 
-										  (gameboard.getPlayer()->getYVelocity())), 0.0f));
+		gameboard.getPlayer()->updateState(updatevalue, dt);
 
 		//{
 		//	int a_v = gameboard.getLevel(gameboard.getCurrentLevel())->getEnemySize();
@@ -388,33 +393,25 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 
 	if (the_state == MENU)
 	{
+		float numFrames = 0.0f;
+		float timeElapsed = 0.0f;
+		float mFPS = 0.0f;
+
 		D3DXMATRIX world;
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
 
-		m_pD3DDevice->BeginScene();
-		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 
-		m_pD3DSprite->End();
-
-		m_pD3DDevice->EndScene();
-
 		m_pD3DDevice->BeginScene();
-
 		m_pD3DSprite->Begin(NULL);
 
-		RECT displayclip;
-		displayclip.top = 250;
-		displayclip.left = 300;
-		displayclip.bottom = 640;
-		displayclip.right = 800;
+		menu.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
 		m_pD3DSprite->End();
 
-		m_pD3DDevice->EndScene();
+		m_pD3DDevice->EndScene();		
 
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 
@@ -465,8 +462,6 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->Begin(NULL);
 
 		gameboard.draw(m_pD3DDevice, m_pD3DSprite, &world);
-
-
 
 		m_pD3DSprite->End();
 
@@ -699,7 +694,7 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		}
 	}
 	updatevalue = updatevalue << 1;
-	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]))
+	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_W] & 0x80) && !pressed[DIK_W]))
 	{
 		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
@@ -713,6 +708,119 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 			{
 				updatevalue = updatevalue | 0x1;
 			}
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_UP] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_UP] = false;
+		}
+		if (buffer[DIK_W] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_W] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_RIGHT] & 0x80) && buffer[DIK_A] & 0x80)
+	{
+		updatevalue = updatevalue | 0x1;
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_LEFT] & 0x80) && buffer[DIK_D] & 0x80)
+	{
+		updatevalue = updatevalue | 0x1;
+	}	
+	
+	return updatevalue;
+}
+
+unsigned int CDirectXFramework::keyDown2(BYTE buffer[], Player * p, float dt)
+{
+	unsigned int updatevalue = 0x0;
+	if ((buffer[DIK_RETURN] & 0x80) && !pressed[DIK_RETURN])
+	{
+		if (!pressed[DIK_RETURN])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_RETURN] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_RETURN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_RETURN] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_SPACE] & 0x80) && !pressed[DIK_SPACE])
+	{
+		if (!pressed[DIK_SPACE])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_SPACE] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_SPACE] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_SPACE] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_DOWN] & 0x80) && !pressed[DIK_DOWN]) || ((buffer[DIK_S] & 0x80) && !pressed[DIK_S]))
+	{
+		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_DOWN] = true;
+			pressed[DIK_S] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_DOWN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_DOWN] = false;
+		}
+		if (buffer[DIK_S] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_S] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_W] & 0x80) && !pressed[DIK_W]))
+	{
+		if ((!pressed[DIK_UP]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_UP] = true;
+			pressed[DIK_W] = true;
 		}
 	}
 	else

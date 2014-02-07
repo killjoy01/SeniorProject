@@ -38,7 +38,7 @@ void GameLevel::init(char* filename, Player * p)
 void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h)
 {
 	LoadMap(filename);
-	MapPointers(charArray.getMap());
+	//MapPointers(charArray.getMap());
 	player->setObjectList(&objects);
 }
 
@@ -81,13 +81,21 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 		{
 			Object * o = new Object();
 			o->setPosition(D3DXVECTOR3(width * i, height * j, 0.0f));
-			o->setTexture(bgtexture->getTexture());
 			o->setWidth(32);
 			o->setHeight(32);
 			o->setScalex(1.0f);
 			o->setScaley(1.0f);
 			o->setRotation(0.0f);
 			o->setRect();
+			if (charArray[i][j] == '#')
+			{
+				o->setID(0);
+				o->setTexture(bgtexture->getTexture());
+			}
+			else if (charArray[i][j] == 'G')
+			{
+				o->setID(3);
+			}
 			objects.push_back(*o);
 		}
 	}
@@ -97,23 +105,23 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 
 }//end of loadFromFile
 
-void GameLevel::MapPointers (char** map)
-{
-	for (int j = 0; j < width ; j++)
-	{
-		for (int i = 0; i < height ; i++)
-		{
-
-			switch(map[i][j])
-			{
-			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
-			case 'P': drawnLevel[i][j] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
-						  (float)(player->getHeight() * j), 0.0f)); break;
-			default: drawnLevel[i][j] = new The_Sprite;break;
-			};
-		}
-	}
-}
+//void GameLevel::MapPointers (char** map)
+//{
+//	for (int j = 0; j < width ; j++)
+//	{
+//		for (int i = 0; i < height ; i++)
+//		{
+//
+//			switch(map[i][j])
+//			{
+//			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
+//			case 'P': drawnLevel[i][j] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
+//						  (float)(player->getHeight() * j), 0.0f)); break;
+//			default: drawnLevel[i][j] = new The_Sprite;break;
+//			};
+//		}
+//	}
+//}
 void GameLevel::DrawMap()
 {
 	for(int i = 0; i < width; ++i)
@@ -144,10 +152,10 @@ void GameLevel::release()
 }
 //there is a getter for getlevel allready on line 101 in Game world
 //getEnemy getObject are not working properly i will keep working on it but i think the rest are ok
-Enemy * GameLevel::getEnemy(int Ene)
-{
-//return enemy of place int
-return &enemies[Ene];
+//Enemy * GameLevel::getEnemy(int Ene)
+//{
+////return enemy of place int
+//return &enemies[Ene];
 }
 Object * GameLevel::getObject(int obj)
 {

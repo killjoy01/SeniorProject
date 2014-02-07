@@ -121,5 +121,5 @@ GameLevel * GameWorld::getCurrentLevel()
 
 int GameWorld::checkForCollision()
 {
-	levels[Active].checkForCollision();
+	return levels[Active].checkForCollision();
 }
