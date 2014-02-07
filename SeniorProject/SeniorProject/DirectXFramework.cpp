@@ -254,7 +254,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//gameboard.getPlayer()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getPlayer()->setRect();
 
-	gameboard.getLevel(0)->init("BASIC_MAP.txt", gameboard.getPlayer());
+	gameboard.getLevel(0)->init("BASIC_MAP.txt", gameboard.getLevel(0)->getBlock(), gameboard.getPlayer());
 
 	for (int i = 0; i < 256; i++)
 	{
@@ -315,7 +315,7 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 		//gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + (gravity / dt));		
-		gameboard.getPlayer()->updateState(updatevalue, dt);
+		gameboard.getPlayer()->UpdateState(updatevalue, dt);
 
 		//{
 		//	int a_v = gameboard.getLevel(gameboard.getCurrentLevel())->getEnemySize();
@@ -698,7 +698,7 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	{
 		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
-			if (p->getPosition().y < jumpingconstant)
+			if (p->getPosition().y < JumpingConstant)
 			{
 				updatevalue = updatevalue | 0x1;
 				pressed[DIK_UP] = true;

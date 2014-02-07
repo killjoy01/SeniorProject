@@ -21,11 +21,11 @@ GameLevel::GameLevel()
 GameLevel::~GameLevel()
 {}
 
-void GameLevel::init(char* filename, Player * p)
+void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
 {
 	player = p;
 	charArray.load(filename);
-	LoadMap(filename);
+	LoadMap(filename, bgtexture);
 	MapPointers(charArray.getMap());
 	DrawMap();
 
@@ -37,7 +37,7 @@ void GameLevel::init(char* filename, Player * p)
 
 void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h)
 {
-	LoadMap(filename);
+//	LoadMap(filename);
 	//MapPointers(charArray.getMap());
 	player->setObjectList(&objects);
 }
@@ -103,7 +103,7 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 
 
 
-}//end of loadFromFile
+//end of loadFromFile
 
 //void GameLevel::MapPointers (char** map)
 //{
@@ -156,7 +156,6 @@ void GameLevel::release()
 //{
 ////return enemy of place int
 //return &enemies[Ene];
-}
 Object * GameLevel::getObject(int obj)
 {
 //return object of place int
@@ -187,16 +186,16 @@ int GameLevel::checkForCollision()
 	for (int i = 0; i < objects.size(); ++i)
 	{
 		int statememory = 0;
-		if (player->checkForCollision(o))
+		if (player->checkForCollision(objects[i]))
 		{
 			if (objects[i].getID() == 0)
 			{
 				D3DXVECTOR3 resetPosition = D3DXVECTOR3(oldpositionx, oldpositiony, 0.0f);
 				player->setPosition(resetPosition);
 			}
-			if (objects[i]->getID() == 3)
+			if (objects[i].getID() == 3)
 			{
-				return objects[i]->getID();
+				return objects[i].getID();
 			}
 		}
 	}

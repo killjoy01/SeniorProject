@@ -8,7 +8,7 @@ using namespace std;
 
 GameWorld::GameWorld()
 {
-	currentLevel = 0;
+//	currentLevel = 0;
 
 }
 
