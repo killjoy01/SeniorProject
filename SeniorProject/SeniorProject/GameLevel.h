@@ -40,7 +40,7 @@ public:
 	void setPlayer(Player *);
 	int getActive();
 	void setActive(int);
-	bool checkForCollision(D3DXVECTOR3);
+	int checkForCollision();
 	void setBackground(The_Sprite*);
 	Enemy GameLevel::getEnemy(int);
 	int getEnemySize();
