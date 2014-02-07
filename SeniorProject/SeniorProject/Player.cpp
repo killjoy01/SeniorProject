@@ -44,7 +44,10 @@ Player & Player::operator = (const Player & p)
 	this->Player::Player(p);
 	return *this;
 }
-
+void  Player::setObjectList(Object &objects)
+{
+	ObjectList = &objects;
+}
 
 void Player::UpdateState(unsigned char updatevalue, float dt)
 {

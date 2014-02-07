@@ -1,9 +1,9 @@
 //JJ
 #pragma once
-
+#include <vector>
 #include "sprite.h"
 #include "object.h"
-
+using namespace std;
 class Player: public The_Sprite
 {
 protected:
@@ -18,7 +18,7 @@ protected:
 	bool PowerActive;
 	float LastChangedTimer;
 	int SelectedPower;
-	//vector<The_Sprite> ObjectList;
+	vector<Object> ObjectList;
 
 	//const float MovementSpeedX;// = 96.0f;
 	//const float MovementSpeedY;// = 96.0f;
@@ -38,9 +38,8 @@ public:
 	~Player();
 	void init(int);
 	Player & operator = (const Player &);
-	int getID();
-	void setID(int);
 
+	void  setObjectList(Object &objects);
 	void PowerOne(unsigned char updatevalue,float dt);
 	void PowerTwo(unsigned char updatevalue,float dt);
 	void PowerThree(unsigned char updatevalue,float dt);

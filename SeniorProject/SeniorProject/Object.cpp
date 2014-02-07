@@ -8,7 +8,7 @@ Object::Object()
 
 int Object::CollisionCheck(float x1,float y1,float x2,float y2)
 {
-	 //   if(y1 >= y2 && (y1 + PLAYER_WIDTH) <= (y2 + PLAYER_WIDTH))
+	    //if(y1 >= y2 && (y1 + PLAYER_WIDTH) <= (y2 + PLAYER_WIDTH))
 		//{
   //      if(x1 >= x2 && (x1 + PLAYER_HEIGHT) <= (x2 + PLAYER_HEIGHT))
   //      {
@@ -24,6 +24,7 @@ int Object::CollisionCheck(float x1,float y1,float x2,float y2)
 	//return 3;
 }
 //Player::SetObjectList(vector*   ){}
+
 int Object::getID()
 {
 	return ID;
