@@ -34,7 +34,7 @@ private:
 public: 
 	GameLevel();
 	~GameLevel();
-	void init(char* filename, Player * p);
+	void init(char* filename, The_Sprite *, Player * p);
 	void init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h);
 	Player * getPlayer();
 	void setPlayer(Player *);

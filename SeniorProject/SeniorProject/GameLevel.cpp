@@ -28,7 +28,7 @@ void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
 	LoadMap(filename, bgtexture);
 	MapPointers(charArray.getMap());
 	DrawMap();
-
+	player->setObjectList(&objects);
 
 	//for(int i = 0; i < width; ++i)
 	//	for(int j = 0; j < height; ++j)
