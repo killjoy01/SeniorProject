@@ -38,7 +38,47 @@ void  Player::setObjectList(vector<Object> &objects)
 {
 	ObjectList = objects;
 }
-
+int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> & ObjectList)
+{
+	for(int i=0; i< ObjectList.size(); i++) 
+	{
+		if(x1 <= ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x )
+		{
+			if(y1 >= ObjectList[i].getPosition().y && y2 <= ObjectList[i].getPosition().y)
+			{
+				return ObjectList[i].getID();
+			}
+		}
+	
+	if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside())
+		{
+			if(y1 >=  ObjectList[i].getPosition().y && y2 <=  ObjectList[i].getPosition().y)
+			{
+				return ObjectList[i].getID();
+			}
+		}		
+	
+	if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside() )
+		{
+			if(y1 >= ObjectList[i].bottom()  && y2 <= ObjectList[i].bottom())
+			{
+				return ObjectList[i].getID();
+			}
+		}		
+	
+	if(x1 <=  ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x)
+		{
+			if(y1 >= ObjectList[i].bottom() && y2 <= ObjectList[i].bottom())
+			{
+				return ObjectList[i].getID();
+			}
+		}
+	}
+	//return 0;
+	//return 1;
+	//return 2;
+	//return 3;
+}
 void Player::UpdateState(unsigned char updatevalue, float dt)
 {
 	//movment
