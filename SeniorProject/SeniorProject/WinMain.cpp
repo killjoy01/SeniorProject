@@ -30,6 +30,8 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 640
+const float PLAYER_WIDTH = 32;
+const float PLAYER_HEIGHT =32;
 #define WINDOW_TITLE L"BC-105: Great Escape"
 
 

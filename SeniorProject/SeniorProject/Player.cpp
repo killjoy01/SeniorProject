@@ -149,8 +149,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	}
 	if((updatevalue & P_On)!=false)
 	{
-		if(LastChangedTimer >=dt+1)
-		{
+		//if(LastChangedTimer >=dt+1)
+		//{
 			if(PowerActive !=false)
 			{
 				PowerActive = false;
@@ -160,7 +160,7 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 			{
 				PowerActive = true;
 			}
-		}
+		//}
 	}
 	//0 no collition
 	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 0){}

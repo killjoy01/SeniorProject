@@ -9,8 +9,11 @@ private:
 	
 	The_Sprite sprite;
 	bool isSolid;
+	int ID;
 	//int type;
 public:
+	int getID();
+	void setID(int OId);
 	Object();
 	~Object();
 	void isGoal();

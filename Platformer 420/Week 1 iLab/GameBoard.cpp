@@ -39,6 +39,7 @@ void GameBoard::init()
 
 GameBoard & GameBoard::operator = (const GameBoard & g)
 {
+	return Null;
 }
 
 Player * GameBoard::getPlayer()
