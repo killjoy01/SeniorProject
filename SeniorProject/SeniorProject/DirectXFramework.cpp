@@ -33,10 +33,7 @@ using namespace std;
 
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
-const float movementspeedx = 350.0f;
-const float movementspeedy = 400.0f;
-const float gravity = 400.0f;
-const float jumpingconstant = 150.0f;
+
 
 CDirectXFramework::CDirectXFramework(void)
 {
@@ -283,6 +280,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 bool CDirectXFramework::Update(float & dt)
 {
+	updatevalue = 0x0;
 	bool playingmusic = false;
 	long evCode;
 	LONG_PTR eventParam1, eventParam2;
@@ -290,17 +288,24 @@ bool CDirectXFramework::Update(float & dt)
 	m_Mouse->Acquire();
 	m_Keyboard->GetDeviceState(sizeof(buffer), (void **)&buffer);
 	m_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void **)&m_MouseState);
-	int oldpositionx = gameboard.getPlayer()->getPosition().x;
-	int oldpositiony = gameboard.getPlayer()->getPosition().y;
-	Object * o;
+
+	Object * o = NULL;
+	int statememory;
 	switch(the_state)
 	{
 	case MENU:
-
+		playingmusic = false;
+		channel->isPlaying(&playingmusic);
+		if (!playingmusic)
+		{
+			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+		}
+		updatevalue = keyDown2(buffer, gameboard.getPlayer(), dt);
+		menu.updateState(updatevalue, dt);
 		break;
 	case INIT:
-		\
-			break;
+\
+		break;
 	case PROGRAM:
 		playingmusic = false;
 		channel->isPlaying(&playingmusic);
@@ -310,41 +315,43 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 		//gameboard.getPlayer()->setYVelocity(gameboard.getPlayer()->getYVelocity() + (gravity / dt));		
-		gameboard.getPlayer()->changePosition(updatevalue, dt);
-		//for (int i = 0; i < gameboard.getCurrentLevel()->getEnemySize(); ++i)
+		gameboard.getPlayer()->updateState(updatevalue, dt);
+
+		//{
+		//	int a_v = gameboard.getLevel(gameboard.getCurrentLevel())->getEnemySize();
+		//	for (int i = 0; i < 1; i++)
+		//	{}
+		//}
+		//for (int i = 0; i < gameboard.getLevel(gameboard.getCurrentLevel())->getEnemySize(); ++i)
 		//{
 		//	//scrolling code base, leave in for reference
 		//	//gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, i)->getPosition().x - (updatevalue * 7),
 		//	//gameboard.getLevel(gameboard.getCurrentLevel())->getgetSprite(0, i)->getPosition().y, 0.0f));
-		//	
-		//	//Enemy * e = gameboard.getLevel(getCurrentLevel())->getEnemy(i);
-		//	Enemy * e = &gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i);
-		//	
+		//	The_Sprite * e = (The_Sprite *)gameboard.getLevel(gameboard.getCurrentLevel())->getEnemy(i);
 		//	if (gameboard.getPlayer()->checkForCollision(e))
 		//	{
 		//		if (((int)gameboard.getPlayer()->rightside() >= (int)e->getPosition().x) &&
-		//			((int)gameboard.getPlayer()->getPosition().x <= (int)e->rightside()))
+		//		((int)gameboard.getPlayer()->getPosition().x <= (int)e->rightside()))
 		//		{
 		//			gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-		//			//for (int j = 0; j < gameboard.getSize(0); ++j)
-		//			//{
+		//		//for (int j = 0; j < gameboard.getSize(0); ++j)
+		//		//{
 		//			//more scrolling code base
 		//			//gameboard.getSprite(0, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(0, j)->getPosition().x + (updatevalue * 7),
 		//			//gameboard.getSprite(0, j)->getPosition().y, 0.0f));
 		//			//}
 		//			//for (int j = 0; j < gameboard.getSize(1); ++j)
-		//			//{
-		//			//gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-		//			//gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-		//			//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-		//			//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-		//			//}
+		//		//{
+		//		//gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
+		//		//gameboard.getSprite(1, j)->getPosition().y, 0.0f));
+		//		//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
+		//		//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
+		//		//}
 		//		}
-
 		//		if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
 		//		{
 		//			if (((int)gameboard.getPlayer()->rightside() > (int)e->getPosition().x) &&
-		//				((int)gameboard.getPlayer()->getPosition().x < (int)e->rightside()))
+		//			((int)gameboard.getPlayer()->getPosition().x < (int)e->rightside()))
 		//			{
 		//				gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
 		//				gameboard.getPlayer()->setYVelocity(0.0f);
@@ -352,61 +359,13 @@ bool CDirectXFramework::Update(float & dt)
 		//		}
 		//	}
 		//}
-		for (int i = 0; i < gameboard.getCurrentLevel()->getObjectSize(); ++i)
+		statememory = gameboard.checkForCollision();
+		if (statememory == 3)
 		{
-			//Object * o = gameboard.getLevel(getCurrentLevel())->getObject(i);
-			o = gameboard.getCurrentLevel()->getObject(i);
-			
-			//scrolling base
-			//gameboard.getSprite(1, i)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, i)->getPosition().x - (updatevalue * 7),
-			//gameboard.getSprite(1, i)->getPosition().y, 0.0f));
-			if (gameboard.getPlayer()->checkForCollision(o))
+			if (buffer[DIK_UP] & 0x80)
 			{
-				if (o->isSolid())
-				{
-					D3DXVECTOR3 resetposition = D3DXVECTOR3(oldpositionx, oldpositiony, 0.0f);
-					gameboard.getPlayer()->setPosition(resetposition);
-				}
-			//	if (((int)gameboard.getPlayer()->rightside() >= (int)o->getPosition().x) &&
-			//		((int)gameboard.getPlayer()->getPosition().x <= (int)o->rightside()))
-			//	{
-			//		gameboard.getPlayer()->setPosition(D3DXVECTOR3((float)oldpositionx, gameboard.getPlayer()->getPosition().y, 0.0f));
-			//		for (int j = 0; j < gameboard.getSize(0); ++j)
-			//		{
-			//			o->setPosition(D3DXVECTOR3(o->getPosition().x /*+ (updatevalue * 7)*/,
-			//				o->getPosition().y, 0.0f));
-			//		}
-			//		for (int j = 0; j < gameboard.getSize(1); ++j)
-			//		{
-			//			//more scrolling code base
-			//			//gameboard.getSprite(1, j)->setPosition(D3DXVECTOR3(gameboard.getSprite(1, j)->getPosition().x + (updatevalue * 7),
-			//			//gameboard.getSprite(1, j)->getPosition().y, 0.0f));
-			//		}
-			//		// even more scrolling code
-			//		//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x + (updatevalue * 7),
-			//		//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-			//	}
-			//	if (gameboard.getPlayer()->getYVelocity() > 0.0002f)
-			//	{
-			//		if (((int)gameboard.getPlayer()->rightside() > o->getPosition().x) &&
-			//			((int)gameboard.getPlayer()->getPosition().x < o->rightside()))
-			//		{
-			//			gameboard.getPlayer()->setPosition(D3DXVECTOR3(gameboard.getPlayer()->getPosition().x, (float)oldpositiony, 0.0f));
-			//			gameboard.getPlayer()->setYVelocity(0.0f);
-			//		}
-			//	}
-			//}
-			//gah, more scrolling code
-			//gameboard.getSprite(2, 0)->setPosition(D3DXVECTOR3(gameboard.getSprite(2, 0)->getPosition().x - (updatevalue * 7),
-			//gameboard.getSprite(2, 0)->getPosition().y, 0.0f));
-				if (o->isGoal())
-				{
-					if (buffer[DIK_UP] & 0x80)
-					{
-						MessageBox(NULL, L"You win!", L"", MB_OK);
-						gameboard.clearVectors();
-					}
-				}
+				MessageBox(NULL, L"You win!", L"", MB_OK);
+				gameboard.clearVectors();
 			}
 		}
 		break;
@@ -418,9 +377,9 @@ bool CDirectXFramework::Update(float & dt)
 	case QUIT:
 		return true;
 		break;
-		return false;
-		}
 	}
+	return false;
+
 }
 
 void CDirectXFramework::Render(HWND & hWnd, float & dt)
@@ -434,33 +393,25 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 
 	if (the_state == MENU)
 	{
+		float numFrames = 0.0f;
+		float timeElapsed = 0.0f;
+		float mFPS = 0.0f;
+
 		D3DXMATRIX world;
 		// If the device was not created successfully, return
 		if(!m_pD3DDevice)
 			return;
 
-		m_pD3DDevice->BeginScene();
-		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 
-		m_pD3DSprite->End();
-
-		m_pD3DDevice->EndScene();
-
 		m_pD3DDevice->BeginScene();
-
 		m_pD3DSprite->Begin(NULL);
 
-		RECT displayclip;
-		displayclip.top = 250;
-		displayclip.left = 300;
-		displayclip.bottom = 640;
-		displayclip.right = 800;
+		menu.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
 		m_pD3DSprite->End();
 
-		m_pD3DDevice->EndScene();
+		m_pD3DDevice->EndScene();		
 
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 
@@ -511,8 +462,6 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->Begin(NULL);
 
 		gameboard.draw(m_pD3DDevice, m_pD3DSprite, &world);
-
-
 
 		m_pD3DSprite->End();
 
@@ -594,17 +543,166 @@ D3DXMATRIX & calculateMatrix(int x, int y, float scalex, float scaley, float ang
 	return world;	
 }
 
-unsigned char CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
+unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 {
-	unsigned char updatevalue = 0x0;;
-	if ((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP])
+	unsigned int updatevalue = 0x0;
+	if ((buffer[DIK_RETURN] & 0x80) && !pressed[DIK_RETURN])
 	{
-		if (!pressed[DIK_UP])
+		if (!pressed[DIK_RETURN])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_RETURN] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_RETURN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_RETURN] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_SPACE] & 0x80) && !pressed[DIK_SPACE])
+	{
+		if (!pressed[DIK_SPACE])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_SPACE] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_SPACE] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_SPACE] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_3] & 0x80) && !pressed[DIK_3]) || ((buffer[DIK_0] & 0x80) && !pressed[DIK_0]))
+	{
+		if ((!pressed[DIK_3]) || (!pressed[DIK_0]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_3] = true;
+			pressed[DIK_0] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_3] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_3] = false;
+		}
+		if (buffer[DIK_0] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_0] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_2] & 0x80) && !pressed[DIK_2]) || ((buffer[DIK_9] & 0x80) && !pressed[DIK_9]))
+	{
+		if ((!pressed[DIK_2]) || (!pressed[DIK_9]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_2] = true;
+			pressed[DIK_9] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_2] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_2] = false;
+		}
+		if (buffer[DIK_9] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_9] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_1] & 0x80) && !pressed[DIK_1]) || ((buffer[DIK_8] & 0x80) && !pressed[DIK_8]))
+	{
+		if ((!pressed[DIK_1]) || (!pressed[DIK_8]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_1] = true;
+			pressed[DIK_8] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_1] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_1] = false;
+		}
+		if (buffer[DIK_8] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_8] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_DOWN] & 0x80) && !pressed[DIK_DOWN]) || ((buffer[DIK_S] & 0x80) && !pressed[DIK_S]))
+	{
+		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_DOWN] = true;
+			pressed[DIK_S] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_DOWN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_DOWN] = false;
+		}
+		if (buffer[DIK_S] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_S] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_W] & 0x80) && !pressed[DIK_W]))
+	{
+		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
 			if (p->getPosition().y < jumpingconstant)
 			{
 				updatevalue = updatevalue | 0x1;
 				pressed[DIK_UP] = true;
+				pressed[DIK_W] = true;
 			}
 			else
 			{
@@ -622,48 +720,92 @@ unsigned char CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		{
 			pressed[DIK_UP] = false;
 		}
-	}
-	updatevalue = updatevalue << 1;
-	if (buffer[DIK_RIGHT] & 0x80)
-	{
-		updatevalue = updatevalue | 0x1;
-	}
-	updatevalue = updatevalue << 1;
-	if (buffer[DIK_LEFT] & 0x80)
-	{
-		updatevalue = updatevalue | 0x1;
-	}
-	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_Q] & 0x80) && !pressed[DIK_Q])
-	{
-		if (!pressed[DIK_Q])
-		{
-			updatevalue = updatevalue | 0x1;
-		}
-	}
-	else
-	{
-		//press key resetter
-
-		if (buffer[DIK_Q] & 0x80)
+		if (buffer[DIK_W] & 0x80)
 		{}
 		else
 		{
-			pressed[DIK_Q] = false;
+			pressed[DIK_W] = false;
 		}
 	}
 	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_S] & 0x80) && !pressed[DIK_S])
+	if ((buffer[DIK_RIGHT] & 0x80) && buffer[DIK_A] & 0x80)
 	{
-		if (!pressed[DIK_S])
+		updatevalue = updatevalue | 0x1;
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_LEFT] & 0x80) && buffer[DIK_D] & 0x80)
+	{
+		updatevalue = updatevalue | 0x1;
+	}	
+	
+	return updatevalue;
+}
+
+unsigned int CDirectXFramework::keyDown2(BYTE buffer[], Player * p, float dt)
+{
+	unsigned int updatevalue = 0x0;
+	if ((buffer[DIK_RETURN] & 0x80) && !pressed[DIK_RETURN])
+	{
+		if (!pressed[DIK_RETURN])
 		{
 			updatevalue = updatevalue | 0x1;
+			pressed[DIK_RETURN] = true;
 		}
 	}
 	else
 	{
 		//press key resetter
 
+		if (buffer[DIK_RETURN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_RETURN] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_SPACE] & 0x80) && !pressed[DIK_SPACE])
+	{
+		if (!pressed[DIK_SPACE])
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_SPACE] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_SPACE] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_SPACE] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_DOWN] & 0x80) && !pressed[DIK_DOWN]) || ((buffer[DIK_S] & 0x80) && !pressed[DIK_S]))
+	{
+		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_DOWN] = true;
+			pressed[DIK_S] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_DOWN] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_DOWN] = false;
+		}
 		if (buffer[DIK_S] & 0x80)
 		{}
 		else
@@ -671,6 +813,44 @@ unsigned char CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 			pressed[DIK_S] = false;
 		}
 	}
+	updatevalue = updatevalue << 1;
+	if (((buffer[DIK_UP] & 0x80) && !pressed[DIK_UP]) || ((buffer[DIK_W] & 0x80) && !pressed[DIK_W]))
+	{
+		if ((!pressed[DIK_UP]) || (!pressed[DIK_W]))
+		{
+			updatevalue = updatevalue | 0x1;
+			pressed[DIK_UP] = true;
+			pressed[DIK_W] = true;
+		}
+	}
+	else
+	{
+		//press key resetter
+
+		if (buffer[DIK_UP] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_UP] = false;
+		}
+		if (buffer[DIK_W] & 0x80)
+		{}
+		else
+		{
+			pressed[DIK_W] = false;
+		}
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_RIGHT] & 0x80) && buffer[DIK_A] & 0x80)
+	{
+		updatevalue = updatevalue | 0x1;
+	}
+	updatevalue = updatevalue << 1;
+	if ((buffer[DIK_LEFT] & 0x80) && buffer[DIK_D] & 0x80)
+	{
+		updatevalue = updatevalue | 0x1;
+	}	
+	
 	return updatevalue;
 }
 

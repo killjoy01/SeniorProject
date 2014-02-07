@@ -1,11 +1,27 @@
 #include "Player.h"
 
+const float MovementSpeedX = 96.0f;
+const float MovementSpeedY = 96.0f;
+const float Gravity = 40.0f;
+const float JumpingConstant = 80.0f;	
+const unsigned char M_LEFT = 1;
+const unsigned char M_RIGHT = 2;
+const unsigned char M_JUMP = 4;
+const unsigned char P1 = 8;
+const unsigned char P2 = 16;
+const unsigned char P3 = 32;
+const unsigned char P_On = 64;
+
 Player::Player()
 {
 	xvelocity = 0;
 	yvelocity = 0;
 	OnGround = true;
 	IsJumping = false;
+	PowerActive = false;
+	LastChangedTimer = 0;
+	SelectedPower = 1;
+
 }
 
 Player::Player(const Player & p)
@@ -29,176 +45,272 @@ Player & Player::operator = (const Player & p)
 	return *this;
 }
 
-float Player::getXVelocity()
+
+void Player::UpdateState(unsigned char updatevalue, float dt)
 {
-	return xvelocity;
+	//movment
+	switch(SelectedPower)
+	{
+	case 1:
+		PowerOne(updatevalue,dt);
+		break;
+	case 2:
+		PowerTwo(updatevalue,dt);
+		break;
+	case 3:
+		PowerThree(updatevalue,dt);
+		break;
+	}
 }
 
-float Player::getYVelocity()
+void Player::PowerOne(unsigned char updatevalue,float dt) 
 {
-	return yvelocity;
-}
+	float oldX = position.x;
+	float oldY = position.y;
+	float PX1 = position.x;
+	float PY1 = position.y;
+	float PX2 =(position.x + rect.right);
+	float PY2 = (position.y + rect.bottom);
 
-void Player::setXVelocity(float x)
-{
-	xvelocity = x;
-}
-
-void Player::setYVelocity(float y)
-{
-	yvelocity = y;
-}
-
-IDirect3DTexture9* Player::getTexture()
-{
-	return sprite.getTexture();
-}
-
-void Player::setTexture(IDirect3DTexture9* t)
-{
-	sprite.setTexture(t);
-}
-
-D3DXVECTOR3 Player::getPosition()
-{
-	return sprite.getPosition();
-}
-
-void Player::setPosition(D3DXVECTOR3 v)
-{
-	sprite.setPosition(v);
-}
-
-void Player::setWidth(int w)
-{
-	sprite.setWidth(w);
-}
-
-int Player::getWidth()
-{
-	return sprite.getWidth();
-}
-
-void Player::setHeight(int h)
-{
-	sprite.setHeight(h);
-}
-
-int Player::getHeight()
-{
-	return sprite.getHeight();
-}
-
-void Player::setRect()
-{
-	sprite.setRect();
-}
-
-RECT & Player::getRect()
-{
-	return sprite.getRect();
-}
-
-bool Player::checkForCollision(const The_Sprite & a_s)
-{
-	return sprite.checkForCollision(a_s);
-}
-
-int Player::rightside()
-{
-	return sprite.rightside();
-}
-
-int Player::bottom()
-{
-	return sprite.bottom();
-}
-
-void Player::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
-{
-
-	sprite.draw(a_device, a_sprite, a_world);
-}
-
-void Player::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world, const D3DXVECTOR3 *pos)
-{
-
-	sprite.draw(a_device, a_sprite, a_world, pos);
-}
-
-The_Sprite* Player::getSpritePointer()
-{
-	return &sprite;
-}
-
-void Player::setScalex(float x)
-{
-	sprite.setScalex(x);
-}
-
-void Player::setScaley(float y)
-{
-	sprite.setScaley(y);
-}
-
-void Player::setRotation(float r)
-{
-	sprite.setRotation(r);
-}
-
-void Player::changePosition(unsigned char updatevalue, float dt)
-{
-   unsigned char temp = updatevalue & 0x1;
-   if (temp > 0x0)
-   {
-       //process S button
-   }
-   updatevalue = updatevalue >> 1;
-   temp = updatevalue & 0x1;
-   if (temp > 0x0)
-   {
-      //process Q button
-   }
-   updatevalue  = updatevalue >> 1;
-   temp = updatevalue & 0x1;
-   if (temp > 0x0)
-   {
-       //process Left movement
-	   setPosition(D3DXVECTOR3(getPosition().x - (updatevalue * 7), getPosition().y, 0.0f));
-   }
-   updatevalue = updatevalue >> 1;
-   temp = updatevalue & 0x1;
-   if (temp > 0x0)
-   {
-      //process right movement
-	  setPosition(D3DXVECTOR3(getPosition().x - (updatevalue * 7), getPosition().y, 0.0f));
-   }
-  updatevalue = updatevalue >> 1;
-  if (updatevalue > 0x0)
-  {
-	  if (OnGround == true)
-	  {
-     //process jumping
-		//setPosition(D3DXVECTOR3(getPosition().x, getPosition().y - yvelocity, 0.0f));
-		IsJumping = true;
-		OnGround = false;
-		JumpTime = dt;
-	  }
-  }
-  if(IsJumping == true)
-   {
-		if(JumpTime+1 >= dt)
+	if((updatevalue & M_LEFT)!=false)
+	{
+		//process Left movement
+		if(PowerActive== false)
 		{
-		setPosition(D3DXVECTOR3(getPosition().x, getPosition().y - yvelocity, 0.0f));
+		position.x -= dt* MovementSpeedX;
 		}
 		else
 		{
-		IsJumping = false;
+			if(object.CollisionCheck(PX1,PY1+1,PX2,PY2+1) == 0 
+			|| object.CollisionCheck(PX1,PY1-1,PX2,PY2-1) == 0)
+			{
+			position.x -= dt* MovementSpeedX;
+			}		
 		}
-   }
-  //process gravity
-  if (OnGround == false && IsJumping == false)
-  {
-  setPosition(D3DXVECTOR3(getPosition().x , getPosition().y + (updatevalue * 7), 0.0f));
-  }
+	}
+	if((updatevalue & M_RIGHT)!=false)
+	{
+		//process right movement
+		if(PowerActive == false)
+		{
+		position.x += dt* MovementSpeedX;
+		}
+		else
+		{
+			if(object.CollisionCheck(PX1,PY1+1,PX2,PY2+1) == 0 
+			|| object.CollisionCheck(PX1,PY1-1,PX2,PY2-1) == 0)
+			{
+			position.x += dt* MovementSpeedX;
+			}	
+		}
+	}
+	if((updatevalue & M_JUMP)!= false)
+	{
+		if(PowerActive== false)
+		{
+		position.y -= dt* JumpingConstant;
+		}
+		else
+		{
+			if(object.CollisionCheck(PX1+1,PY1,PX2+1,PY2) == 0 
+			|| object.CollisionCheck(PX1-1,PY1,PX2-1,PY2) == 0)
+			{
+			position.y -= dt* MovementSpeedY;
+			}	
+		}
+		//float JumpStarted
+		//JumpStarted+1 =<dt
+	}
+	//gravity
+	if(PowerActive== false)
+	{
+	position.y += dt* Gravity;
+	}
+	else
+	{
+		if(object.CollisionCheck(PX1+1,PY1,PX2+1,PY2) == 0 
+		|| object.CollisionCheck(PX1-1,PY1,PX2-1,PY2) == 0)
+		{
+		position.y += dt* Gravity;
+		}	
+	}
+	//powers
+	if((updatevalue & P1)!=false)
+	{
+		SelectedPower = 1;
+	}
+	if((updatevalue & P2)!=false)
+	{
+		SelectedPower = 2;
+	}
+	if((updatevalue & P3)!=false)
+	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_On)!=false)
+	{
+		//if(LastChangedTimer >=dt+1)
+		//{
+			if(PowerActive !=false)
+			{
+				PowerActive = false;
+				LastChangedTimer = dt;
+			}
+			else
+			{
+				PowerActive = true;
+			}
+		//}
+	}
+	//0 no collition
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 0){}
+	//1 block
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	{
+	position.x = oldX; position.y = oldY;
+	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
+	}
+	//2 spike
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	//3 goal
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
+}
+void Player::PowerTwo(unsigned char updatevalue,float dt)
+{
+	float oldX = position.x;
+	float oldY = position.y;
+	float PX1 = position.x;
+	float PY1 = position.y;
+	float PX2 =(position.x + rect.right);
+	float PY2 = (position.y + rect.bottom);
+
+	if((updatevalue & M_LEFT)!=false)
+	{
+		//process Left movement
+		position.x -= dt* MovementSpeedX;
+	}
+	if((updatevalue & M_RIGHT)!=false)
+	{
+		position.x += dt* MovementSpeedX;
+		//process right movement
+	}
+	if((updatevalue & M_JUMP)!=false)
+	{
+		position.y -= dt* JumpingConstant;
+		//float JumpStarted
+		//JumpStarted+1 =<dt
+	}
+	position.y += dt* Gravity;
+	//gravity
+	//powers
+	if((updatevalue & P1)!=false)
+	{
+		SelectedPower = 1;
+	}
+	if((updatevalue & P2)!=false)
+	{
+		SelectedPower = 2;
+	}
+	if((updatevalue & P3)!=false)
+	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_On)!=false)
+	{
+		if(LastChangedTimer >=dt+1)
+		{
+			if(PowerActive !=false)
+			{
+				PowerActive = false;
+				LastChangedTimer = dt;
+			}
+			else
+			{
+				PowerActive = true;
+			}
+		}
+	}
+	//0 no collition
+	if(object.CollisionCheck( PX1,PY1,PX2,PY2) == 0)
+	{}
+	//1 block
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	{
+	position.x = oldX;
+	position.y = oldY;
+	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
+	}
+	//2 spike
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	//3 goal
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
+}
+void Player::PowerThree(unsigned char updatevalue,float dt)
+{
+	float oldX = position.x;
+	float oldY = position.y;
+	float PX1 = position.x;
+	float PY1 = position.y;
+	float PX2 =(position.x + rect.right);
+	float PY2 = (position.y + rect.bottom);
+		if((updatevalue & M_LEFT)!=false)
+	{
+		//process Left movement
+		position.x -= dt* MovementSpeedX;
+	}
+	if((updatevalue & M_RIGHT)!=false)
+	{
+		position.x += dt* MovementSpeedX;
+		//process right movement
+	}
+	if((updatevalue & M_JUMP)!=false)
+	{
+		position.y -= dt* JumpingConstant;
+		//float JumpStarted
+		//JumpStarted+1 =<dt
+	}
+	position.y += dt* Gravity;
+	//gravity
+	//powers
+	if((updatevalue & P1)!=false)
+	{
+		SelectedPower = 1;
+	}
+	if((updatevalue & P2)!=false)
+	{
+		SelectedPower = 2;
+	}
+	if((updatevalue & P3)!=false)
+	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_On)!=false)
+	{
+		if(LastChangedTimer >=dt+1)
+		{
+			if(PowerActive !=false)
+			{
+				PowerActive = false;
+				LastChangedTimer = dt;
+			}
+			else
+			{
+				PowerActive = true;
+			}
+		}
+	}
+	//0 no collition
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 0)
+	{}
+	//1 block
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	{
+	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
+	position.x = oldX;
+	position.y = oldY;
+	}
+	//2 spike
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	//3 goal
+	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
 }

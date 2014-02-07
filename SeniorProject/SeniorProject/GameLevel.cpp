@@ -29,6 +29,7 @@ void GameLevel::init(char* filename, Player * p)
 	MapPointers(charArray.getMap());
 	DrawMap();
 
+
 	//for(int i = 0; i < width; ++i)
 	//	for(int j = 0; j < height; ++j)
 	//		drawnLevel[i][j] = new The_Sprite;
@@ -36,8 +37,9 @@ void GameLevel::init(char* filename, Player * p)
 
 void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h)
 {
-	charArray.load(filename);
-	MapPointers(charArray.getMap());
+	LoadMap(filename);
+	//MapPointers(charArray.getMap());
+	player->setObjectList(&objects);
 }
 
 void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
@@ -67,41 +69,59 @@ The_Sprite * GameLevel::getBackground()
 	return &background;
 }
 
-void GameLevel::LoadMap (char * filename)
+void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 {
 	charArray.load(filename);
 	width = charArray.getW();
 	height = charArray.getH();
 
-
-	drawnLevel = new The_Sprite**[width];
-
-	for(int i = 0; i < width; ++i)
+	for (int i = 0; i < height; ++i)
 	{
-		drawnLevel[i] = new The_Sprite*[height];
+		for (int j = 0; j < width; ++j)
+		{
+			Object * o = new Object();
+			o->setPosition(D3DXVECTOR3(width * i, height * j, 0.0f));
+			o->setWidth(32);
+			o->setHeight(32);
+			o->setScalex(1.0f);
+			o->setScaley(1.0f);
+			o->setRotation(0.0f);
+			o->setRect();
+			if (charArray[i][j] == '#')
+			{
+				o->setID(0);
+				o->setTexture(bgtexture->getTexture());
+			}
+			else if (charArray[i][j] == 'G')
+			{
+				o->setID(3);
+			}
+			objects.push_back(*o);
+		}
 	}
+}
 
 
 
 }//end of loadFromFile
 
-void GameLevel::MapPointers (char** map)
-{
-	for (int j = 0; j < width ; j++)
-	{
-		for (int i = 0; i < height ; i++)
-		{
-
-			switch(map[i][j])
-			{
-			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
-			case 'P': drawnLevel[i][j] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
-						  (float)(player->getHeight() * j), 0.0f)); break;
-			default: drawnLevel[i][j] = new The_Sprite;break;
-			};
-		}
-	}
-}
+//void GameLevel::MapPointers (char** map)
+//{
+//	for (int j = 0; j < width ; j++)
+//	{
+//		for (int i = 0; i < height ; i++)
+//		{
+//
+//			switch(map[i][j])
+//			{
+//			case '#': drawnLevel[i][j] = new The_Sprite; *drawnLevel[i][j] = block; break;
+//			case 'P': drawnLevel[i][j] = player->getSpritePointer(); player->setPosition(D3DXVECTOR3((float)(player->getWidth() * i),
+//						  (float)(player->getHeight() * j), 0.0f)); break;
+//			default: drawnLevel[i][j] = new The_Sprite;break;
+//			};
+//		}
+//	}
+//}
 void GameLevel::DrawMap()
 {
 	for(int i = 0; i < width; ++i)
@@ -132,15 +152,15 @@ void GameLevel::release()
 }
 //there is a getter for getlevel allready on line 101 in Game world
 //getEnemy getObject are not working properly i will keep working on it but i think the rest are ok
-Enemy GameLevel::getEnemy(int Ene)
-{
-//return enemy of place int
-return enemies[Ene];
+//Enemy * GameLevel::getEnemy(int Ene)
+//{
+////return enemy of place int
+//return &enemies[Ene];
 }
 Object * GameLevel::getObject(int obj)
 {
 //return object of place int
-	return &objects[obj];
+return &objects[obj];
 }
 //GameLevel * GameWorld::getLevel(int i){return &levels[i];}
 //Map * GameLevel::getLevel(int map){return &charArray;}
@@ -150,15 +170,34 @@ return &goal;
 }
 int GameLevel::getEnemySize()
 {
-	int EnemySize;
-	EnemySize = sizeof(enemies);
-	return EnemySize;
-//return size of enemy vector;
+	return enemies.size();
 }
+//return size of enemy vector;
+
 int GameLevel::getObjectSize()
 {
-	int ObjectSize;
-	ObjectSize = sizeof(objects);
-	return ObjectSize;
+	return objects.size();
 //return size of object vector
+}
+
+int GameLevel::checkForCollision()
+{
+	int oldpositionx = player->getPosition().x;
+	int oldpositiony = player->getPosition().y;
+	for (int i = 0; i < objects.size(); ++i)
+	{
+		int statememory = 0;
+		if (player->checkForCollision(o))
+		{
+			if (objects[i].getID() == 0)
+			{
+				D3DXVECTOR3 resetPosition = D3DXVECTOR3(oldpositionx, oldpositiony, 0.0f);
+				player->setPosition(resetPosition);
+			}
+			if (objects[i]->getID() == 3)
+			{
+				return objects[i]->getID();
+			}
+		}
+	}
 }

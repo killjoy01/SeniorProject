@@ -40,7 +40,7 @@ public:
 	void setPlayer(Player *);
 	int getActive();
 	void setActive(int);
-	bool checkForCollision(D3DXVECTOR3);
+	int checkForCollision();
 	void setBackground(The_Sprite*);
 	Enemy GameLevel::getEnemy(int);
 	int getEnemySize();
@@ -63,7 +63,7 @@ public:
 	
 	
 
-	void LoadMap (char * filename);
+	void LoadMap (char * filename, The_Sprite *);
 	void MapPointers (char** map);
 	void DrawMap();
 

@@ -118,3 +118,8 @@ GameLevel * GameWorld::getCurrentLevel()
 	return &levels[Active];
 }
 
+
+int GameWorld::checkForCollision()
+{
+	return levels[Active].checkForCollision();
+}

@@ -35,7 +35,7 @@ public:
 	void setPlayer(int, Player *);
 	int getActive();
 	void setActive(int);
-	bool checkForCollision(D3DXVECTOR3);
+	int checkForCollision();
 	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
 	void clearVectors();
 	void addLevel(GameLevel);
