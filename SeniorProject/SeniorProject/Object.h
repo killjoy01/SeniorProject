@@ -10,10 +10,13 @@ private:
 	The_Sprite sprite;
 	bool isSolid;
 	int ID;
+	//vetor  ObjectList;
+	
 	//int type;
 public:
 	int getID();
 	void setID(int OId);
+	
 	Object();
 	~Object();
 	void isGoal();
