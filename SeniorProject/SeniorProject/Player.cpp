@@ -114,8 +114,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		}
 		else
 		{
-			if(object.CollisionCheck(PX1,PY1+1,PX2,PY2+1) == 0 
-			|| object.CollisionCheck(PX1,PY1-1,PX2,PY2-1) == 0)
+			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 
+			|| CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
 			{
 			position.x -= dt* MovementSpeedX;
 			}		
@@ -130,8 +130,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		}
 		else
 		{
-			if(object.CollisionCheck(PX1,PY1+1,PX2,PY2+1) == 0 
-			|| object.CollisionCheck(PX1,PY1-1,PX2,PY2-1) == 0)
+			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 
+			|| CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
 			{
 			position.x += dt* MovementSpeedX;
 			}	
@@ -145,8 +145,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		}
 		else
 		{
-			if(object.CollisionCheck(PX1+1,PY1,PX2+1,PY2) == 0 
-			|| object.CollisionCheck(PX1-1,PY1,PX2-1,PY2) == 0)
+			if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
+			|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
 			{
 			position.y -= dt* MovementSpeedY;
 			}	
@@ -161,8 +161,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	}
 	else
 	{
-		if(object.CollisionCheck(PX1+1,PY1,PX2+1,PY2) == 0 
-		|| object.CollisionCheck(PX1-1,PY1,PX2-1,PY2) == 0)
+		if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
+		|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
 		{
 		position.y += dt* Gravity;
 		}	
@@ -196,17 +196,17 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//}
 	}
 	//0 no collition
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 0){}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
 	//1 block
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
 	{
 	position.x = oldX; position.y = oldY;
 	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
 	}
 	//2 spike
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
 	//3 goal
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerTwo(unsigned char updatevalue,float dt)
 {
@@ -264,19 +264,19 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 		}
 	}
 	//0 no collition
-	if(object.CollisionCheck( PX1,PY1,PX2,PY2) == 0)
+	if(CollisionCheck( PX1,PY1,PX2,PY2,ObjectList) == 0)
 	{}
 	//1 block
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
 	{
 	position.x = oldX;
 	position.y = oldY;
 	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
 	}
 	//2 spike
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
 	//3 goal
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerThree(unsigned char updatevalue,float dt)
 {
@@ -333,17 +333,31 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 		}
 	}
 	//0 no collition
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 0)
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0)
 	{}
 	//1 block
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 1)
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
 	{
 	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
 	position.x = oldX;
 	position.y = oldY;
 	}
 	//2 spike
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 2){/*reload current level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
 	//3 goal
-	if(object.CollisionCheck(PX1,PY1,PX2,PY2) == 30){/*load next level*/}
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
+}
+void Player::draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *)
+{
+	//*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
+	//a_sprite->SetTransform(a_world);
+	//a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+	//							  (float)(getHeight() / 2 + getPosition().y), 0.0f),
+	//							   &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+	//							   (float)(getHeight() / 2 + getPosition().y), 0.0f),
+	//						       D3DCOLOR_ARGB(255, 255, 255, 255));
+}
+The_Sprite* Player::getSpritePointer()
+{
+	return &sprite;
 }

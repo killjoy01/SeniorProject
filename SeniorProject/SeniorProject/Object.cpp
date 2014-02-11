@@ -6,7 +6,9 @@ Object::Object()
 {
 }
 
-
+Object::~Object()
+{
+}
 //Player::SetObjectList(vector*   ){}
 
 int Object::getID()

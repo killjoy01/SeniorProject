@@ -42,6 +42,7 @@ public:
 	void PowerOne(unsigned char updatevalue,float dt);
 	void PowerTwo(unsigned char updatevalue,float dt);
 	void PowerThree(unsigned char updatevalue,float dt);
+	The_Sprite* Player::getSpritePointer();
 	//void ChangePosition(char keystate,float dt);
 	//void SetObjectList(vector * ObjectList);
 	//object list
