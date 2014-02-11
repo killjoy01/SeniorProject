@@ -26,9 +26,9 @@ void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
 	player = p;
 	charArray.load(filename);
 	LoadMap(filename, bgtexture);
-	MapPointers(charArray.getMap());
+	//MapPointers(charArray.getMap());
 	DrawMap();
-	player->setObjectList(&objects);
+	player->setObjectList(objects);
 
 	//for(int i = 0; i < width; ++i)
 	//	for(int j = 0; j < height; ++j)
@@ -39,7 +39,7 @@ void GameLevel::init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTex
 {
 //	LoadMap(filename);
 	//MapPointers(charArray.getMap());
-	player->setObjectList(&objects);
+	player->setObjectList(objects);
 }
 
 void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATRIX * a_world)
@@ -87,12 +87,12 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 			o->setScaley(1.0f);
 			o->setRotation(0.0f);
 			o->setRect();
-			if (charArray[i][j] == '#')
+			if (charArray.get(i, j) == '#')
 			{
 				o->setID(0);
 				o->setTexture(bgtexture->getTexture());
 			}
-			else if (charArray[i][j] == 'G')
+			else if (charArray.get(i, j) == 'G')
 			{
 				o->setID(3);
 			}

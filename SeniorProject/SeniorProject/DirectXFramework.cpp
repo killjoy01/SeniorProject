@@ -301,10 +301,10 @@ bool CDirectXFramework::Update(float & dt)
 			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
 		}
 		updatevalue = keyDown2(buffer, gameboard.getPlayer(), dt);
-		menu.updateState(updatevalue, dt);
+		//menu.updateState(updatevalue, dt);
 		break;
 	case INIT:
-\
+
 		break;
 	case PROGRAM:
 		playingmusic = false;
@@ -366,7 +366,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
-		menu.draw(m_pD3DDevice, m_pD3DSprite, &world);
+		//menu.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
 		m_pD3DSprite->End();
 
