@@ -71,7 +71,7 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 		for (int j = 0; j < width; ++j)
 		{
 			Object * o = new Object();
-			o->setPosition(D3DXVECTOR3(width * i, height * j, 0.0f));
+			o->setPosition(D3DXVECTOR3(height * j, width * i, 0.0f));
 			o->setWidth(32);
 			o->setHeight(32);
 			o->setScalex(1.0f);
