@@ -27,7 +27,7 @@ void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
 	charArray.load(filename);
 	LoadMap(filename, bgtexture);
 	//MapPointers(charArray.getMap());
-	DrawMap();
+	//DrawMap();
 	player->setObjectList(objects);
 
 	//for(int i = 0; i < width; ++i)
@@ -47,18 +47,9 @@ void GameLevel::draw(IDirect3DDevice9* a_device, ID3DXSprite* a_sprite, D3DXMATR
 
 	background.draw(a_device, a_sprite, a_world);
 
-	for(int i = 0; i < width; ++i)
+	for (int i = 0; i < objects.size(); ++i)
 	{
-		for(int j = 0; j < height; ++j)
-		{
-			if(drawnLevel[i][j] != NULL)
-			{
-				//float X = drawnLevel[i][j]->getPosition().x; float Y= drawnLevel[i][j]->getPosition().y;
-				drawnLevel[i][j]->draw(a_device,a_sprite,a_world);//, &D3DXVECTOR3(	X,//drawnLevel[i][j]->getPosition().x,
-				//Y,//drawnLevel[i][j]->getPosition().y,
-				//0));
-			}
-		}
+		objects[i].draw(a_device, a_sprite, a_world);
 	}
 	player->draw(a_device, a_sprite, a_world);
 
@@ -142,12 +133,6 @@ The_Sprite * GameLevel::getBlock()
 
 void GameLevel::release()
 {
-	for(int i = 0; i < height; ++i)
-	{
-		delete drawnLevel[i];
-	}
-	delete drawnLevel;
-
 	charArray.Shutdown();
 }
 //there is a getter for getlevel allready on line 101 in Game world
