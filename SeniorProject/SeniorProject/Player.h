@@ -6,7 +6,7 @@
 
 const float MovementSpeedX = 0.3f;
 const float MovementSpeedY = 0.3f;
-const float Gravity = 0.3f;
+const float Gravity = 0.0f;
 const float JumpingConstant = 0.6f;	
 const unsigned char M_LEFT = 1;
 const unsigned char M_RIGHT = 2;

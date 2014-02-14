@@ -125,15 +125,19 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//process Left movement
 		if(PowerActive== false)
 		{
+			if(CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
+			{
 			position.x -= dt* MovementSpeedX;
+			}
 		}
 		else
 		{
-			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 
-				|| CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
+			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 || CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
 			{
 				position.x -= dt* MovementSpeedX;
-			}		
+			}
+			else
+			{}
 		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
@@ -141,7 +145,10 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//process right movement
 		if(PowerActive == false)
 		{
+			if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0)
+			{
 			position.x += dt* MovementSpeedX;
+			}
 		}
 		else
 		{
@@ -156,7 +163,10 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	{
 		if(PowerActive== false)
 		{
+			if(CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
+			{
 			position.y -= dt* JumpingConstant;
+			}
 		}
 		else
 		{
@@ -172,7 +182,10 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	//gravity
 	if(PowerActive== false)
 	{
+		if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0)
+		{
 		position.y += dt* Gravity;
+		}
 	}
 	else
 	{
