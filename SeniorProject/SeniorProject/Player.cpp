@@ -248,7 +248,7 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 		//float JumpStarted
 		//JumpStarted+1 =<dt
 	}
-	position.y += dt* Gravity;
+	position.y = dt* Gravity;
 	//gravity
 	//powers
 	if((updatevalue & P1)!=false)
@@ -362,16 +362,16 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 	//3 goal
 	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
-void Player::draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *)
-{
-	//*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
-	//a_sprite->SetTransform(a_world);
-	//a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
-	//							  (float)(getHeight() / 2 + getPosition().y), 0.0f),
-	//							   &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
-	//							   (float)(getHeight() / 2 + getPosition().y), 0.0f),
-	//						       D3DCOLOR_ARGB(255, 255, 255, 255));
-}
+//void Player::draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *)
+//{
+//	//*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
+//	//a_sprite->SetTransform(a_world);
+//	//a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+//	//							  (float)(getHeight() / 2 + getPosition().y), 0.0f),
+//	//							   &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
+//	//							   (float)(getHeight() / 2 + getPosition().y), 0.0f),
+//	//						       D3DCOLOR_ARGB(255, 255, 255, 255));
+//}
 The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;
