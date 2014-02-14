@@ -46,7 +46,7 @@ public:
 	//void ChangePosition(char keystate,float dt);
 	//void SetObjectList(vector * ObjectList);
 	//object list
-	void UpdateState(unsigned char updatevalue,float dt);
+	int UpdateState(unsigned char updatevalue,float dt);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);
 };
