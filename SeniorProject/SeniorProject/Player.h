@@ -25,6 +25,8 @@ protected:
 	float xvelocity, yvelocity;
 	bool OnGround;
 	bool IsJumping;
+	bool lowJump;
+	bool highJump;
 	float JumpTime;
 
 	bool PowerActive;
