@@ -4,10 +4,10 @@
 #include "sprite.h"
 #include "object.h"
 
-const float MovementSpeedX = 0.3f;
-const float MovementSpeedY = 0.3f;
-const float Gravity = 0.0f;
-const float JumpingConstant = 0.6f;	
+const float MovementSpeedX = 0.1f;
+const float MovementSpeedY = 0.1f;
+const float Gravity = 0.1f;
+const float JumpingConstant = 0.2f;	
 const unsigned char M_LEFT = 1;
 const unsigned char M_RIGHT = 2;
 const unsigned char M_JUMP = 4;
@@ -47,6 +47,7 @@ public:
 	//void SetObjectList(vector * ObjectList);
 	//object list
 	int UpdateState(unsigned char updatevalue,float dt);
+	//void collisionResolution(float x1,float y1,float x2,float y2,vector<Object> & ObjectList);
 	//void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	//void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);
 };

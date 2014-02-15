@@ -40,40 +40,63 @@ void  Player::setObjectList(vector<Object> &objects)
 }
 int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> & ObjectList)
 {
+
 	for(int i=0; i< ObjectList.size(); i++) 
 	{
-		if(x1 <= ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x )
+		if(ObjectList[i].getID() == 0)
 		{
-			if(y1 >= ObjectList[i].getPosition().y && y2 <= ObjectList[i].getPosition().y)
+			if(x1 <= ObjectList[i].getPosition().x &&  ObjectList[i].getPosition().x <= x2)
 			{
-				return ObjectList[i].getID();
+				if(y1 <= ObjectList[i].getPosition().y && y2 >= ObjectList[i].getPosition().y)
+				{
+
+					return ObjectList[i].getID();
+					//(ObjectList[i].getID() == 0)
+				}
+			}
+
+			if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside())
+			{
+				if(y1 <=  ObjectList[i].getPosition().y && y2 >=  ObjectList[i].getPosition().y)
+				{
+					//if(ObjectList[i].getID() != 0)
+					//{
+					return ObjectList[i].getID();//break;
+
+					//}
+				}
+			}		
+
+			if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside() )
+			{
+				if(y1 <= ObjectList[i].bottom()  && y2 >= ObjectList[i].bottom())
+				{
+					//if(ObjectList[i].getID() != 0)
+					//{
+					return ObjectList[i].getID();//break;
+					//}
+				}
+			}		
+
+			if(x1 <=  ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x)
+			{
+				if(y1 <= ObjectList[i].bottom() && y2 >= ObjectList[i].bottom())
+				{
+					//if(ObjectList[i].getID() != 0)
+					//{				
+					return ObjectList[i].getID();
+
+					//break;
+					//}
+				}
 			}
 		}
-
-		if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside())
-		{
-			if(y1 >=  ObjectList[i].getPosition().y && y2 <=  ObjectList[i].getPosition().y)
-			{
-				return ObjectList[i].getID();
-			}
-		}		
-
-		if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside() )
-		{
-			if(y1 >= ObjectList[i].bottom()  && y2 <= ObjectList[i].bottom())
-			{
-				return ObjectList[i].getID();
-			}
-		}		
-
-		if(x1 <=  ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x)
-		{
-			if(y1 >= ObjectList[i].bottom() && y2 <= ObjectList[i].bottom())
-			{
-				return ObjectList[i].getID();
-			}
-		}
+		//else
+		//{
+		//return 0;
+		//}
 	}
+	//return 0;
 	//return 0;
 	//return 1;
 	//return 2;
@@ -94,25 +117,27 @@ int Player::UpdateState(unsigned char updatevalue, float dt)
 		PowerThree(updatevalue,dt);
 		break;
 	}
-	
+
 	if (PowerActive == true)
 	{
-	return SelectedPower;
-	// SelectedPower=1 -> Power1Active.png
-	// SelectedPower=2 -> Power2Active.png
-	// SelectedPower=3 -> Power3Active.png
+		return SelectedPower;
+		// SelectedPower=1 -> Power1Active.png
+		// SelectedPower=2 -> Power2Active.png
+		// SelectedPower=3 -> Power3Active.png
 	}
 	else if(PowerActive == false)
 	{
-	return (SelectedPower + 3);
-	// SelectedPower + 3 =4 -> Power1NotActive.png
-	// SelectedPower + = 5 -> Power2NotActive.png
-	// SelectedPower + =6 -> Power3NotActive.png
+		return (SelectedPower + 3);
+		// SelectedPower + 3 =4 -> Power1NotActive.png
+		// SelectedPower + = 5 -> Power2NotActive.png
+		// SelectedPower + =6 -> Power3NotActive.png
 	}
-	
+
 }
 void Player::PowerOne(unsigned char updatevalue,float dt) 
 {
+	float Xmove = 0.0f;
+	float Ymove = 0.0f;
 	float oldX = position.x;
 	float oldY = position.y;
 	float PX1 = position.x;
@@ -125,9 +150,23 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//process Left movement
 		if(PowerActive== false)
 		{
-			if(CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
 			{
-			position.x -= dt* MovementSpeedX;
+				Xmove = dt* MovementSpeedX;
+				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 0)
+				{
+					position.x -= Xmove;
+				}
+				else if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 0)
+				{
+					//position.x -= 
+					//do 
+					//{
+					//position.x -= 1.0f;
+					//}
+					//while(CollisionCheck(PX1-= 1.0f,PY1,PX2-= 1.0f,PY2,ObjectList) != 0);
+					
+				}
 			}
 		}
 		else
@@ -135,6 +174,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 || CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
 			{
 				position.x -= dt* MovementSpeedX;
+
+
 			}
 			else
 			{}
@@ -145,9 +186,13 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//process right movement
 		if(PowerActive == false)
 		{
-			if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
 			{
-			position.x += dt* MovementSpeedX;
+				Xmove = dt* MovementSpeedX;
+				if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 0)
+				{
+					position.x += Xmove;
+				}
 			}
 		}
 		else
@@ -163,9 +208,13 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	{
 		if(PowerActive== false)
 		{
-			if(CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
 			{
-			position.y -= dt* JumpingConstant;
+				Ymove = dt* JumpingConstant;
+				if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
+				{
+					position.y -= Ymove;
+				}
 			}
 		}
 		else
@@ -182,9 +231,13 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	//gravity
 	if(PowerActive== false)
 	{
-		if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0)
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
 		{
-		position.y += dt* Gravity;
+			Ymove = dt* Gravity;
+			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 0)
+			{
+				position.y += Ymove;
+			}
 		}
 	}
 	else
@@ -224,17 +277,13 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 		//}
 	}
 	//0 no collition
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
 	//1 block
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
-	{
-		position.x = oldX; position.y = oldY;
-		//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
-	}
+
 	//2 spike
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
 	//3 goal
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerTwo(unsigned char updatevalue,float dt)
 {
@@ -292,19 +341,19 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 		}
 	}
 	//0 no collition
-	if(CollisionCheck( PX1,PY1,PX2,PY2,ObjectList) == 0)
-	{}
-	//1 block
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
-	{
-		position.x = oldX;
-		position.y = oldY;
-		//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
-	}
-	//2 spike
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
-	//3 goal
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
+	//if(CollisionCheck( PX1,PY1,PX2,PY2,ObjectList) == 0)
+	//{}
+	////1 block
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
+	//{
+	//	position.x = oldX;
+	//	position.y = oldY;
+	//	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
+	//}
+	////2 spike
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
+	////3 goal
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerThree(unsigned char updatevalue,float dt)
 {
@@ -360,20 +409,20 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 			}
 		}
 	}
-	//0 no collition
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0)
-	{}
-	//1 block
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
-	{
-		//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
-		position.x = oldX;
-		position.y = oldY;
-	}
-	//2 spike
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
-	//3 goal
-	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
+	////0 no collition
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0)
+	//{}
+	////1 block
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
+	//{
+	//	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
+	//	position.x = oldX;
+	//	position.y = oldY;
+	//}
+	////2 spike
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
+	////3 goal
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 //void Player::draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *)
 //{
