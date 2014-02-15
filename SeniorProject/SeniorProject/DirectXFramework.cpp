@@ -687,12 +687,12 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		}
 	}
 	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_RIGHT] & 0x80) && buffer[DIK_A] & 0x80)
+	if ((buffer[DIK_RIGHT] & 0x80) || buffer[DIK_A] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
 	}
 	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_LEFT] & 0x80) && buffer[DIK_D] & 0x80)
+	if ((buffer[DIK_LEFT] & 0x80) || buffer[DIK_D] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
 	}	

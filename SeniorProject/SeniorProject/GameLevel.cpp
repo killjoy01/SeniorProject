@@ -29,7 +29,7 @@ void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
 	//MapPointers(charArray.getMap());
 	//DrawMap();
 	player->setObjectList(objects);
-
+	player->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
 	//for(int i = 0; i < width; ++i)
 	//	for(int j = 0; j < height; ++j)
 	//		drawnLevel[i][j] = new The_Sprite;
