@@ -53,7 +53,7 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 
 	for(int i=0; i< ObjectList.size(); i++) 
 	{
-		if(ObjectList[i].getID() == 0)
+		if(ObjectList[i].getID() == 1)
 		{
 			if(x1 <= ObjectList[i].getPosition().x &&  ObjectList[i].getPosition().x <= x2)
 			{
@@ -167,10 +167,10 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 		//process Left movement
 		if(PowerActive== false)
 		{
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 			{
 				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 0)
+				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
 				{
 					position.x -= Xmove;
 				}
@@ -210,10 +210,10 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 		//process right movement
 		if(PowerActive == false)
 		{
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 			{
 				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 0)
+				if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
 				{
 					position.x += Xmove;
 				}
@@ -226,10 +226,10 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 	//{
 		if(PowerActive== false)
 		{
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
+			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 			{	
 					Ymove = dt* JumpingConstant;
-					if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
+					if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
 					{
 						position.y -= Ymove;
 					}
@@ -255,7 +255,7 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 
 	if(PowerActive== false)
 	{
-		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 		{
 			//Ymove = dt* JumpingConstant;
 			//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
@@ -264,7 +264,7 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 			//}
 
 			Ymove = dt* Gravity;
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 0)
+			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
 			{
 				position.y += Ymove;
 			}
