@@ -551,7 +551,11 @@ void Player::setTextureList(IDirect3DTexture9* texturelist[])
 	for(int i = 0; i < 4; i++)
 	{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		PlayerTextures[i] = texturelist[i];
+=======
+	PlayerTextures[i] = texturelist[i];
+>>>>>>> 4ccfbe522c6fadb48e5dac55560bdeaf852f8811
 =======
 	PlayerTextures[i] = texturelist[i];
 >>>>>>> 4ccfbe522c6fadb48e5dac55560bdeaf852f8811
