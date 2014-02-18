@@ -11,10 +11,12 @@ const float JumpingConstant = 0.2f;
 const unsigned char M_LEFT = 1;
 const unsigned char M_RIGHT = 2;
 const unsigned char M_JUMP = 4;
-const unsigned char P1 = 8;
-const unsigned char P2 = 16;
-const unsigned char P3 = 32;
-const unsigned char P_On = 64;
+const unsigned char M_DOWN = 8;
+const unsigned char P1 = 16;
+const unsigned char P2 = 32;
+const unsigned char P3 = 64;
+const unsigned char P_NONE = 128;
+const unsigned char ENTER = 256;
 using namespace std;
 class Player: public The_Sprite
 {
