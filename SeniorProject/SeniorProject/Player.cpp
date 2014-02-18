@@ -158,7 +158,10 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 	float PY1 = position.y;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
-
+	if((updatevalue & M_DOWN)!=false)
+	{
+	
+	}
 	if((updatevalue & M_LEFT)!=false)
 	{
 		//process Left movement
@@ -285,31 +288,35 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 1;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P3)!=false)
 	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_NONE)!=false)
+	{
 		SelectedPower = 4;
 	}
-	if((updatevalue & P_On)!=false)
-	{
-		//if(LastChangedTimer >=dt+1)
-		//{
-		if(PowerActive !=false)
-		{
-			PowerActive = false;
-			LastChangedTimer = dt;
-		}
-		else
-		{
-			PowerActive = true;
-		}
-		//}
-	}
+	//if((updatevalue & P_On)!=false)
+	//{
+	//	//if(LastChangedTimer >=dt+1)
+	//	//{
+	//	if(PowerActive !=false)
+	//	{
+	//		PowerActive = false;
+	//		LastChangedTimer = dt;
+	//	}
+	//	else
+	//	{
+	//		PowerActive = true;
+	//	}
+	//	//}
+	//}
 	//0 no collition
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
 	//1 block
@@ -361,31 +368,35 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 1;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P3)!=false)
 	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_NONE)!=false)
+	{
 		SelectedPower = 4;
 	}
-	if((updatevalue & P_On)!=false)
-	{
-		if(LastChangedTimer >=dt+1)
-		{
-			if(PowerActive !=false)
-			{
-				PowerActive = false;
-				LastChangedTimer = dt;
-			}
-			else
-			{
-				PowerActive = true;
-			}
-		}
-	}  
+	//if((updatevalue & P_On)!=false)
+	//{
+	//	if(LastChangedTimer >=dt+1)
+	//	{
+	//		if(PowerActive !=false)
+	//		{
+	//			PowerActive = false;
+	//			LastChangedTimer = dt;
+	//		}
+	//		else
+	//		{
+	//			PowerActive = true;
+	//		}
+	//	}
+	//}  
 }
 void Player::PowerTwo(unsigned char updatevalue,float dt)
 {
@@ -417,31 +428,35 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 1;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P3)!=false)
 	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_NONE)!=false)
+	{
 		SelectedPower = 4;
 	}
-	if((updatevalue & P_On)!=false)
-	{
-		if(LastChangedTimer >=dt+1)
-		{
-			if(PowerActive !=false)
-			{
-				PowerActive = false;
-				LastChangedTimer = dt;
-			}
-			else
-			{
-				PowerActive = true;
-			}
-		}
-	}
+	//if((updatevalue & P_On)!=false)
+	//{
+	//	if(LastChangedTimer >=dt+1)
+	//	{
+	//		if(PowerActive !=false)
+	//		{
+	//			PowerActive = false;
+	//			LastChangedTimer = dt;
+	//		}
+	//		else
+	//		{
+	//			PowerActive = true;
+	//		}
+	//	}
+	//}
 }
 void Player::PowerThree(unsigned char updatevalue,float dt)
 {
@@ -472,31 +487,35 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 1;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P3)!=false)
 	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P_NONE)!=false)
+	{
 		SelectedPower = 4;
 	}
-	if((updatevalue & P_On)!=false)
-	{
-		if(LastChangedTimer >=dt+1)
-		{
-			if(PowerActive !=false)
-			{
-				PowerActive = false;
-				LastChangedTimer = dt;
-			}
-			else
-			{
-				PowerActive = true;
-			}
-		}
-	}
+	//if((updatevalue & P_On)!=false)
+	//{
+	//	if(LastChangedTimer >=dt+1)
+	//	{
+	//		if(PowerActive !=false)
+	//		{
+	//			PowerActive = false;
+	//			LastChangedTimer = dt;
+	//		}
+	//		else
+	//		{
+	//			PowerActive = true;
+	//		}
+	//	}
+	//}
 	////0 no collition
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0)
 	//{}
