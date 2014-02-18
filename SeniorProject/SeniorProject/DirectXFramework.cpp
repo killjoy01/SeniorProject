@@ -657,7 +657,7 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	{
 		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
-			if (p->getPosition().y < JumpingConstant)
+			if (p->getPosition().y < (/*gameboard.getPlayer()->getPosition().y*/ + JumpingConstant))
 			{
 				updatevalue = updatevalue | 0x1;
 				pressed[DIK_UP] = true;
