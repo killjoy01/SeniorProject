@@ -14,6 +14,13 @@ Player::Player()
 	LastChangedTimer = 0;
 	SelectedPower = 1;
 	JumpTime = 0.0f;
+	Time = 0.0f;
+	float dx = 0.0f;
+	float dy = 0.0f;
+	//float x = 0.0f; 
+	//float y = 0.0f;
+	bool mayJumpAgain = false;
+	bool isOnSolidGround = true;
 
 }
 
@@ -112,33 +119,36 @@ int Player::UpdateState(unsigned char updatevalue, float dt)
 	switch(SelectedPower)
 	{
 	case 1:
-		PowerOne(updatevalue,dt);
+		NoPower(updatevalue,dt);
 		break;
 	case 2:
-		PowerTwo(updatevalue,dt);
+		PowerOne(updatevalue,dt);
 		break;
 	case 3:
+		PowerTwo(updatevalue,dt);
+		break;
+	case 4:
 		PowerThree(updatevalue,dt);
 		break;
 	}
 
-	if (PowerActive == true)
-	{
+	//if (PowerActive == true)
+	//{
 		return SelectedPower;
-		// SelectedPower=1 -> Power1Active.png
-		// SelectedPower=2 -> Power2Active.png
-		// SelectedPower=3 -> Power3Active.png
-	}
-	else if(PowerActive == false)
-	{
-		return (SelectedPower + 3);
-		// SelectedPower + 3 =4 -> Power1NotActive.png
-		// SelectedPower + = 5 -> Power2NotActive.png
-		// SelectedPower + =6 -> Power3NotActive.png
-	}
+	//	// SelectedPower=1 -> Power1Active.png
+	//	// SelectedPower=2 -> Power2Active.png
+	//	// SelectedPower=3 -> Power3Active.png
+	//}
+	//else if(PowerActive == false)
+	//{
+	//	//return (SelectedPower + 3);
+	//	// SelectedPower + 3 =4 -> Power1NotActive.png
+	//	// SelectedPower + = 5 -> Power2NotActive.png
+	//	// SelectedPower + =6 -> Power3NotActive.png
+	//}
 
 }
-void Player::PowerOne(unsigned char updatevalue,float dt) 
+void Player::NoPower(unsigned char updatevalue,float dt) 
 {
 	float Xmove = 0.0f;
 	float Ymove = 0.0f;
@@ -146,9 +156,8 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
-	float PX2 =(position.x + rect.right);
-	float PY2 = (position.y + rect.bottom);
-	
+	float PX2 =(PX1 + rect.right);
+	float PY2 = (PY1 + rect.bottom);
 
 	if((updatevalue & M_LEFT)!=false)
 	{
@@ -162,18 +171,18 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 				{
 					position.x -= Xmove;
 				}
-				else
-				{
-				//if (CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 0)
+				//else
 				//{
-				for(int i =0; i<32; i++)
-				{
-					if (CollisionCheck(PX1-=0.1,PY1,PX2-=0.1,PY2,ObjectList) != 0)
-					{
-					position.x -= 0.1;
-					}
-				}
-				}
+				//	//if (CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 0)
+				//	//{
+				//	for(int i =0; i<32; i++)
+				//	{
+				//		if (CollisionCheck(PX1-=0.1,PY1,PX2-=0.1,PY2,ObjectList) != 0)
+				//		{
+				//			position.x -= 1.0;
+				//		}
+				//	}
+				//}
 				//else if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 0)
 				//{
 				//	
@@ -191,17 +200,7 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 				//}
 			}
 		}
-		else
-		{
-			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 || CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
-			{
-				position.x -= dt* MovementSpeedX;
 
-
-			}
-			else
-			{}
-		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
@@ -217,56 +216,40 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 				}
 			}
 		}
-		else
-		{
-			if(CollisionCheck(PX1,PY1+1,PX2,PY2+1,ObjectList) == 0 
-				|| CollisionCheck(PX1,PY1-1,PX2,PY2-1,ObjectList) == 0)
-			{
-				position.x += dt* MovementSpeedX;
-			}	
-		}
 	}
 	if((updatevalue & M_JUMP)!= false)
 	{
-		//updatevalue & M_JUMP = false;
-		if (lowJump != true)
-		{
-		JumpTime = dt;
-		lowJump = true;
-		}
+	//		if(lowJump == true)
+	//{
 		if(PowerActive== false)
 		{
 			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
 			{	
-				
-				if(JumpTime <= dt +3)
-				{
-				Ymove = dt* JumpingConstant;
-				if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
-				{
-					position.y -= Ymove;
-				}
-				}
+					Ymove = dt* JumpingConstant;
+					if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
+					{
+						position.y -= Ymove;
+					}
 			}
 			//}
 			//}
 		}
-		else
-		{
-			if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
-				|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
-			{
-				position.y -= dt* MovementSpeedY;
-			}	
-		}
-		//float JumpStarted
-		//JumpStarted+1 =<dt
+		//else
+		//{
+		//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
+		//		|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
+		//	{
+		//		position.y -= dt* MovementSpeedY;
+		//	}	
+		//}
 	}
 	//else
 	//{
 	//lowJump = false;
 	//}
 	//gravity
+
+
 	if(PowerActive== false)
 	{
 		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 0)
@@ -276,37 +259,41 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 			//{
 			//	position.y -= Ymove;
 			//}
-			
+
 			Ymove = dt* Gravity;
 			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 0)
 			{
 				position.y += Ymove;
 			}
-			
+
 		}
+		//else
+		//{
+		//Time = dt;
+		//}
 	}
-	else
-	{
-		if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
-			|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
-		{
-			position.y += dt* Gravity;
-		}	
-	}
+	//else
+	//{
+	//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
+	//		|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
+	//	{
+	//		position.y += dt* Gravity;
+	//	}	
+	//}
 
 
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 4;
 	}
 	if((updatevalue & P_On)!=false)
 	{
@@ -326,11 +313,79 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	//0 no collition
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
 	//1 block
-
 	//2 spike
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
 	//3 goal
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
+}
+void Player::PowerOne(unsigned char updatevalue,float dt)
+{
+	float oldX = position.x;
+	float oldY = position.y;
+	float PX1 = position.x;
+	float PY1 = position.y;
+	float PX2 =(PX1 + rect.right);
+	float PY2 = (PY1 + rect.bottom);
+
+	if((updatevalue & M_LEFT)!=false)
+	{
+		//process Left movement
+		position.x -= dt* MovementSpeedX;
+		//		if(CollisionCheck(PX1,PY1+=1,PX2,PY2+=1,ObjectList) == 0 || CollisionCheck(PX1,PY1-=1,PX2,PY2-=1,ObjectList) == 0)
+		//{
+		//	position.x -= dt* MovementSpeedX;
+		//}
+	}
+	if((updatevalue & M_RIGHT)!=false)
+	{
+		position.x += dt* MovementSpeedX;
+		//process right movement
+		//		if(CollisionCheck(PX1,PY1+=1,PX2,PY2+=1,ObjectList) == 0 
+		//	|| CollisionCheck(PX1,PY1-=1,PX2,PY2-=1,ObjectList) == 0)
+		//{
+		//	position.x += dt* MovementSpeedX;
+		//}	
+	}
+	if((updatevalue & M_JUMP)!=false)
+	{
+		position.y -= dt* JumpingConstant;
+		//float JumpStarted
+		//JumpStarted+1 =<dt
+//		if(CollisionCheck(PX1+=1,PY1,PX2+=1,PY2,ObjectList) == 0 || CollisionCheck(PX1-=1,PY1,PX2-=1,PY2,ObjectList) == 0)
+//		{
+//			position.y -= dt* MovementSpeedY;
+//		}
+	}
+	position.y = dt* Gravity;
+	//gravity
+	//powers
+	if((updatevalue & P1)!=false)
+	{
+		SelectedPower = 2;
+	}
+	if((updatevalue & P2)!=false)
+	{
+		SelectedPower = 3;
+	}
+	if((updatevalue & P3)!=false)
+	{
+		SelectedPower = 4;
+	}
+	if((updatevalue & P_On)!=false)
+	{
+		if(LastChangedTimer >=dt+1)
+		{
+			if(PowerActive !=false)
+			{
+				PowerActive = false;
+				LastChangedTimer = dt;
+			}
+			else
+			{
+				PowerActive = true;
+			}
+		}
+	}  
 }
 void Player::PowerTwo(unsigned char updatevalue,float dt)
 {
@@ -338,8 +393,8 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
-	float PX2 =(position.x + rect.right);
-	float PY2 = (position.y + rect.bottom);
+	float PX2 =(PX1 + rect.right);
+	float PY2 = (PY1 + rect.bottom);
 
 	if((updatevalue & M_LEFT)!=false)
 	{
@@ -362,15 +417,15 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 4;
 	}
 	if((updatevalue & P_On)!=false)
 	{
@@ -387,20 +442,6 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 			}
 		}
 	}
-	//0 no collition
-	//if(CollisionCheck( PX1,PY1,PX2,PY2,ObjectList) == 0)
-	//{}
-	////1 block
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
-	//{
-	//	position.x = oldX;
-	//	position.y = oldY;
-	//	//setPosition(D3DXVECTOR3(oldX, oldY, 0.0f));
-	//}
-	////2 spike
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
-	////3 goal
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerThree(unsigned char updatevalue,float dt)
 {
@@ -408,8 +449,8 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
-	float PX2 =(position.x + rect.right);
-	float PY2 = (position.y + rect.bottom);
+	float PX2 =(PX1 + rect.right);
+	float PY2 = (PY1 + rect.bottom);
 	if((updatevalue & M_LEFT)!=false)
 	{
 		//process Left movement
@@ -431,15 +472,15 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 4;
 	}
 	if((updatevalue & P_On)!=false)
 	{
@@ -471,16 +512,7 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 	////3 goal
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
-//void Player::draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *)
-//{
-//	//*a_world = calculateMatrix((int)getPosition().x, (int)getPosition().y, getScalex(), getScaley(), getRotation());
-//	//a_sprite->SetTransform(a_world);
-//	//a_sprite->Draw(getTexture(), NULL, &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
-//	//							  (float)(getHeight() / 2 + getPosition().y), 0.0f),
-//	//							   &D3DXVECTOR3((float)(getWidth() / 2 + getPosition().x),
-//	//							   (float)(getHeight() / 2 + getPosition().y), 0.0f),
-//	//						       D3DCOLOR_ARGB(255, 255, 255, 255));
-//}
+
 The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;
