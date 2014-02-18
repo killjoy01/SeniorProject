@@ -28,10 +28,14 @@ protected:
 	bool lowJump;
 	bool highJump;
 	float JumpTime;
-
+	float Time;
 	bool PowerActive;
 	float LastChangedTimer;
 	int SelectedPower;
+	float dx, dy;
+	float x, y;
+	bool mayJumpAgain;
+	bool isOnSolidGround;
 public:
 	vector<Object> ObjectList;
 	Player();
@@ -44,6 +48,7 @@ public:
 	void PowerOne(unsigned char updatevalue,float dt);
 	void PowerTwo(unsigned char updatevalue,float dt);
 	void PowerThree(unsigned char updatevalue,float dt);
+	void NoPower(unsigned char updatevalue,float dt);
 	The_Sprite* Player::getSpritePointer();
 	//void ChangePosition(char keystate,float dt);
 	//void SetObjectList(vector * ObjectList);
