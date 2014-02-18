@@ -628,7 +628,7 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	updatevalue = updatevalue << 1;
 	if (((buffer[DIK_DOWN] & 0x80) && !pressed[DIK_DOWN]) || ((buffer[DIK_S] & 0x80) && !pressed[DIK_S]))
 	{
-		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_W]))
+		if ((!pressed[DIK_DOWN]) || (!pressed[DIK_S]))
 		{
 			updatevalue = updatevalue | 0x1;
 			pressed[DIK_DOWN] = true;
@@ -687,12 +687,12 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 		}
 	}
 	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_RIGHT] & 0x80) || buffer[DIK_A] & 0x80)
+	if ((buffer[DIK_RIGHT] & 0x80) || buffer[DIK_S] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
 	}
 	updatevalue = updatevalue << 1;
-	if ((buffer[DIK_LEFT] & 0x80) || buffer[DIK_D] & 0x80)
+	if ((buffer[DIK_LEFT] & 0x80) || buffer[DIK_A] & 0x80)
 	{
 		updatevalue = updatevalue | 0x1;
 	}	
