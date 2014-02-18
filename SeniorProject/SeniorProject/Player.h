@@ -38,11 +38,11 @@ protected:
 	float x, y;
 	bool mayJumpAgain;
 	bool isOnSolidGround;
-	IDirect3DTexture9* PlayerTextures4;
+	IDirect3DTexture9* PlayerTextures[4];
 public:
 	vector<Object> ObjectList;
 	
-	void setTexturList(IDirect3DTexture9*[]);
+	void setTextureList(IDirect3DTexture9*[]);
 	Player();
 	Player(const Player &);
 	~Player();

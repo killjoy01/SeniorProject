@@ -223,7 +223,14 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage2.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Blue_Blob.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture);
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[0]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power1Active.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[1]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power2Active.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[2]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power3Active.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[3]);
+	
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"basic_block.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture);
 
@@ -245,7 +252,8 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBlock()->setRect();
 
-	gameboard.getPlayer()->setTexture(playerTexture);
+	gameboard.getPlayer()->setTexture(playerTexture[0]);
+	gameboard.getPlayer()->setTextureList(playerTexture);
 	gameboard.getPlayer()->setWidth(32);
 	gameboard.getPlayer()->setHeight(32);
 	gameboard.getPlayer()->setScalex(1.0f);

@@ -537,11 +537,11 @@ The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;
 }
-void Player::setTexturList(IDirect3DTexture9* texturelist[])
+void Player::setTextureList(IDirect3DTexture9* texturelist[])
 {
 //
 	for(int i = 0; i < 4; i++)
 	{
-//	PlayerTextures4[i] = texturelist[i];
+		PlayerTextures[i] = texturelist[i];
 	}
 }
