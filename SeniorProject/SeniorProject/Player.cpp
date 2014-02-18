@@ -60,8 +60,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				if(y1 <= ObjectList[i].getPosition().y && y2 >= ObjectList[i].getPosition().y)
 				{
 
-					return ObjectList[i].getID();
-					//return 
+					//return ObjectList[i].getID();
+					//return
+					return i;
 					//(ObjectList[i].getID() == 0)
 				}
 			}
@@ -72,8 +73,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
-					return ObjectList[i].getID();//break;
-
+					//return ObjectList[i].getID();//break;
+					return i;
 					//}
 				}
 			}		
@@ -84,7 +85,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
-					return ObjectList[i].getID();//break;
+					//return ObjectList[i].getID();//break;
+					return i;
 					//}
 				}
 			}		
@@ -95,8 +97,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{				
-					return ObjectList[i].getID();
-
+					//return ObjectList[i].getID();
+					return i;
 					//break;
 					//}
 				}
@@ -120,15 +122,19 @@ int Player::UpdateState(unsigned char updatevalue, float dt)
 	switch(SelectedPower)
 	{
 	case 1:
+		setTexture(PlayerTextures[0]);
 		NoPower(updatevalue,dt);
 		break;
 	case 2:
+		setTexture(PlayerTextures[1]);
 		PowerOne(updatevalue,dt);
 		break;
 	case 3:
+		setTexture(PlayerTextures[2]);
 		PowerTwo(updatevalue,dt);
 		break;
 	case 4:
+		setTexture(PlayerTextures[3]);
 		PowerThree(updatevalue,dt);
 		break;
 	}
@@ -170,6 +176,8 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 		{
 			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 			{
+				//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
+
 				Xmove = dt* MovementSpeedX;
 				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
 				{
@@ -542,6 +550,10 @@ void Player::setTextureList(IDirect3DTexture9* texturelist[])
 //
 	for(int i = 0; i < 4; i++)
 	{
+<<<<<<< HEAD
 		PlayerTextures[i] = texturelist[i];
+=======
+	PlayerTextures[i] = texturelist[i];
+>>>>>>> 4ccfbe522c6fadb48e5dac55560bdeaf852f8811
 	}
 }
