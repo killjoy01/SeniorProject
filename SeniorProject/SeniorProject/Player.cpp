@@ -60,9 +60,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				if(y1 <= ObjectList[i].getPosition().y && y2 >= ObjectList[i].getPosition().y)
 				{
 
-					//return ObjectList[i].getID();
+					return ObjectList[i].getID();
 					//return
-					return i;
+					//return i;
 					//(ObjectList[i].getID() == 0)
 				}
 			}
@@ -73,8 +73,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
-					//return ObjectList[i].getID();//break;
-					return i;
+					return ObjectList[i].getID();//break;
+					//return i;
 					//}
 				}
 			}		
@@ -85,8 +85,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
-					//return ObjectList[i].getID();//break;
-					return i;
+					return ObjectList[i].getID();//break;
+					//return i;
 					//}
 				}
 			}		
@@ -97,8 +97,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{				
-					//return ObjectList[i].getID();
-					return i;
+					return ObjectList[i].getID();
+					//return i;
 					//break;
 					//}
 				}
