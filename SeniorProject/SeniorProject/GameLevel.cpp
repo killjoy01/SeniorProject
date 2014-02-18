@@ -80,7 +80,7 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 			o->setRect();
 			if (charArray.get(i, j) == '#')
 			{
-				o->setID(0);
+				o->setID(1);
 				o->setTexture(bgtexture->getTexture());
 			}
 			else if (charArray.get(i, j) == 'G')
