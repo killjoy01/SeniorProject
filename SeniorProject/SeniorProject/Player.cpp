@@ -61,6 +61,7 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				{
 
 					return ObjectList[i].getID();
+					//return 
 					//(ObjectList[i].getID() == 0)
 				}
 			}
@@ -288,19 +289,19 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
-	}
-	if((updatevalue & P_NONE)!=false)
-	{
 		SelectedPower = 4;
+	}
+	if((updatevalue & ENTER)!=false)
+	{
+		SelectedPower = 1;
 	}
 	//if((updatevalue & P_On)!=false)
 	//{
@@ -368,19 +369,19 @@ void Player::PowerOne(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
-	}
-	if((updatevalue & P_NONE)!=false)
-	{
 		SelectedPower = 4;
+	}
+	if((updatevalue & ENTER)!=false)
+	{
+		SelectedPower = 1;
 	}
 	//if((updatevalue & P_On)!=false)
 	//{
@@ -428,19 +429,19 @@ void Player::PowerTwo(unsigned char updatevalue,float dt)
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		SelectedPower = 1;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
-		SelectedPower = 2;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
-		SelectedPower = 3;
+		SelectedPower = 4;
 	}
 	if((updatevalue & P_NONE)!=false)
 	{
-		SelectedPower = 4;
+		SelectedPower = 1;
 	}
 	//if((updatevalue & P_On)!=false)
 	//{
@@ -535,4 +536,12 @@ void Player::PowerThree(unsigned char updatevalue,float dt)
 The_Sprite* Player::getSpritePointer()
 {
 	return &sprite;
+}
+void Player::setTexturList(IDirect3DTexture9* texturelist[])
+{
+//
+	for(int i = 0; i < 4; i++)
+	{
+//	PlayerTextures4[i] = texturelist[i];
+	}
 }

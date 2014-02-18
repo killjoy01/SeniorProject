@@ -38,13 +38,17 @@ protected:
 	float x, y;
 	bool mayJumpAgain;
 	bool isOnSolidGround;
+	IDirect3DTexture9* PlayerTextures4;
 public:
 	vector<Object> ObjectList;
+	
+	void setTexturList(IDirect3DTexture9*[]);
 	Player();
 	Player(const Player &);
 	~Player();
 	void init(int);
 	Player & operator = (const Player &);
+	void setPlayerTextur();
 	int CollisionCheck(float x1,float y1,float x2,float y2,vector<Object> & ObjectList);
 	void  setObjectList(vector<Object> &objects);
 	void PowerOne(unsigned char updatevalue,float dt);
