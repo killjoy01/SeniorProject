@@ -34,6 +34,7 @@ using namespace std;
 bool keyDown(BYTE [], The_Sprite &, float);
 bool mouseDown(DIMOUSESTATE2, The_Sprite &, int &);
 
+const long int jumptimeout = 1000;
 
 CDirectXFramework::CDirectXFramework(void)
 {
@@ -284,6 +285,8 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	menuyposition = 250;
 
 	movepositions = new D3DXVECTOR3[20];
+
+	elapsed_time = 0;
 }
 
 bool CDirectXFramework::Update(float & dt)
@@ -327,6 +330,12 @@ bool CDirectXFramework::Update(float & dt)
 
 		//statememory = gameboard.checkForCollision();
 
+		if (statememory == 1)
+		{
+			pressed[DIK_UP] = false;
+			pressed[DIK_W] = false;
+			elapsed_time = 0;
+		}
 		if (statememory == 3)
 		{
 			if (buffer[DIK_UP] & 0x80)
@@ -665,34 +674,23 @@ unsigned int CDirectXFramework::keyDown(BYTE buffer[], Player * p, float dt)
 	{
 		if (!pressed[DIK_UP] || !pressed[DIK_W])
 		{
-			if (p->getPosition().y < (/*gameboard.getPlayer()->getPosition().y*/ + JumpingConstant))
+			if (elapsed_time > jumptimeout)
 			{
 				updatevalue = updatevalue | 0x1;
 				pressed[DIK_UP] = true;
 				pressed[DIK_W] = true;
+				elapsed_time += (long int)dt;
 			}
 			else
 			{
 				updatevalue = updatevalue | 0x1;
+				elapsed_time += (long int)dt;
 			}
 		}
 	}
 	else
 	{
 		//press key resetter
-
-		if (buffer[DIK_UP] & 0x80)
-		{}
-		else
-		{
-			pressed[DIK_UP] = false;
-		}
-		if (buffer[DIK_W] & 0x80)
-		{}
-		else
-		{
-			pressed[DIK_W] = false;
-		}
 	}
 	updatevalue = updatevalue << 1;
 	if ((buffer[DIK_RIGHT] & 0x80) || buffer[DIK_S] & 0x80)
@@ -789,22 +787,9 @@ unsigned int CDirectXFramework::keyDown2(BYTE buffer[], Player * p, float dt)
 			pressed[DIK_UP] = true;
 			pressed[DIK_W] = true;
 		}
-	}
-	else
-	{
-		//press key resetter
-
-		if (buffer[DIK_UP] & 0x80)
-		{}
 		else
 		{
-			pressed[DIK_UP] = false;
-		}
-		if (buffer[DIK_W] & 0x80)
-		{}
-		else
-		{
-			pressed[DIK_W] = false;
+			updatevalue = updatevalue | 0x1;
 		}
 	}
 	updatevalue = updatevalue << 1;
