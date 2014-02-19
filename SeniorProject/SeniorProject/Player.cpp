@@ -138,22 +138,9 @@ int Player::UpdateState(unsigned char updatevalue, float dt)
 		PowerThree(updatevalue,dt);
 		break;
 	}
-
-	//if (PowerActive == true)
-	//{
-		return SelectedPower;
-	//	// SelectedPower=1 -> Power1Active.png
-	//	// SelectedPower=2 -> Power2Active.png
-	//	// SelectedPower=3 -> Power3Active.png
-	//}
-	//else if(PowerActive == false)
-	//{
-	//	//return (SelectedPower + 3);
-	//	// SelectedPower + 3 =4 -> Power1NotActive.png
-	//	// SelectedPower + = 5 -> Power2NotActive.png
-	//	// SelectedPower + =6 -> Power3NotActive.png
-	//}
-
+	//return SelectedPower;
+	return CollisionCheck(position.x, position.y,position.x+rect.right,position.y+rect.bottom,ObjectList);
+	//return 0;
 }
 void Player::NoPower(unsigned char updatevalue,float dt) 
 {
