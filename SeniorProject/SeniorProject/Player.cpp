@@ -156,69 +156,69 @@ void Player::NoPower(unsigned int updatevalue,float dt)
 	{
 		//process Left movement
 
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
-			{
-				//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
 
-				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			{
+				position.x -= Xmove;
+			}
+			else
+			{
+				for(int i =0; i<120; i++)
 				{
-					position.x -= Xmove;
-				}
-				else
-				{
-					for(int i =0; i<120; i++)
-					{
 					if(CollisionCheck(PX1-=2,PY1,PX2-=2,PY2,ObjectList) != 1)
-						{
-							position.x -= 1;
-						}
+					{
+						position.x -= 1;
+					}
 					else
 					{
-					i = 120;
-					}
+						i = 120;
 					}
 				}
 			}
+		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
 		//process right movement
 
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
 			{
-				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
-				{
-					position.x += Xmove;
-				}
+				position.x += Xmove;
 			}
+		}
 	}
 	if((updatevalue & M_JUMP)!= false)
 	{
-	//		if(lowJump == true)
-	//{
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-			{	
-					Ymove = dt* JumpingConstant;
-					if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
-					{
-						position.y -= Ymove;
-						IsJumping = true;
-					}
-					else
-					{
-						IsJumping = false;
-					}
+		//		if(lowJump == true)
+		//{
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+		{	
+			Ymove = dt* JumpingConstant;
+			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			{
+				position.y -= Ymove;
+				IsJumping = true;
 			}
 			else
 			{
-			IsJumping = false;
+				IsJumping = false;
 			}
+		}
+		else
+		{
+			IsJumping = false;
+		}
 	}
 	else
 	{
-	IsJumping = false;
+		IsJumping = false;
 	}
 	//else
 	//{
@@ -228,27 +228,27 @@ void Player::NoPower(unsigned int updatevalue,float dt)
 
 
 
-		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+	{
+		//Ymove = dt* JumpingConstant;
+		//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
+		//{
+		//	position.y -= Ymove;
+		//}
+		if(IsJumping == false)
 		{
-			//Ymove = dt* JumpingConstant;
-			//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
-			//{
-			//	position.y -= Ymove;
-			//}
-			if(IsJumping == false)
-			{
 			Ymove = dt* Gravity;
 			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
 			{
 				position.y += Ymove;
 			}
-			}
-
 		}
-		//else
-		//{
-		//Time = dt;
-		//}
+
+	}
+	//else
+	//{
+	//Time = dt;
+	//}
 	//else
 	//{
 	//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
@@ -332,17 +332,17 @@ void Player::PowerOne(unsigned int updatevalue,float dt)
 		position.y -= dt* JumpingConstant;
 		//float JumpStarted
 		//JumpStarted+1 =<dt
-//		if(CollisionCheck(PX1+=1,PY1,PX2+=1,PY2,ObjectList) == 0 || CollisionCheck(PX1-=1,PY1,PX2-=1,PY2,ObjectList) == 0)
-//		{
-//			position.y -= dt* MovementSpeedY;
-//		}
+		//		if(CollisionCheck(PX1+=1,PY1,PX2+=1,PY2,ObjectList) == 0 || CollisionCheck(PX1-=1,PY1,PX2-=1,PY2,ObjectList) == 0)
+		//		{
+		//			position.y -= dt* MovementSpeedY;
+		//		}
 	}
-	position.y = dt* Gravity;
+	//position.y = dt* Gravity;
 	//gravity
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-	//	SelectedPower = 2;
+		//	SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
@@ -382,7 +382,7 @@ void Player::PowerTwo(unsigned int updatevalue,float dt)
 		//float JumpStarted
 		//JumpStarted+1 =<dt
 	}
-	position.y = dt* Gravity;
+	//position.y = dt* Gravity;
 	//gravity
 	//powers
 	if((updatevalue & P1)!=false)
@@ -391,7 +391,7 @@ void Player::PowerTwo(unsigned int updatevalue,float dt)
 	}
 	if((updatevalue & P2)!=false)
 	{
-	//	SelectedPower = 3;
+		//	SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
@@ -416,64 +416,67 @@ void Player::PowerThree(unsigned int updatevalue,float dt)
 	yellowPower	= false;
 	if((updatevalue & M_DOWN)!=false)
 	{
-	
+
 	}
 	if((updatevalue & M_LEFT)!=false)
 	{
 		//process Left movement
 
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
+
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
 			{
-				//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
-
-				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
-				{
-					position.x -= Xmove;
-				}
-
+				position.x -= Xmove;
 			}
+
+		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
 		//process right movement
 		//if(PowerActive == false)
 		//{
-			if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
 			{
-				Xmove = dt* MovementSpeedX;
-				if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
-				{
-					position.x += Xmove;
-				}
+				position.x += Xmove;
 			}
+		}
 		//}
 	}
 	if((updatevalue & M_JUMP)!= false)
 	{
-	//		if(lowJump == true)
-	//{
-			//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-			//{	
-					Ymove = dt* JumpingConstant;
-					if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
-					{
-						if(CollisionCheck(PX1+Ymove,PY1,PX2+Ymove,PY2,ObjectList) == 1 
-						|| CollisionCheck(PX1-Ymove,PY1,PX2-Ymove,PY2,ObjectList) == 1)
-						{
-						position.y -= Ymove;
-						yellowPower = false;
-						}
-						else
-						{
-						yellowPower = true;
-						}
-
-					}
-					else
-					{
+		//		if(lowJump == true)
+		//{
+		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+		//{	
+		Ymove = dt* JumpingConstant;
+		if(CollisionCheck(PX1+Ymove,PY1,PX2+Ymove,PY2,ObjectList) == 1 
+			|| CollisionCheck(PX1-Ymove,PY1,PX2-Ymove,PY2,ObjectList) == 1)
+		{
+			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			{
+				position.y -= Ymove;
+				if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
+				{
 					yellowPower = true;
-					}
+				}
+			}
+			else
+			{
+				yellowPower = false;
+			}
+
+		}
+		else
+		{
+			yellowPower = false;
+		}
 	}
 	//else
 	//{
@@ -483,34 +486,34 @@ void Player::PowerThree(unsigned int updatevalue,float dt)
 
 
 
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-		//{
-			//Ymove = dt* JumpingConstant;
-			//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
-			//{
-			//	position.y -= Ymove;
-			//}
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+	//{
+	//Ymove = dt* JumpingConstant;
+	//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
+	//{
+	//	position.y -= Ymove;
+	//}
 
-			//if((updatevalue & M_JUMP) == false && (updatevalue & M_LEFT) == false || 
-			//	(updatevalue & M_JUMP) == false && (updatevalue & M_RIGHT) == false)
-			//if(CollisionCheck(PX1,PY1+=20,PX2,PY2+=20,ObjectList) == 1)
-			//{
-			//}
-			//else
-			if(yellowPower == false)
-			{
-			Ymove = dt* Gravity;
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
-			{
-				position.y += Ymove;
-			}
-			}
+	//if((updatevalue & M_JUMP) == false && (updatevalue & M_LEFT) == false || 
+	//	(updatevalue & M_JUMP) == false && (updatevalue & M_RIGHT) == false)
+	//if(CollisionCheck(PX1,PY1+=20,PX2,PY2+=20,ObjectList) == 1)
+	//{
+	//}
+	//else
+	if(yellowPower == false)
+	{
+		Ymove = dt* Gravity;
+		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
+		{
+			position.y += Ymove;
+		}
+	}
 
-		//}
-		//else
-		//{
-		//Time = dt;
-		//}
+	//}
+	//else
+	//{
+	//Time = dt;
+	//}
 	//else
 	//{
 	//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
@@ -546,7 +549,7 @@ The_Sprite* Player::getSpritePointer()
 }
 void Player::setTextureList(IDirect3DTexture9* texturelist[])
 {
-//
+	//
 	for(int i = 0; i < 4; i++)
 	{
 		PlayerTextures[i] = texturelist[i];
