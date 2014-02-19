@@ -323,9 +323,9 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
 	
-		gameboard.getPlayer()->UpdateState(updatevalue, dt);
+		statememory = gameboard.getPlayer()->UpdateState(updatevalue, dt);
 
-		statememory = gameboard.checkForCollision();
+		//statememory = gameboard.checkForCollision();
 
 		if (statememory == 3)
 		{
