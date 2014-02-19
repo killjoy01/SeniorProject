@@ -53,7 +53,7 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 int Collision = 0;
 	for(int i=0; i< ObjectList.size(); i++) 
 	{
-		if(ObjectList[i].getID() == 1)
+		if(ObjectList[i].getID() != 0)
 		{
 			if(x1 < ObjectList[i].getPosition().x &&  ObjectList[i].getPosition().x < x2)
 			{
