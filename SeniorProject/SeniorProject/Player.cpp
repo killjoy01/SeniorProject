@@ -154,31 +154,27 @@ void Player::NoPower(unsigned int updatevalue,float dt)
 	float PY2 = (PY1 + rect.bottom);
 	if((updatevalue & M_LEFT)!=false)
 	{
-		//process Left movement
-
 		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 		{
-			//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
-
 			Xmove = dt* MovementSpeedX;
 			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
 			{
 				position.x -= Xmove;
 			}
-			else
-			{
-				for(int i =0; i<120; i++)
-				{
-					if(CollisionCheck(PX1-=2,PY1,PX2-=2,PY2,ObjectList) != 1)
-					{
-						position.x -= 1;
-					}
-					else
-					{
-						i = 120;
-					}
-				}
-			}
+			//else
+			//{
+			//	for(int i =0; i<120; i++)
+			//	{
+			//		if(CollisionCheck(PX1-=2,PY1,PX2-=2,PY2,ObjectList) != 1)
+			//		{
+			//			position.x -= 1;
+			//		}
+			//		else
+			//		{
+			//			i = 120;
+			//		}
+			//	}
+			//}
 		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
@@ -206,59 +202,16 @@ void Player::NoPower(unsigned int updatevalue,float dt)
 				position.y -= Ymove;
 				IsJumping = true;
 			}
-			else
-			{
-				IsJumping = false;
-			}
-		}
-		else
-		{
-			IsJumping = false;
 		}
 	}
-	else
-	{
-		IsJumping = false;
-	}
-	//else
-	//{
-	//lowJump = false;
-	//}
-	//gravity
-
-
-
 	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 	{
-		//Ymove = dt* JumpingConstant;
-		//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
-		//{
-		//	position.y -= Ymove;
-		//}
-		if(IsJumping == false)
+		Ymove = dt* Gravity;
+		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
 		{
-			Ymove = dt* Gravity;
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
-			{
-				position.y += Ymove;
-			}
+			position.y += Ymove;
 		}
-
 	}
-	//else
-	//{
-	//Time = dt;
-	//}
-	//else
-	//{
-	//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
-	//		|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
-	//	{
-	//		position.y += dt* Gravity;
-	//	}	
-	//}
-
-
 	//powers
 	if((updatevalue & P1)!=false)
 	{
@@ -276,73 +229,66 @@ void Player::NoPower(unsigned int updatevalue,float dt)
 	{
 		SelectedPower = 1;
 	}
-	//if((updatevalue & P_On)!=false)
-	//{
-	//	//if(LastChangedTimer >=dt+1)
-	//	//{
-	//	if(PowerActive !=false)
-	//	{
-	//		PowerActive = false;
-	//		LastChangedTimer = dt;
-	//	}
-	//	else
-	//	{
-	//		PowerActive = true;
-	//	}
-	//	//}
-	//}
-	//0 no collition
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 0){}
-	//1 block
-	//2 spike
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 2){/*reload current level*/}
-	//3 goal
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 30){/*load next level*/}
 }
 void Player::PowerOne(unsigned int updatevalue,float dt)
 {
+	float Xmove = 0.0f;
+	float Ymove = 0.0f;
 	float oldX = position.x;
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
-
 	if((updatevalue & M_LEFT)!=false)
 	{
-		//process Left movement
-		position.x -= dt* MovementSpeedX;
-		//		if(CollisionCheck(PX1,PY1+=1,PX2,PY2+=1,ObjectList) == 0 || CollisionCheck(PX1,PY1-=1,PX2,PY2-=1,ObjectList) == 0)
-		//{
-		//	position.x -= dt* MovementSpeedX;
-		//}
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			{
+				position.x -= Xmove;
+			}
+		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
-		position.x += dt* MovementSpeedX;
 		//process right movement
-		//		if(CollisionCheck(PX1,PY1+=1,PX2,PY2+=1,ObjectList) == 0 
-		//	|| CollisionCheck(PX1,PY1-=1,PX2,PY2-=1,ObjectList) == 0)
-		//{
-		//	position.x += dt* MovementSpeedX;
-		//}	
+
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			{
+				position.x += Xmove;
+			}
+		}
 	}
-	if((updatevalue & M_JUMP)!=false)
+	if((updatevalue & M_JUMP)!= false)
 	{
-		position.y -= dt* JumpingConstant;
-		//float JumpStarted
-		//JumpStarted+1 =<dt
-		//		if(CollisionCheck(PX1+=1,PY1,PX2+=1,PY2,ObjectList) == 0 || CollisionCheck(PX1-=1,PY1,PX2-=1,PY2,ObjectList) == 0)
-		//		{
-		//			position.y -= dt* MovementSpeedY;
-		//		}
+		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+		//{	
+		//	Ymove = dt* JumpingConstant;
+		//	if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
+		//	{
+		//		position.y += Ymove;
+		//		//IsJumping = true;
+		//	}
+		//}
 	}
-	//position.y = dt* Gravity;
-	//gravity
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+	{
+		//Ymove = dt* Gravity;
+		Ymove = 1;
+		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+		{
+			position.y -= Ymove;
+		}
+	}
 	//powers
 	if((updatevalue & P1)!=false)
 	{
-		//	SelectedPower = 2;
+		SelectedPower = 2;
 	}
 	if((updatevalue & P2)!=false)
 	{
@@ -355,35 +301,78 @@ void Player::PowerOne(unsigned int updatevalue,float dt)
 	if((updatevalue & P4)!=false)
 	{
 		SelectedPower = 1;
-	} 
+	}
 }
 void Player::PowerTwo(unsigned int updatevalue,float dt)
 {
+	float Xmove = 0.0f;
+	float Ymove = 0.0f;
 	float oldX = position.x;
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
-
 	if((updatevalue & M_LEFT)!=false)
 	{
-		//process Left movement
-		position.x -= dt* MovementSpeedX;
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			{
+				position.x -= Xmove;
+			}
+			//else
+			//{
+			//	for(int i =0; i<120; i++)
+			//	{
+			//		if(CollisionCheck(PX1-=2,PY1,PX2-=2,PY2,ObjectList) != 1)
+			//		{
+			//			position.x -= 1;
+			//		}
+			//		else
+			//		{
+			//			i = 120;
+			//		}
+			//	}
+			//}
+		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
-		position.x += dt* MovementSpeedX;
 		//process right movement
+
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
+		{
+			Xmove = dt* MovementSpeedX;
+			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			{
+				position.x += Xmove;
+			}
+		}
 	}
-	if((updatevalue & M_JUMP)!=false)
+	if((updatevalue & M_JUMP)!= false)
 	{
-		position.y -= dt* JumpingConstant;
-		//float JumpStarted
-		//JumpStarted+1 =<dt
+		//		if(lowJump == true)
+		//{
+		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+		{	
+			Ymove = dt* JumpingConstant;
+			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			{
+				position.y -= Ymove;
+				IsJumping = true;
+			}
+		}
 	}
-	//position.y = dt* Gravity;
-	//gravity
+	if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
+	{
+		Ymove = dt* Gravity;
+		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
+		{
+			position.y += Ymove;
+		}
+	}
 	//powers
 	if((updatevalue & P1)!=false)
 	{
@@ -391,7 +380,7 @@ void Player::PowerTwo(unsigned int updatevalue,float dt)
 	}
 	if((updatevalue & P2)!=false)
 	{
-		//	SelectedPower = 3;
+		SelectedPower = 3;
 	}
 	if((updatevalue & P3)!=false)
 	{
@@ -456,16 +445,11 @@ void Player::PowerThree(unsigned int updatevalue,float dt)
 		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 		//{	
 		Ymove = dt* JumpingConstant;
-		if(CollisionCheck(PX1+Ymove,PY1,PX2+Ymove,PY2,ObjectList) == 1 
-			|| CollisionCheck(PX1-Ymove,PY1,PX2-Ymove,PY2,ObjectList) == 1)
+		if(CollisionCheck(PX1+Ymove,PY1,PX2+Ymove,PY2,ObjectList) == 1 || CollisionCheck(PX1-Ymove,PY1,PX2-Ymove,PY2,ObjectList) == 1)
 		{
 			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
 			{
 				position.y -= Ymove;
-				if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-				{
-					yellowPower = true;
-				}
 			}
 			else
 			{
@@ -473,9 +457,17 @@ void Player::PowerThree(unsigned int updatevalue,float dt)
 			}
 
 		}
-		else
+		else 
 		{
+		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
+		{
+			
+				yellowPower = true;
+		}
+		else
+			{
 			yellowPower = false;
+			}
 		}
 	}
 	//else
