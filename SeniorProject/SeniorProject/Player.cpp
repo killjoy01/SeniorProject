@@ -118,7 +118,8 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 int Player::UpdateState(unsigned int updatevalue, float dt)
 {
 	//movment
-
+	int number;
+	number = CollisionCheck(position.x, position.y,position.x+rect.right,position.y+rect.bottom,ObjectList);
 	switch(SelectedPower)
 	{
 	case 1:
@@ -139,7 +140,7 @@ int Player::UpdateState(unsigned int updatevalue, float dt)
 		break;
 	}
 	//return SelectedPower;
-	return CollisionCheck(position.x, position.y,position.x+rect.right,position.y+rect.bottom,ObjectList);
+	return number;
 	//return 0;
 }
 void Player::NoPower(unsigned int updatevalue,float dt) 
@@ -249,6 +250,16 @@ void Player::PowerOne(unsigned int updatevalue,float dt)
 			{
 				position.x -= Xmove;
 			}
+			//else
+			//{
+			//for(int i = 0; i < 32; i++)
+			//	{
+			//	if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			//		{
+			//			position.x -= Xmove;
+			//		}
+			//	}
+			//}
 		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
