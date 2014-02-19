@@ -165,10 +165,6 @@ void Player::NoPower(unsigned char updatevalue,float dt)
 	float PY1 = position.y;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
-	if((updatevalue & M_DOWN)!=false)
-	{
-	
-	}
 	if((updatevalue & M_LEFT)!=false)
 	{
 		//process Left movement
