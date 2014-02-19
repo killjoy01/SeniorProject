@@ -41,7 +41,7 @@ protected:
 	IDirect3DTexture9* PlayerTextures[4];
 public:
 	vector<Object> ObjectList;
-	
+	int getSelectedPower();
 	void setTextureList(IDirect3DTexture9*[]);
 	Player();
 	Player(const Player &);

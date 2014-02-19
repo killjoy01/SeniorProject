@@ -119,6 +119,7 @@ int Collision = 0;
 	//return 2;
 	//return 3;
 }
+
 int Player::UpdateState(unsigned int updatevalue, float dt)
 {
 	//movment
@@ -146,6 +147,10 @@ int Player::UpdateState(unsigned int updatevalue, float dt)
 	//return SelectedPower;
 	return number;
 	//return 0;
+}
+int Player::getSelectedPower()
+{
+return SelectedPower;
 }
 void Player::NoPower(unsigned int updatevalue,float dt) 
 {
