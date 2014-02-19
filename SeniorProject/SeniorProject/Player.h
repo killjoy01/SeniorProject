@@ -7,7 +7,7 @@
 const float MovementSpeedX = 0.1f;
 const float MovementSpeedY = 0.1f;
 const float Gravity = 0.1f;
-const float JumpingConstant = 0.1f;	
+const float JumpingConstant = 0.2f;	
 const unsigned int M_LEFT = 1;
 const unsigned int M_RIGHT = 2;
 const unsigned int M_JUMP = 4;
@@ -51,15 +51,15 @@ public:
 	void setPlayerTextur();
 	int CollisionCheck(float x1,float y1,float x2,float y2,vector<Object> & ObjectList);
 	void  setObjectList(vector<Object> &objects);
-	void PowerOne(unsigned char updatevalue,float dt);
-	void PowerTwo(unsigned char updatevalue,float dt);
-	void PowerThree(unsigned char updatevalue,float dt);
-	void NoPower(unsigned char updatevalue,float dt);
+	void PowerOne(unsigned int updatevalue,float dt);
+	void PowerTwo(unsigned int updatevalue,float dt);
+	void PowerThree(unsigned int updatevalue,float dt);
+	void NoPower(unsigned int updatevalue,float dt);
 	The_Sprite* Player::getSpritePointer();
 	//void ChangePosition(char keystate,float dt);
 	//void SetObjectList(vector * ObjectList);
 	//object list
-	int UpdateState(unsigned char updatevalue,float dt);
+	int UpdateState(unsigned int updatevalue,float dt);
 	//void collisionResolution(float x1,float y1,float x2,float y2,vector<Object> & ObjectList);
 	//void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *);
 	//void draw(IDirect3DDevice9*, ID3DXSprite*, D3DXMATRIX *, const D3DXVECTOR3*);
