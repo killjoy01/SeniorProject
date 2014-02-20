@@ -51,10 +51,10 @@ public:
 	void setPlayerTextur();
 	int CollisionCheck(float x1,float y1,float x2,float y2,vector<Object> & ObjectList);
 	void  setObjectList(vector<Object> &objects);
-	void PowerOne(unsigned int updatevalue,float dt);
-	void PowerTwo(unsigned int updatevalue,float dt);
-	void PowerThree(unsigned int updatevalue,float dt);
-	void NoPower(unsigned int updatevalue,float dt);
+	int PowerOne(unsigned int updatevalue,float dt);
+	int PowerTwo(unsigned int updatevalue,float dt);
+	int PowerThree(unsigned int updatevalue,float dt);
+	int NoPower(unsigned int updatevalue,float dt);
 	The_Sprite* Player::getSpritePointer();
 	//void ChangePosition(char keystate,float dt);
 	//void SetObjectList(vector * ObjectList);
