@@ -382,29 +382,29 @@ int Player::PowerOne(unsigned int updatevalue,float dt)
 		//		position.y += Ymove;
 		//		//IsJumping = true;
 		//	}
-		/*
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-				//return
-			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
-			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-				//return
-			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
-			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-				//return
-			}
-		*/
+		
+		//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
+		//	{
+		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+		//		//return
+		//	}
+		//	if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
+		//	{
+		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+		//		//return
+		//	}
+		//	if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
+		//	{
+		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+		//		//return
+		//	}
+		
 		//}
 	}
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 	//{
-		//Ymove = dt* Gravity;
-		Ymove = 1;
+		Ymove = dt* Gravity;
+		//Ymove = 1;
 		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
 		{
 			position.y -= Ymove;
