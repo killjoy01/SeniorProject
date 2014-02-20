@@ -24,7 +24,7 @@ private:
 	Player * player;
 	vector<Enemy> enemies;
 	vector<Object> objects;
-	Object goal;
+	The_Sprite goal;
 	The_Sprite*** drawnLevel;
 	Map charArray;
 	int width, height;
@@ -34,7 +34,7 @@ private:
 public: 
 	GameLevel();
 	~GameLevel();
-	void init(char* filename, The_Sprite *, Player * p);
+	void init(char* filename, /*The_Sprite **/ Player * p);
 	void init(char* filename, The_Sprite* bgTexture, The_Sprite* blockTexture, The_Sprite* playerTexture, int w, int h);
 	Player * getPlayer();
 	void setPlayer(Player *);
@@ -44,7 +44,6 @@ public:
 	void setBackground(The_Sprite*);
 	Enemy GameLevel::getEnemy(int);
 	int getEnemySize();
-	//void getGoal();
 	
 	Object * GameLevel::getObject(int);
 	int getObjectSize();
@@ -52,7 +51,7 @@ public:
 	Map getLevel(int);
 	
 	The_Sprite* getBlock();
-	Object* getGoal();
+	The_Sprite* getGoal();
 	
 	void clearVectors();
 	The_Sprite * getBackground();
@@ -63,7 +62,7 @@ public:
 	
 	
 
-	void LoadMap (char * filename, The_Sprite *);
+	void LoadMap (char * filename /*The_Sprite **/);
 	void MapPointers (char** map);
 	void DrawMap();
 

@@ -231,9 +231,10 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[2]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power3Active.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[3]);
-	
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"basic_block.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal2.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &goalTexture);
 
 	gameboard.getLevel(0)->getBackground()->setTexture(backgroundTexture);
 	gameboard.getLevel(0)->getBackground()->setWidth(width);
@@ -252,6 +253,15 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getLevel(0)->getBlock()->setRotation(0.0f);
 	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBlock()->setRect();
+	
+	gameboard.getLevel(0)->getGoal()->setTexture(goalTexture);
+	gameboard.getLevel(0)->getGoal()->setWidth(32);
+	gameboard.getLevel(0)->getGoal()->setHeight(32);
+	gameboard.getLevel(0)->getGoal()->setScalex(1.0f);
+	gameboard.getLevel(0)->getGoal()->setScaley(1.0f);
+	gameboard.getLevel(0)->getGoal()->setRotation(0.0f);
+	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(0)->getGoal()->setRect();
 
 	gameboard.getPlayer()->setTexture(playerTexture[0]);
 	gameboard.getPlayer()->setTextureList(playerTexture);
@@ -263,7 +273,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	//gameboard.getPlayer()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getPlayer()->setRect();
 
-	gameboard.getLevel(0)->init("BASIC_MAP.txt", gameboard.getLevel(0)->getBlock(), gameboard.getPlayer());
+	gameboard.getLevel(0)->init("BASIC_MAP.txt", /*gameboard.getLevel(0)->getBlock()*/ gameboard.getPlayer());
 
 	for (int i = 0; i < 256; i++)
 	{

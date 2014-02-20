@@ -21,11 +21,11 @@ GameLevel::GameLevel()
 GameLevel::~GameLevel()
 {}
 
-void GameLevel::init(char* filename, The_Sprite * bgtexture, Player * p)
+void GameLevel::init(char* filename, /*The_Sprite * bgtexture*/ Player * p)
 {
 	player = p;
 	charArray.load(filename);
-	LoadMap(filename, bgtexture);
+	LoadMap(filename);
 	//MapPointers(charArray.getMap());
 	//DrawMap();
 	player->setObjectList(objects);
@@ -60,7 +60,7 @@ The_Sprite * GameLevel::getBackground()
 	return &background;
 }
 
-void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
+void GameLevel::LoadMap (char * filename /*The_Sprite * bgtexture*/)
 {
 	charArray.load(filename);
 	width = charArray.getW();
@@ -82,11 +82,12 @@ void GameLevel::LoadMap (char * filename, The_Sprite * bgtexture)
 			if (charArray.get(i, j) == '#')
 			{
 				o->setID(1);
-				o->setTexture(bgtexture->getTexture());
+				o->setTexture(block.getTexture());
 			}
 			else if (charArray.get(i, j) == 'G')
 			{
 				o->setID(3);
+				o->setTexture(goal.getTexture());
 			}
 			objects.push_back(*o);
 		}
@@ -149,7 +150,7 @@ return &objects[obj];
 }
 //GameLevel * GameWorld::getLevel(int i){return &levels[i];}
 //Map * GameLevel::getLevel(int map){return &charArray;}
-Object * GameLevel::getGoal()
+The_Sprite * GameLevel::getGoal()
 {
 return &goal;
 }
