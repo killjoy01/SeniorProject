@@ -220,6 +220,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	system->createSound("Airburshed.mp3", FMOD_DEFAULT, 0, &sound);
 
 	gameboard.init();
+	gameboard.addLevel();
 
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage2.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture[0]);
@@ -276,7 +277,6 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getPlayer()->setRect();
 
 	gameboard.getLevel(0)->init("BASIC_MAP.txt", /*gameboard.getLevel(0)->getBlock()*/ gameboard.getPlayer());
-	gameboard.addLevel();
 
 	//Level Two
 
@@ -538,6 +538,8 @@ void CDirectXFramework::Shutdown()
 {
 	//*************************************************************************
 	// Release COM objects in the opposite order they were created in
+	gameboard.release();
+	
 	delete [] movepositions;
 
 	system->release();

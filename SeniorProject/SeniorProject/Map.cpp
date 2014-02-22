@@ -104,6 +104,7 @@ void Map::Shutdown()
 	}
 
 	delete [] m_map;
+	m_map = NULL;
 }
 
 void Map::Draw(int a_x, int a_y)

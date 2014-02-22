@@ -18,7 +18,6 @@ GameWorld::GameWorld(const GameWorld & g)
 
 GameWorld::~GameWorld()
 {
-	release();
 }
 
 void GameWorld::init()
@@ -107,7 +106,7 @@ GameLevel * GameWorld::getLevel(int i)
 
 void GameWorld::release()
 {
-	//levels.empty();
+	levels.empty();
 }
 
 GameLevel * GameWorld::getCurrentLevel()

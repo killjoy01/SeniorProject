@@ -21,6 +21,7 @@ GameLevel::GameLevel()
 
 GameLevel::~GameLevel()
 {
+	charArray.Shutdown();
 }
 
 void GameLevel::init(char* filename, /*The_Sprite * bgtexture*/ Player * p)
@@ -64,7 +65,7 @@ The_Sprite * GameLevel::getBackground()
 
 void GameLevel::LoadMap (char * filename /*The_Sprite * bgtexture*/)
 {
-	charArray.load(filename);
+	//charArray.load(filename);
 	width = charArray.getW();
 	height = charArray.getH();
 
@@ -137,7 +138,8 @@ The_Sprite * GameLevel::getBlock()
 
 void GameLevel::release()
 {
-	//charArray.Shutdown();
+	objects.empty();
+	charArray.Shutdown();
 }
 //there is a getter for getlevel allready on line 101 in Game world
 //getEnemy getObject are not working properly i will keep working on it but i think the rest are ok
