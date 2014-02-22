@@ -318,7 +318,6 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 
 	//Menu Buttons
 
-	
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"play.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &menuTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"credits.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
@@ -331,6 +330,17 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &menuTexture[4]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"quitactive.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &menuTexture[5]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage1.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture[2]);
+
+	background_sprite.setTexture(backgroundTexture[2]);
+	background_sprite.setWidth(width);
+	background_sprite.setHeight(height);
+	background_sprite.setScalex(2800 / 640);
+	background_sprite.setScaley(1640 / 480);
+	background_sprite.setRotation(0.0f);
+	background_sprite.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	background_sprite.setRect();
 
 	menu_sprites[0].setTexture(menuTexture[0]);
 	menu_sprites[0].setWidth(76);
@@ -386,6 +396,19 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	menu_sprites[5].setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
 	menu_sprites[5].setRect();
 
+	//credits scene
+
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"credits_scene.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &creditsTexture);
+
+	credits_scene.setTexture(creditsTexture);
+	credits_scene.setWidth(800);
+	credits_scene.setHeight(640);
+	credits_scene.setScalex(1.0f);
+	credits_scene.setScaley(1.0f);
+	credits_scene.setRotation(0.0f);
+	credits_scene.setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	credits_scene.setRect();
 	for (int i = 0; i < 256; i++)
 	{
 		pressed[i] = false;
@@ -448,17 +471,7 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		else if (menuvalue == -1)
 		{
-			gameboard.getPlayer()->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
-			for (int i = 0; i < 256; i++)
-			{
-				pressed[i] = false;
-			}
-
-			for (int i = 0; i < 8; i++)
-			{
-				mousePressed[i] = false;
-			}
-			the_state = PROGRAM;
+			the_state = INIT;
 		}
 		else if (menuvalue == 1)
 		{
@@ -474,7 +487,17 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		break;
 	case INIT:
-
+		gameboard.getPlayer()->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
+		for (int i = 0; i < 256; i++)
+		{
+			pressed[i] = false;
+		}
+		
+		for (int i = 0; i < 8; i++)
+		{
+			mousePressed[i] = false;
+		}
+		the_state = PROGRAM;
 		break;
 	case PROGRAM:
 		playingmusic = false;
@@ -516,7 +539,18 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		break;
 	case CREDITS_SCENE:
-		//keyDown5(buffer, dt);
+		playingmusic = false;
+		channel->isPlaying(&playingmusic);
+		if (!playingmusic)
+		{
+			result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+		}
+		updatevalue = keyDown(buffer, gameboard.getPlayer(), dt);
+
+		if (updatevalue == 256)
+		{
+			the_state = MENU;
+		}
 		break;
 	case GAME_OVER:
 		break;
@@ -553,6 +587,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
+		background_sprite.draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[0].draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[1].draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[2].draw(m_pD3DDevice, m_pD3DSprite, &world);
@@ -579,18 +614,11 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 
 		m_pD3DDevice->BeginScene();
-		m_pD3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-		m_pD3DSprite->End();
-
-		m_pD3DDevice->EndScene();
-
-		m_pD3DDevice->BeginScene();
 		m_pD3DSprite->Begin(NULL);
 
 		m_pD3DSprite->End();
 
-		m_pD3DDevice->EndScene();
+		m_pD3DDevice->EndScene();		
 
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 	}
@@ -635,13 +663,14 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_ARGB(255, 0, 0, 0), 1.0f, 0);
 
 		m_pD3DDevice->BeginScene();
-
 		m_pD3DSprite->Begin(NULL);
 
+		background_sprite.draw(m_pD3DDevice, m_pD3DSprite, &world);
+		credits_scene.draw(m_pD3DDevice, m_pD3DSprite, &world);
 
 		m_pD3DSprite->End();
 
-		m_pD3DDevice->EndScene();
+		m_pD3DDevice->EndScene();		
 
 		m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 
