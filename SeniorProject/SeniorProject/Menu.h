@@ -4,7 +4,7 @@
 
 //note: Mask Check Value is 384
 
-enum states{LEVELS, CREDITS, QUIT, NUMSTATES};
+enum m_states{LEVELS, CREDITS, A_QUIT, NUMSTATES};
 
 enum keys{UP = 4, DOWN = 8, SELECT = 384};
 

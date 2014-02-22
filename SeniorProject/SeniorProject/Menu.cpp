@@ -22,11 +22,11 @@ int Menu::Update(int button)
 {
 	if(button & SELECT) //selected
 	{
-		return -1*selectedButton;
+		return -1*(selectedButton + 1);
 	}
 	else if(button & UP) // up
 	{
-		select(selectedButton += 2 % NUMSTATES);
+		select(selectedButton -= 1 % NUMSTATES);
 		return selectedButton+1;
 	}
 	else if(button & DOWN) //down

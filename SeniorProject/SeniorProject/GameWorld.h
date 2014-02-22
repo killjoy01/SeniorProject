@@ -53,5 +53,7 @@ public:
 
 	bool outOfLevels();
 
+	void reset();
+
 	GameLevel * getCurrentLevel();
 };

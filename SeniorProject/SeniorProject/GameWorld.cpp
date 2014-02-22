@@ -142,3 +142,10 @@ bool GameWorld::outOfLevels()
 		return 0;
 	}
 }
+
+void GameWorld::reset()
+{
+	setActive(0);
+	levels[Active].setObjectList();
+}
+	
