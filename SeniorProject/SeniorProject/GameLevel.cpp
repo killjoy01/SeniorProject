@@ -18,8 +18,10 @@ GameLevel::GameLevel()
 	width =  height = 0;
 
 }
+
 GameLevel::~GameLevel()
-{}
+{
+}
 
 void GameLevel::init(char* filename, /*The_Sprite * bgtexture*/ Player * p)
 {
@@ -66,25 +68,25 @@ void GameLevel::LoadMap (char * filename /*The_Sprite * bgtexture*/)
 	width = charArray.getW();
 	height = charArray.getH();
 
-	for (int i = 0; i < height; ++i)
+	for (int j = 0; j < height; ++j)
 	{
-		for (int j = 0; j < width; ++j)
+		for (int i = 0; i < width; ++i)
 		{
 			Object * o = new Object();
 			o->setID(0);
-			o->setPosition(D3DXVECTOR3(height * j, width * i, 0.0f));
+			o->setPosition(D3DXVECTOR3((float)(32 * i), (float)(32 * j), 0.0f));
 			o->setWidth(32);
 			o->setHeight(32);
 			o->setScalex(1.0f);
 			o->setScaley(1.0f);
 			o->setRotation(0.0f);
 			o->setRect();
-			if (charArray.get(i, j) == '#')
+			if (charArray.get(j, i) == '#')
 			{
 				o->setID(1);
 				o->setTexture(block.getTexture());
 			}
-			else if (charArray.get(i, j) == 'G')
+			else if (charArray.get(j, i) == 'G')
 			{
 				o->setID(3);
 				o->setTexture(goal.getTexture());
@@ -135,7 +137,7 @@ The_Sprite * GameLevel::getBlock()
 
 void GameLevel::release()
 {
-	charArray.Shutdown();
+	//charArray.Shutdown();
 }
 //there is a getter for getlevel allready on line 101 in Game world
 //getEnemy getObject are not working properly i will keep working on it but i think the rest are ok
@@ -186,4 +188,9 @@ int GameLevel::checkForCollision()
 			}
 		}
 	}
+}
+
+void GameLevel::setObjectList()
+{
+	player->setObjectList(objects);
 }

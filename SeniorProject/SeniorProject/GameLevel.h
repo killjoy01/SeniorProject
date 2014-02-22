@@ -60,7 +60,7 @@ public:
 
 	int getSize(int);
 	
-	
+	void setObjectList();
 
 	void LoadMap (char * filename /*The_Sprite **/);
 	void MapPointers (char** map);

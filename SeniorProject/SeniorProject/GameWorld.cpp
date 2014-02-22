@@ -18,7 +18,7 @@ GameWorld::GameWorld(const GameWorld & g)
 
 GameWorld::~GameWorld()
 {
-release();
+	release();
 }
 
 void GameWorld::init()
@@ -53,9 +53,10 @@ void GameWorld::setActive(int a)
 	Active = a;
 }
 
-void GameWorld::addLevel(GameLevel gl)
+void GameWorld::addLevel()
 {
-	levels.push_back(gl);
+	GameLevel * gl = new GameLevel();
+	levels.push_back(*gl);
 }
 
 void GameWorld::loadFromFile(IDirect3DDevice9* a_d, IDirect3DTexture9* a_t, char * filename)
@@ -106,11 +107,7 @@ GameLevel * GameWorld::getLevel(int i)
 
 void GameWorld::release()
 {
-	for(int i = 0; i < levels.size(); ++i)
-	{
-		levels[i].release();
-	}
-	levels.empty();
+	//levels.empty();
 }
 
 GameLevel * GameWorld::getCurrentLevel()
@@ -122,4 +119,27 @@ GameLevel * GameWorld::getCurrentLevel()
 int GameWorld::checkForCollision()
 {
 	return levels[Active].checkForCollision();
+}
+
+void GameWorld::nextLevel()
+{
+	Active++;
+	levels[Active].setObjectList();
+}
+
+void GameWorld::setObjectList(int i)
+{
+	levels[Active].setObjectList();
+}
+
+bool GameWorld::outOfLevels()
+{
+	if (Active == (levels.size() - 1))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }

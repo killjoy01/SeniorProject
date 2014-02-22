@@ -97,7 +97,13 @@ void Map::Shutdown(char ** m, const int width, const int height)
 
 void Map::Shutdown()
 {
-	Shutdown(m_map, m_width, m_height);
+	if (m_map != NULL)
+	{
+		for(int i = 0; i < m_height; ++i)
+		   delete [] m_map[i];
+	}
+
+	delete [] m_map;
 }
 
 void Map::Draw(int a_x, int a_y)

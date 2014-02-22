@@ -91,5 +91,8 @@
     <None Include="Text.txt">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="LEVEL_TWO.txt">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

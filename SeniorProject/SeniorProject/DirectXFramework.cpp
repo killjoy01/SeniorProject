@@ -222,7 +222,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.init();
 
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage2.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture);
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Purple_Blob.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[0]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power1NotActive.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
@@ -232,11 +232,13 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"Power3Active.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &playerTexture[3]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"basic_block.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
-		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture);
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture[1]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"goal2.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &goalTexture);
 
-	gameboard.getLevel(0)->getBackground()->setTexture(backgroundTexture);
+	//Level One
+	
+	gameboard.getLevel(0)->getBackground()->setTexture(backgroundTexture[0]);
 	gameboard.getLevel(0)->getBackground()->setWidth(width);
 	gameboard.getLevel(0)->getBackground()->setHeight(height);
 	gameboard.getLevel(0)->getBackground()->setScalex(2800 / 640);
@@ -245,7 +247,7 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getLevel(0)->getBackground()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	gameboard.getLevel(0)->getBackground()->setRect();
 
-	gameboard.getLevel(0)->getBlock()->setTexture(blockTexture);
+	gameboard.getLevel(0)->getBlock()->setTexture(blockTexture[1]);
 	gameboard.getLevel(0)->getBlock()->setWidth(32);
 	gameboard.getLevel(0)->getBlock()->setHeight(32);
 	gameboard.getLevel(0)->getBlock()->setScalex(1.0f);
@@ -274,7 +276,44 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	gameboard.getPlayer()->setRect();
 
 	gameboard.getLevel(0)->init("BASIC_MAP.txt", /*gameboard.getLevel(0)->getBlock()*/ gameboard.getPlayer());
+	gameboard.addLevel();
 
+	//Level Two
+
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage3.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture[1]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"block2.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &blockTexture[1]);
+
+	gameboard.getLevel(1)->getBackground()->setTexture(backgroundTexture[1]);
+	gameboard.getLevel(1)->getBackground()->setWidth(width);
+	gameboard.getLevel(1)->getBackground()->setHeight(height);
+	gameboard.getLevel(1)->getBackground()->setScalex(2800 / 640);
+	gameboard.getLevel(1)->getBackground()->setScaley(1640 / 480);
+	gameboard.getLevel(1)->getBackground()->setRotation(0.0f);
+	gameboard.getLevel(1)->getBackground()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(1)->getBackground()->setRect();
+
+	gameboard.getLevel(1)->getBlock()->setTexture(blockTexture[1]);
+	gameboard.getLevel(1)->getBlock()->setWidth(32);
+	gameboard.getLevel(1)->getBlock()->setHeight(32);
+	gameboard.getLevel(1)->getBlock()->setScalex(1.0f);
+	gameboard.getLevel(1)->getBlock()->setScaley(1.0f);
+	gameboard.getLevel(1)->getBlock()->setRotation(0.0f);
+	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(1)->getBlock()->setRect();
+	
+	gameboard.getLevel(1)->getGoal()->setTexture(goalTexture);
+	gameboard.getLevel(1)->getGoal()->setWidth(32);
+	gameboard.getLevel(1)->getGoal()->setHeight(32);
+	gameboard.getLevel(1)->getGoal()->setScalex(1.0f);
+	gameboard.getLevel(1)->getGoal()->setScaley(1.0f);
+	gameboard.getLevel(1)->getGoal()->setRotation(0.0f);
+	//gameboard.getLevel(0)->getBlock()->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	gameboard.getLevel(1)->getGoal()->setRect();
+
+	gameboard.getLevel(1)->init("LEVEL_TWO.txt", /*gameboard.getLevel(0)->getBlock()*/ gameboard.getPlayer());
+	gameboard.setObjectList(0);
 	for (int i = 0; i < 256; i++)
 	{
 		pressed[i] = false;
@@ -311,7 +350,7 @@ bool CDirectXFramework::Update(float & dt)
 	m_Mouse->GetDeviceState(sizeof(DIMOUSESTATE2), (void **)&m_MouseState);
 
 	Object * o = NULL;
-	int statememory;
+	int statememory = 0;
 	switch(the_state)
 	{
 	case MENU:
@@ -351,8 +390,16 @@ bool CDirectXFramework::Update(float & dt)
 			if (buffer[DIK_UP] & 0x80)
 			{
 				MessageBox(NULL, L"You win!", L"", MB_OK);
-				gameboard.getPlayer()->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
-				//gameboard.clearVectors();
+				if (gameboard.outOfLevels())
+				{
+					return true;
+				}
+				else
+				{
+					gameboard.nextLevel();
+					gameboard.getPlayer()->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
+				}
+				
 			}
 		}
 		break;

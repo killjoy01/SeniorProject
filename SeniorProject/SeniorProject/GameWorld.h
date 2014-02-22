@@ -38,7 +38,8 @@ public:
 	int checkForCollision();
 	void loadFromFile (IDirect3DDevice9*, IDirect3DTexture9*, char * filename);
 	void clearVectors();
-	void addLevel(GameLevel);
+	void addLevel();
+	void nextLevel();
 
 	GameLevel * getLevel(int);
 
@@ -47,6 +48,10 @@ public:
 	void setLevelVars(int forLevel);
 
 	void release();
+
+	void setObjectList(int);
+
+	bool outOfLevels();
 
 	GameLevel * getCurrentLevel();
 };
