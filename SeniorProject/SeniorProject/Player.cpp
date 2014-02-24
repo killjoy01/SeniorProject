@@ -166,7 +166,6 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
-	//float PX1new;//float PX2new;//float PY1new;//float PY1new;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
 	int theNumber = 0;
@@ -179,6 +178,21 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 			{
 				position.x = oldX;
 				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
+				for (int i = 0; i<32; i++)
+					{
+					PX1 = position.x;
+					PY1 = position.y;
+					PX2 =(PX1 + rect.right);
+					PY2 = (PY1 + rect.bottom);
+					Xmove = 1;
+					oldX = position.x;
+					position.x -= Xmove;
+					if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
+					{
+					position.x = oldX;
+					}
+		
+					}
 			}
 			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 2)
 			{
@@ -197,8 +211,23 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
 			{
 				position.x = oldX;
-				position.y = oldY;
+				//position.y = oldY;
 				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
+				for (int i = 0; i<32; i++)
+					{
+					PX1 = position.x;
+					PY1 = position.y;
+					PX2 =(PX1 + rect.right);
+					PY2 = (PY1 + rect.bottom);
+					Xmove = 1;
+					oldX = position.x;
+					position.x += Xmove;
+					if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
+					{
+					position.x = oldX;
+					}
+		
+					}
 			}
 			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 2)
 			{
@@ -218,6 +247,21 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 			{
 				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				position.y = oldY;
+						for (int i = 0; i<32; i++)
+						{
+						PX1 = position.x;
+						PY1 = position.y;
+						PX2 =(PX1 + rect.right);
+						PY2 = (PY1 + rect.bottom);
+						Ymove = 1;
+						oldY = position.y;
+						position.y -= Ymove;
+						if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 1)
+						{
+						position.y = oldY;
+						}
+		
+						}
 				//return
 			}
 			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 2)
@@ -240,6 +284,21 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 	{
 		position.y = oldY;
 		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+		for (int i = 0; i<32; i++)
+		{
+		PX1 = position.x;
+		PY1 = position.y;
+		PX2 =(PX1 + rect.right);
+		PY2 = (PY1 + rect.bottom);
+		Ymove = 1;
+		oldY = position.y;
+		position.y += 1;
+		if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 1)
+		{
+		position.y = oldY;
+		}
+		
+		}
 	}
 	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 2)
 	{
