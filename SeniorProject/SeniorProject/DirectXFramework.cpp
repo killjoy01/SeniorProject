@@ -520,8 +520,8 @@ bool CDirectXFramework::Update(float & dt)
 		}
 		if (statememory == 3)
 		{
-			if (buffer[DIK_UP] & 0x80)
-			{
+			//if (buffer[DIK_UP] & 0x80)
+			//{
 				MessageBox(NULL, L"You win!", L"", MB_OK);
 				if (gameboard.outOfLevels())
 				{
@@ -534,8 +534,7 @@ bool CDirectXFramework::Update(float & dt)
 					gameboard.nextLevel();
 					gameboard.getPlayer()->setPosition(D3DXVECTOR3(5.0f * 32.0f, 12.0f * 32.0f, 0.0f));
 				}
-				
-			}
+			//}
 		}
 		break;
 	case CREDITS_SCENE:
