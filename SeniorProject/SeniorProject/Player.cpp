@@ -55,9 +55,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 	{
 		if(ObjectList[i].getID() != 0)
 		{
-			if(x1 < ObjectList[i].getPosition().x &&  ObjectList[i].getPosition().x < x2)
+			if(x1 <= ObjectList[i].getPosition().x &&  ObjectList[i].getPosition().x <= x2)
 			{
-				if(y1 < ObjectList[i].getPosition().y && y2 > ObjectList[i].getPosition().y)
+				if(y1 <= ObjectList[i].getPosition().y && y2 >= ObjectList[i].getPosition().y)
 				{
 					//Collision = ObjectList[i].getID();
 					//return Collision;
@@ -68,9 +68,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				}
 			}
 
-			if(x1 < ObjectList[i].rightside() && x2 > ObjectList[i].rightside())
+			if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside())
 			{
-				if(y1 <  ObjectList[i].getPosition().y && y2 >  ObjectList[i].getPosition().y)
+				if(y1 <=  ObjectList[i].getPosition().y && y2 >=  ObjectList[i].getPosition().y)
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
@@ -82,9 +82,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				}
 			}		
 
-			if(x1 < ObjectList[i].rightside() && x2 > ObjectList[i].rightside() )
+			if(x1 <= ObjectList[i].rightside() && x2 >= ObjectList[i].rightside() )
 			{
-				if(y1 < ObjectList[i].bottom()  && y2 > ObjectList[i].bottom())
+				if(y1 <= ObjectList[i].bottom()  && y2 >= ObjectList[i].bottom())
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{
@@ -96,9 +96,9 @@ int Player::CollisionCheck(float x1,float y1,float x2,float y2, vector<Object> &
 				}
 			}		
 
-			if(x1 <  ObjectList[i].getPosition().x && x2 > ObjectList[i].getPosition().x)
+			if(x1 <=  ObjectList[i].getPosition().x && x2 >= ObjectList[i].getPosition().x)
 			{
-				if(y1 < ObjectList[i].bottom() && y2 > ObjectList[i].bottom())
+				if(y1 <= ObjectList[i].bottom() && y2 >= ObjectList[i].bottom())
 				{
 					//if(ObjectList[i].getID() != 0)
 					//{				
@@ -166,122 +166,90 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 	float oldY = position.y;
 	float PX1 = position.x;
 	float PY1 = position.y;
+	//float PX1new;//float PX2new;//float PY1new;//float PY1new;
 	float PX2 =(PX1 + rect.right);
 	float PY2 = (PY1 + rect.bottom);
 	int theNumber = 0;
 	if((updatevalue & M_LEFT)!=false)
 	{
-		if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
-		{
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			oldX = position.x;
+			position.x -= Xmove;
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
 			{
-				position.x -= Xmove;
+				position.x = oldX;
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 3)
-			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
-			}
-			//else
-			//{
-			//	for(int i =0; i<120; i++)
-			//	{
-			//		if(CollisionCheck(PX1-=2,PY1,PX2-=2,PY2,ObjectList) != 1)
-			//		{
-			//			position.x -= 1;
-			//		}
-			//		else
-			//		{
-			//			i = 120;
-			//		}
-			//	}
-			//}
-		}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
-		//process right movement
-
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
-		//{
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			oldX = position.x;
+			position.x += Xmove;
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
 			{
-				position.x += Xmove;
+				position.x = oldX;
+				position.y = oldY;
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 3)
-			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
-			}
-		//}
 	}
-	if((updatevalue & M_JUMP)!= false)
+	if((updatevalue & M_JUMP)!=false)
 	{
-		//		if(lowJump == true)
-		//{
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-		//{	
 			Ymove = dt* JumpingConstant;
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			oldY = position.y;
+			position.y -= Ymove;
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 1)
 			{
-				position.y -= Ymove;
-				//IsJumping = true;
-			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
+				position.y = oldY;
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
-
-		//}
 	}
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-	//{
-		Ymove = dt* Gravity;
-
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
-		{
-			position.y += Ymove;
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 1)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 2)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 3)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
-	//}
+	if((updatevalue & M_JUMP)==false)
+	{
+	Ymove = dt* Gravity;
+	oldY = position.y;
+	position.y += Ymove;
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 1)
+	{
+		position.y = oldY;
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+	}
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 2)
+	{
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+	}
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 3)
+	{
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+	}
+	}
 	//powers
 	if((updatevalue & P1)!=false)
 	{
@@ -302,6 +270,12 @@ int Player::NoPower(unsigned int updatevalue,float dt)
 	return theNumber;
 	//xvelocity = position.x - oldX;
 	//yvelocity = position.y - oldY;
+	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) == 1)
+	//{
+	//	position.x = oldX;
+	//	position.y = oldY;
+	//			theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+	//}
 }
 int Player::PowerOne(unsigned int updatevalue,float dt)
 {
@@ -316,36 +290,22 @@ int Player::PowerOne(unsigned int updatevalue,float dt)
 	int theNumber= 0;
 	if((updatevalue & M_LEFT)!=false)
 	{
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
-		//{
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			oldX = position.x;
+			position.x -= Xmove;
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
 			{
-				position.x -= Xmove;
+				position.x = oldX;
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 3)
-			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
-			}
-			//else
-			//{
-			//for(int i = 0; i < 32; i++)
-			//	{
-			//	if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
-			//		{
-			//			position.x -= Xmove;
-			//		}
-			//	}
-			//}
-		//}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
@@ -354,72 +314,46 @@ int Player::PowerOne(unsigned int updatevalue,float dt)
 		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 		//{
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) != 1)
 			{
 				position.x += Xmove;
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 3)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
 		//}
 	}
 	if((updatevalue & M_JUMP)!= false)
 	{
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-		//{	
-		//	Ymove = dt* JumpingConstant;
-		//	if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
-		//	{
-		//		position.y += Ymove;
-		//		//IsJumping = true;
-		//	}
-		
-		//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-		//	{
-		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-		//		//return
-		//	}
-		//	if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
-		//	{
-		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-		//		//return
-		//	}
-		//	if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
-		//	{
-		//		theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
-		//		//return
-		//	}
-		
-		//}
 	}
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 	//{
 		Ymove = dt* Gravity;
 		//Ymove = 1;
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+		if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) != 1)
 		{
 			position.y -= Ymove;
 		}
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
+		if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 1)
 		{
-			theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 		}
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
+		if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 2)
 		{
-			theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 		}
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
+		if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 3)
 		{
-			theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 		}
 	//}
 	//powers
@@ -459,98 +393,98 @@ int Player::PowerTwo(unsigned int updatevalue,float dt)
 
 		if(Xmove > 0)
 		{
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) != 1)
 			{
 				position.x -= Xmove;
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 3)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-//			else if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 1)
+//			else if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
 //			{
 ////				position.x += Xmove;
 //			}
 		}
 		if(Xmove < 0)
 		{
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) != 1)
 			{
 				position.x += Xmove;
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 3)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
 		}
 		if(Ymove < 0)
 		{
 		Ymove = yvelocity;
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) != 1)
 			{
 				position.y -= Ymove;
 				//IsJumping = true;
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
 		}
 		if(Ymove > 0)
 		{
 		Ymove = yvelocity;
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
+			if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) != 1)
 			{
 				position.y += Ymove;
 				//IsJumping = true;
 			}
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 1)
+			if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 2)
+			if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 3)
+			if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 				//return
 			}
 		}
 	//if((updatevalue & M_LEFT)!=false)
 	//{
 	//	Xmove = dt* MovementSpeedX;
-	//		if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+	//		if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) != 1)
 	//		{
 	//			position.x -= Xmove;
 	//		}
@@ -558,7 +492,7 @@ int Player::PowerTwo(unsigned int updatevalue,float dt)
 	//if((updatevalue & M_RIGHT)!=false)
 	//{
 	//		Xmove = dt* MovementSpeedX;
-	//		if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+	//		if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) != 1)
 	//		{
 	//			position.x += Xmove;
 	//		}
@@ -570,7 +504,7 @@ int Player::PowerTwo(unsigned int updatevalue,float dt)
 	//	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 	//	//{	
 	//		Ymove = dt* JumpingConstant;
-	//		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+	//		if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) != 1)
 	//		{
 	//			position.y -= Ymove;
 	//			IsJumping = true;
@@ -580,21 +514,21 @@ int Player::PowerTwo(unsigned int updatevalue,float dt)
 	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
 	//{
 		Ymove = dt* Gravity;
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
+		if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) != 1)
 		{
 			position.y += Ymove;
 		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 1)
+		if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 1)
 		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 2)
+		if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 2)
 		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 3)
+		if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 3)
 		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
+			theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 		}
 	//}
 	//powers
@@ -631,37 +565,24 @@ int Player::PowerThree(unsigned int updatevalue,float dt)
 	bool yellowPower;
 	yellowPower	= false;
 	int theNumber= 0;
-	if((updatevalue & M_DOWN)!=false)
-	{
-
-	}
 	if((updatevalue & M_LEFT)!=false)
 	{
-		//process Left movement
-
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
-		//{
-			//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) 
-
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) != 1)
+			oldX = position.x;
+			position.x -= Xmove;
+			if(CollisionCheck(PX1-=Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 1)
 			{
-				position.x -= Xmove;
+				position.x = oldX;
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1-Xmove,PY1,PX2-Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList) == 3)
-			{
-				theNumber = CollisionCheck(PX1-=Xmove,PY1,PX2-=Xmove,PY2,ObjectList);
-			}
-
-		//}
 	}
 	if((updatevalue & M_RIGHT)!=false)
 	{
@@ -671,130 +592,71 @@ int Player::PowerThree(unsigned int updatevalue,float dt)
 		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList) != 1)
 		//{
 			Xmove = dt* MovementSpeedX;
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) != 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) != 1)
 			{
 				position.x += Xmove;
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 1)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 1)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 2)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
-			if(CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList) == 3)
+			if(CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1+=Xmove,PY1,PX2+=Xmove,PY2,ObjectList);
+				theNumber = CollisionCheck(PX1+Xmove,PY1,PX2+Xmove,PY2,ObjectList);
 			}
 		//}
 		//}
 	}
 	if((updatevalue & M_JUMP)!= false)
 	{
-		//		if(lowJump == true)
-		//{
-		//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-		//{	
 		Ymove = dt* JumpingConstant;
 		if(CollisionCheck(PX1+Ymove,PY1,PX2+Ymove,PY2,ObjectList) == 1 || CollisionCheck(PX1-Ymove,PY1,PX2-Ymove,PY2,ObjectList) == 1)
 		{
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 1)
+			//Ymove = dt* JumpingConstant;
+			oldY = position.y;
+			position.y -= Ymove;
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 1)
 			{
-				position.y -= Ymove;
-			}
-			else
-			{
-				yellowPower = false;
-			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
+				position.y = oldY;
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 2)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 2)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
-			if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 3)
+			if(CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList) == 3)
 			{
-				theNumber = CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList);
+				theNumber = CollisionCheck(PX1,PY1-Ymove,PX2,PY2-Ymove,ObjectList);
 				//return
 			}
 
-		}
-		else 
-		{
-		if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) == 1)
-		{
-			
-				yellowPower = true;
-		}
-		else
-			{
-			yellowPower = false;
-			}
 		}
 	}
-	//else
-	//{
-	//lowJump = false;
-	//}
-	//gravity
-
-
-
-	//if(CollisionCheck(PX1,PY1,PX2,PY2,ObjectList)!= 1)
-	//{
-	//Ymove = dt* JumpingConstant;
-	//if(CollisionCheck(PX1,PY1-=Ymove,PX2,PY2-=Ymove,ObjectList) != 0)
-	//{
-	//	position.y -= Ymove;
-	//}
-
-	//if((updatevalue & M_JUMP) == false && (updatevalue & M_LEFT) == false || 
-	//	(updatevalue & M_JUMP) == false && (updatevalue & M_RIGHT) == false)
-	//if(CollisionCheck(PX1,PY1+=20,PX2,PY2+=20,ObjectList) == 1)
-	//{
-	//}
-	//else
-	if(yellowPower == false)
+	if((updatevalue & M_JUMP)==false)
 	{
-		Ymove = dt* Gravity;
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) != 1)
-		{
-			position.y += Ymove;
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 1)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 2)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
-		if(CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList) == 3)
-		{
-			theNumber = CollisionCheck(PX1,PY1+=Ymove,PX2,PY2+=Ymove,ObjectList);
-		}
+	Ymove = dt* Gravity;
+	oldY = position.y;
+	position.y += Ymove;
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 1)
+	{
+		position.y = oldY;
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
 	}
-
-	//}
-	//else
-	//{
-	//Time = dt;
-	//}
-	//else
-	//{
-	//	if(CollisionCheck(PX1+1,PY1,PX2+1,PY2,ObjectList) == 0 
-	//		|| CollisionCheck(PX1-1,PY1,PX2-1,PY2,ObjectList) == 0)
-	//	{
-	//		position.y += dt* Gravity;
-	//	}	
-	//}
-
-
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 2)
+	{
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+	}
+	if(CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList) == 3)
+	{
+		theNumber = CollisionCheck(PX1,PY1+Ymove,PX2,PY2+Ymove,ObjectList);
+	}
+	}
 	//powers
 	if((updatevalue & P1)!=false)
 	{
