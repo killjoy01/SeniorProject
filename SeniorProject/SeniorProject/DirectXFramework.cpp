@@ -332,6 +332,8 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &menuTexture[5]);
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"BackImage1.jpg", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
 		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &backgroundTexture[2]);
+	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"logo.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
+		D3DFMT_FROM_FILE, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255, 255), NULL, NULL, &logoTexture);
 
 	background_sprite.setTexture(backgroundTexture[2]);
 	background_sprite.setWidth(width);
@@ -396,6 +398,14 @@ void CDirectXFramework::Init(HWND& hWnd, HINSTANCE& hInst, bool bWindowed)
 	menu_sprites[5].setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
 	menu_sprites[5].setRect();
 
+	logo_sprite.setTexture(logoTexture);
+	logo_sprite.setWidth(640);
+	logo_sprite.setHeight(200);
+	logo_sprite.setScalex(1.0f);
+	logo_sprite.setScaley(1.0f);
+	logo_sprite.setRotation(0.0f);
+	logo_sprite.setPosition(D3DXVECTOR3(((800.0f - 640.0f) / 2.0f), 50.0f, 0.0f));
+	logo_sprite.setRect();
 	//credits scene
 
 	D3DXCreateTextureFromFileEx(m_pD3DDevice, L"credits_scene.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, D3DUSAGE_DYNAMIC,
@@ -587,6 +597,7 @@ void CDirectXFramework::Render(HWND & hWnd, float & dt)
 		m_pD3DSprite->Begin(NULL);
 
 		background_sprite.draw(m_pD3DDevice, m_pD3DSprite, &world);
+		logo_sprite.draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[0].draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[1].draw(m_pD3DDevice, m_pD3DSprite, &world);
 		menu_sprites[2].draw(m_pD3DDevice, m_pD3DSprite, &world);
